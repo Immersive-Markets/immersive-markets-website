@@ -1,0 +1,16 @@
+---
+interface Props {
+  size?: "sm" | "md";
+}
+const { size = "md" } = Astro.props;
+const box = size === "sm" ? "size-[26px]" : "size-8";
+const mark = size === "sm" ? "text-[11px]" : "text-sm";
+const label = size === "sm" ? "text-[11px]" : "text-sm";
+---
+
+<a href="/" class="flex items-center gap-[11px] text-bone hover:text-bone" aria-label="Immersive Markets — Startseite">
+  <span class={`${box} bg-lime flex items-center justify-center`}>
+    <span class={`font-display font-black ${mark} text-ink -tracking-[0.04em]`}>IM</span>
+  </span>
+  <span class={`font-display font-extrabold uppercase -tracking-[0.01em] ${label}`}>Immersive Markets</span>
+</a>

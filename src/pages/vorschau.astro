@@ -1,0 +1,148 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
+const steps = [
+  { when: "JETZT", title: "Sie schicken den Link", note: "Zwei Minuten, kein Verkaufsgespräch.", active: true },
+  { when: "≤ 24 STUNDEN", title: "Ich baue Ihre Vorschau", note: "KI entwirft, ich prüfe und schärfe.", active: false },
+  { when: "PER E-MAIL", title: "Ihr Link kommt an", note: "Eine private Seite nur für Sie.", active: false },
+  { when: "IN RUHE", title: "Sie entscheiden", note: "Gefällt es, starten wir. Sonst nicht.", active: false },
+];
+---
+
+<Layout title="Vorschau anfordern — Immersive Markets">
+  <SiteHeader variant="minimal" />
+  <div class="flex flex-1 grid-cols-[1.1fr_0.9fr] flex-col md:grid">
+    <!-- Form -->
+    <div class="border-b border-line px-5 py-12 md:border-r md:border-b-0 md:px-14 md:py-16">
+      <div class="mx-auto max-w-[520px] md:mx-0 md:mr-6 md:ml-auto">
+        <div class="mb-[18px] font-mono text-[12px] uppercase tracking-[.14em] text-lime">
+          Kostenlos · unverbindlich · in 24h
+        </div>
+        <h1 class="m-0 mb-3 font-display text-[32px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[40px]">
+          Ihre Marketing-<br />
+          Vorschau anfordern.
+        </h1>
+        <p class="m-0 mb-9 text-[15px] leading-relaxed text-dim-2">
+          Ein Link genügt. Ich lese Ihre Website aus und baue ein Stück fertiges Marketing in Ihrer CI — Sie
+          entscheiden erst danach.
+        </p>
+
+        <form action="/vorschau/danke" method="get" class="flex flex-col gap-[22px]">
+          <div>
+            <label for="firma" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">
+              FIRMEN-URL *
+            </label>
+            <input
+              id="firma"
+              name="firma"
+              required
+              placeholder="mustermann-gmbh.de"
+              class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+            />
+          </div>
+
+          <div>
+            <label for="ansprech" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">
+              ANSPRECHPARTNER
+            </label>
+            <input
+              id="ansprech"
+              name="ansprech"
+              placeholder="Vor- und Nachname"
+              class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+            />
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label for="email" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">E-MAIL *</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="name@firma.de"
+                class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+              />
+            </div>
+            <div>
+              <label for="tel" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">
+                TELEFON (OPTIONAL)
+              </label>
+              <input
+                id="tel"
+                name="tel"
+                type="tel"
+                placeholder="+49 …"
+                class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+              />
+            </div>
+          </div>
+
+          <label class="flex cursor-pointer items-start gap-3 text-[13px] leading-[1.5] text-dim-2">
+            <input
+              type="checkbox"
+              name="dsgvo"
+              required
+              class="mt-1 size-4 shrink-0 accent-[color:var(--color-lime)]"
+            />
+            <span>
+              Ich habe die <a href="/datenschutz" class="text-lime underline-offset-2 hover:underline">Datenschutzerklärung</a>
+              gelesen und bin mit der Verarbeitung meiner Daten zur Kontaktaufnahme einverstanden.
+            </span>
+          </label>
+
+          <label class="flex cursor-pointer items-start gap-3 text-[13px] leading-[1.5] text-dim-2">
+            <input
+              type="checkbox"
+              name="ki"
+              required
+              class="mt-1 size-4 shrink-0 accent-[color:var(--color-lime)]"
+            />
+            <span>
+              Ich willige ein, dass zur Erstellung der Vorschau KI-gestützte Verarbeitung eingesetzt wird
+              (transparent gem. Art.&nbsp;50 EU-KI-VO).
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            class="cursor-pointer bg-lime px-4 py-4 text-center font-mono text-sm font-medium text-ink transition-colors hover:bg-bone"
+          >
+            Marketing-Vorschau kostenlos anfordern →
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="bg-ink-2 px-5 py-12 md:px-14 md:py-16">
+      <div class="max-w-[360px]">
+        <div class="mb-9 font-mono text-[11px] tracking-widest text-dim">SO LÄUFT ES WEITER</div>
+        <ol class="flex flex-col">
+          {steps.map((s, i) => (
+            <li
+              class:list={[
+                "relative ml-[9px] flex gap-5 border-l border-line pl-7",
+                i < steps.length - 1 ? "pb-8" : "",
+              ]}
+            >
+              <span
+                class:list={[
+                  "absolute top-0 -left-[9px] size-[18px]",
+                  s.active ? "bg-lime" : "border border-line-deep bg-ink",
+                ]}
+              ></span>
+              <div>
+                <div class="mb-1.5 font-mono text-[10px] text-dim">{s.when}</div>
+                <div class="mb-1 text-base font-semibold">{s.title}</div>
+                <div class="text-[13px] leading-[1.5] text-dim">{s.note}</div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,119 @@
+---
+---
+
+<section id="preis" class="bg-bone px-5 py-16 text-ink md:px-12 md:py-[88px]">
+  <div class="pricing mx-auto max-w-[1000px]">
+    <!-- Radio state (CSS-only toggle) -->
+    <input type="radio" name="plan" id="plan-digital" class="peer/d sr-only" checked />
+    <input type="radio" name="plan" id="plan-print" class="peer/p sr-only" />
+
+    <div class="mb-11 text-center">
+      <div class="mb-3.5 font-mono text-[12px] uppercase tracking-[.16em] text-dim">Ein Paket, ein Preis</div>
+      <h2 class="m-0 font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[42px]">
+        Fester Monatspreis.<br />
+        Monatlich kündbar.
+      </h2>
+    </div>
+
+    <!-- Toggle -->
+    <div class="mb-8 flex justify-center">
+      <div class="flex border border-ink">
+        <label
+          for="plan-digital"
+          class="opt-digital cursor-pointer px-5 py-[11px] font-mono text-[12px] transition-colors"
+        >
+          Digital
+        </label>
+        <label
+          for="plan-print"
+          class="opt-print cursor-pointer border-l border-ink px-5 py-[11px] font-mono text-[12px] transition-colors"
+        >
+          Digital + Print
+        </label>
+      </div>
+    </div>
+
+    <!-- Card -->
+    <div class="grid items-center gap-11 bg-ink p-8 text-bone md:grid-cols-2 md:p-12">
+      <div>
+        <div class="mb-4 font-mono text-[11px] tracking-[.12em] text-lime">
+          <span class="plan-name-d">Marketing digital</span>
+          <span class="plan-name-p">Marketing + Print</span>
+        </div>
+        <div class="flex items-end gap-2">
+          <span class="font-display text-[52px] leading-[0.85] font-black -tracking-[0.03em] md:text-[72px]">
+            <span class="price-d">990</span><span class="price-p">1.990</span>&nbsp;€
+          </span>
+          <span class="pb-2.5 font-mono text-[12px] text-dim">/ Monat</span>
+        </div>
+        <p class="mt-6 max-w-[340px] text-[15px] leading-relaxed text-dim-2">
+          <span class="note-d">
+            Ihr komplettes digitales Marketing über alle Kanäle, jeden Monat verlässlich geliefert.
+          </span>
+          <span class="note-p">
+            Alles aus dem digitalen Paket — plus Flyer, Broschüren und druckfertige Vorlagen für Ihre
+            Offline-Präsenz.
+          </span>
+        </p>
+        <div class="mt-8 flex w-fit border border-line">
+          <a
+            href="/vorschau"
+            class="cursor-pointer bg-lime px-6 py-4 font-mono text-[13px] font-medium text-ink transition-colors hover:bg-bone"
+          >
+            Erst Vorschau, dann entscheiden →
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-line pt-8 md:border-t-0 md:border-l md:pt-0 md:pl-11">
+        <div class="mb-4 font-mono text-[10px] tracking-widest text-dim">ENTHALTEN</div>
+        <ul class="flex flex-col gap-3 text-[15px] text-bone">
+          <li class="flex gap-3"><span class="text-lime">✓</span>Alle Deliverables aus dem Abo</li>
+          <li class="flex gap-3"><span class="text-lime">✓</span>Freigabe jedes Beitrags durch einen Menschen</li>
+          <li class="flex gap-3"><span class="text-lime">✓</span>Keine Setup-Fee, keine Mindestlaufzeit</li>
+          <li class="flex gap-3"><span class="text-lime">✓</span>Volle Nutzungsrechte an allen Inhalten</li>
+          <li class="print-only flex gap-3">
+            <span class="text-lime">✓</span>Flyer, Broschüren &amp; druckfertige Vorlagen
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-6 text-center font-mono text-[11px] leading-relaxed text-dim">
+      Preise als Kleinunternehmer gem. §19 UStG, keine USt. · Sonderfälle mit hohem Volumen bespreche ich individuell.
+    </p>
+  </div>
+</section>
+
+<style>
+  /* CSS-only Digital / Print toggle, driven by the hidden radios above */
+  .pricing .price-p,
+  .pricing .note-p,
+  .pricing .plan-name-p,
+  .pricing .print-only {
+    display: none;
+  }
+
+  .pricing:has(#plan-print:checked) .price-d,
+  .pricing:has(#plan-print:checked) .note-d,
+  .pricing:has(#plan-print:checked) .plan-name-d {
+    display: none;
+  }
+  .pricing:has(#plan-print:checked) .price-p,
+  .pricing:has(#plan-print:checked) .note-p,
+  .pricing:has(#plan-print:checked) .plan-name-p {
+    display: inline;
+  }
+  .pricing:has(#plan-print:checked) .print-only {
+    display: flex;
+  }
+
+  /* Selected pill visuals */
+  .pricing:has(#plan-digital:checked) .opt-digital {
+    background: var(--color-ink);
+    color: var(--color-bone);
+  }
+  .pricing:has(#plan-print:checked) .opt-print {
+    background: var(--color-ink);
+    color: var(--color-bone);
+  }
+</style>

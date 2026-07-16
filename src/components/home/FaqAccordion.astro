@@ -1,0 +1,63 @@
+---
+const items = [
+  {
+    q: "Wem gehören die Inhalte?",
+    a: "Ihnen — vollständig. Mit der Zahlung gehen alle Nutzungsrechte an den erstellten Inhalten an Sie über. Sie können sie behalten und weiterverwenden, auch wenn wir irgendwann nicht mehr zusammenarbeiten.",
+  },
+  {
+    q: "Was passiert, wenn die KI Unsinn produziert?",
+    a: "Dann sehen Sie das nie. Kein Beitrag geht ungeprüft raus — ich lese, korrigiere und gebe jedes Stück frei, bevor es Ihnen vorgelegt wird. Die KI schlägt vor, ein Mensch entscheidet.",
+  },
+  {
+    q: "Kann ich das erst mal testen?",
+    a: "Ja. Die Vorschau ist kostenlos und unverbindlich — Sie sehen ein echtes Stück Marketing in Ihrer CI, bevor Sie irgendetwas zahlen. Und danach ist das Abo monatlich kündbar.",
+  },
+  {
+    q: "Wie viel Aufwand habe ich damit?",
+    a: "Rund 30 Minuten im Monat für Freigaben. Den Rest — Recherche, Texten, Gestalten, Einplanen — übernehme ich. Sie sagen ja oder nein, nicht mehr.",
+  },
+  {
+    q: "Ist das DSGVO- und KI-Act-konform?",
+    a: "Ja. Der KI-Einsatz wird transparent gekennzeichnet (Art. 50 EU-KI-VO, ab 02.08.2026 Pflicht), und Ihre Daten werden DSGVO-konform verarbeitet. Kein Verstecken, kein Datenverkauf.",
+  },
+  {
+    q: "Bekomme ich einen echten Ansprechpartner?",
+    a: "Ja — mich, direkt. Kein Callcenter, kein wechselnder Account-Manager. Sie schreiben einer Person, die Ihr Projekt kennt.",
+  },
+];
+---
+
+<section id="faq" class="faq bg-bone px-5 py-16 text-ink md:px-12 md:py-[88px]">
+  <div class="mx-auto max-w-[900px]">
+    <div class="mb-11">
+      <div class="mb-3.5 font-mono text-[12px] uppercase tracking-[.16em] text-dim">Bevor Sie fragen</div>
+      <h2 class="m-0 font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[42px]">
+        Die skeptischen Fragen.
+      </h2>
+    </div>
+    <div class="border-t border-bone-3">
+      {items.map((it) => (
+        <details class="border-b border-bone-3">
+          <summary class="flex items-center justify-between gap-4 py-6 text-lg font-semibold">
+            <span>{it.q}</span>
+            <span class="marker font-mono text-dim">+</span>
+          </summary>
+          <p class="m-0 mb-6 max-w-[680px] text-[15px] leading-relaxed text-dim-3">{it.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq details[open] .marker::before {
+    content: "−";
+  }
+  .faq details[open] .marker {
+    font-size: 0;
+  }
+  .faq details[open] .marker::before {
+    font-size: 16px;
+    line-height: 1;
+  }
+</style>

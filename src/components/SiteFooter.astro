@@ -1,0 +1,48 @@
+---
+import Logo from "./Logo.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t-2 border-lime bg-ink-2 px-5 pt-14 pb-10 md:px-12">
+  <div class="mx-auto max-w-[1240px]">
+    <div class="flex flex-wrap items-start justify-between gap-8 border-b border-line pb-10">
+      <div class="max-w-[320px]">
+        <div class="mb-4">
+          <Logo size="sm" />
+        </div>
+        <p class="text-[13px] leading-relaxed text-dim">
+          Marketing als Handwerk, nicht als Agentur-Apparat. Salem am Bodensee.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-x-14 gap-y-8 text-[13px]">
+        <div class="flex flex-col gap-[9px]">
+          <div class="mb-1 font-mono text-[10px] tracking-wider text-dim">ANGEBOT</div>
+          <a href="/leistungen" class="text-dim-2 hover:text-lime">Leistungen</a>
+          <a href="/#preis" class="text-dim-2 hover:text-lime">Preis</a>
+          <a href="/vorschau" class="text-dim-2 hover:text-lime">Vorschau anfordern</a>
+        </div>
+        <div class="flex flex-col gap-[9px]">
+          <div class="mb-1 font-mono text-[10px] tracking-wider text-dim">RECHTLICHES</div>
+          <a href="/impressum" class="text-dim-2 hover:text-lime">Impressum</a>
+          <a href="/datenschutz" class="text-dim-2 hover:text-lime">Datenschutz</a>
+          <a href="/agb" class="text-dim-2 hover:text-lime">AGB</a>
+        </div>
+        <div class="flex flex-col gap-[9px]">
+          <div class="mb-1 font-mono text-[10px] tracking-wider text-dim">KONTAKT</div>
+          <a href="/ueber" class="text-dim-2 hover:text-lime">Über / Kontakt</a>
+          <a href="mailto:hallo@immersive-markets.de" class="text-dim-2 hover:text-lime">
+            hallo@immersive-markets.de
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-4 pt-6 font-mono text-[11px] text-dim">
+      <span>© {year} Immersive Markets</span>
+      <span>
+        Immersive Markets ist auch die Dachmarke für <span class="text-dim-2 underline">weitere Projekte</span>.
+      </span>
+    </div>
+  </div>
+</footer>

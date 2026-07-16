@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import HeroHome from "../components/home/HeroHome.astro";
+import AudienceBoard from "../components/home/AudienceBoard.astro";
+import HowItWorks from "../components/home/HowItWorks.astro";
+import Deliverables from "../components/home/Deliverables.astro";
+import PricingCard from "../components/home/PricingCard.astro";
+import HumanInLoop from "../components/home/HumanInLoop.astro";
+import FaqAccordion from "../components/home/FaqAccordion.astro";
+import FinalCta from "../components/home/FinalCta.astro";
+---
+
+<Layout>
+  <SiteHeader variant="home" />
+  <main>
+    <HeroHome />
+    <AudienceBoard />
+    <HowItWorks />
+    <Deliverables />
+    <PricingCard />
+    <HumanInLoop />
+    <FaqAccordion />
+    <FinalCta />
+  </main>
+  <SiteFooter />
+</Layout>

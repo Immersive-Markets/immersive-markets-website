@@ -1,0 +1,63 @@
+---
+const stats = [
+  {
+    n: "12",
+    label: "Social-Posts inkl. Grafik",
+    tag: "LINKEDIN · INSTAGRAM · FACEBOOK",
+  },
+  { n: "2", label: "SEO-Blogartikel", tag: "RECHERCHIERT · REDIGIERT" },
+  { n: "4", label: "Google-Business-Beiträge", tag: "LOKALE SICHTBARKEIT" },
+  { n: "1", label: "Newsletter", tag: "AN IHRE BESTANDSKUNDEN" },
+];
+const extras = [
+  "Laufende Profil- & SEO-Pflege",
+  "Monatlicher Kurz-Report",
+  "Ein fester Ansprechpartner: ich",
+];
+---
+
+<section class="imgrid border-t border-line px-5 py-16 md:px-12 md:py-[88px]">
+  <div class="mx-auto max-w-[1240px]">
+    <div class="mb-10 md:mb-[52px]">
+      <div class="mb-3.5 font-mono text-[12px] uppercase tracking-[.16em] text-lime">
+        Was jeden Monat geliefert wird
+      </div>
+      <h2
+        class="m-0 max-w-[760px] font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[42px]"
+      >
+        Deliverables, keine Beratungsstunden.
+      </h2>
+    </div>
+
+    <div class="grid gap-px border border-line bg-line sm:grid-cols-2 md:grid-cols-4">
+      {stats.map((s) => (
+        <div class="bg-ink p-7">
+          <div class="font-display text-[34px] font-black -tracking-[0.02em] text-lime">{s.n}</div>
+          <div class="mt-2 text-sm leading-[1.4] text-dim-2">
+            {s.label}
+            <br />
+            <span class="font-mono text-[10px] text-dim">{s.tag}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="grid gap-px border border-t-0 border-line bg-line md:grid-cols-3">
+      {extras.map((e) => (
+        <div class="flex items-center bg-ink px-7 py-6 text-sm text-dim-2">
+          <span class="mr-2 font-bold text-lime">＋</span>
+          {e}
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-8">
+      <a
+        href="/leistungen"
+        class="cursor-pointer border-b border-line pb-[3px] font-mono text-[13px] text-lime hover:text-bone"
+      >
+        Alle Leistungen &amp; Methodik ansehen →
+      </a>
+    </div>
+  </div>
+</section>

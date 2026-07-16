@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette (from the design system) */
+  --color-ink: #111110;
+  --color-ink-2: #0c0c0b;
+  --color-ink-3: #1c1c1a;
+  --color-bone: #F2F0E9;
+  --color-bone-2: #e2ded2;
+  --color-bone-3: #d8d4c8;
+  --color-lime: #C9F24A;
+  --color-line: #2c2c28;
+  --color-line-deep: #4B4E3C;
+  --color-dim: #8b8f78;
+  --color-dim-2: #b7b8ac;
+  --color-dim-3: #5c5c53;
+  --color-dim-4: #6f7263;
+  --color-slate-mid: #3a3a34;
+
+  /* Typefaces */
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    background: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--color-lime);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-bone);
+  }
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  input,
+  textarea,
+  select,
+  button {
+    font-family: var(--font-display);
+  }
+  ::placeholder {
+    color: var(--color-dim-4);
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-lime) !important;
+  }
+}
+
+@utility imgrid {
+  background-image:
+    linear-gradient(#1a1a18 1px, transparent 1px),
+    linear-gradient(90deg, #1a1a18 1px, transparent 1px);
+  background-size: 56px 56px;
+}

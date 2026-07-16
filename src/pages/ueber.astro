@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const contact = [
+  { k: "STANDORT", v: "Salem, Bodensee · Deutschland" },
+  { k: "RECHTSFORM", v: "Einzelunternehmen · Kleinunternehmer gem. §19 UStG" },
+  { k: "E-MAIL", v: "hallo@immersive-markets.de", accent: true },
+  { k: "WEB", v: "immersive-markets.de" },
+];
+---
+
+<Layout title="Über — Immersive Markets">
+  <SiteHeader variant="subpage" />
+
+  <section class="imgrid px-5 pt-14 pb-16 md:px-12 md:pt-[74px] md:pb-16">
+    <div class="mx-auto grid max-w-[1240px] items-start gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
+      <div>
+        <div class="mb-5 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Wer dahintersteht</div>
+        <h1
+          class="m-0 mb-7 font-display text-[34px] leading-[0.92] font-black uppercase -tracking-[0.03em] sm:text-5xl md:text-[52px]"
+        >
+          Ein Mensch,<br />kein Konzern.
+        </h1>
+        <p class="mb-5 max-w-[520px] text-base leading-[1.65] text-dim-2 md:text-[17px]">
+          Immersive Markets ist ein Einzelunternehmen am Bodensee. Kein „Weltklasse-Team", keine Stockfoto-Fassade —
+          eine Person, die für Ihr Marketing geradesteht und moderne Werkzeuge nutzt, damit kleine Budgets weit
+          reichen.
+        </p>
+        <p class="max-w-[520px] text-base leading-[1.65] text-dim-2 md:text-[17px]">
+          Ich sage „ich", weil auch ich am anderen Ende bin. Sie bekommen einen festen Ansprechpartner, keine
+          Ticketnummer.
+        </p>
+      </div>
+
+      <div class="border border-line bg-ink-2 p-8 md:p-9">
+        <div class="mb-6 font-mono text-[11px] tracking-widest text-dim">KONTAKT &amp; RECHTLICHES</div>
+        <div class="flex flex-col gap-5 text-[15px]">
+          {contact.map((c) => (
+            <div>
+              <div class="mb-1.5 font-mono text-[10px] text-dim">{c.k}</div>
+              <div class:list={[c.accent ? "text-lime" : "text-bone"]}>
+                {c.accent ? (
+                  <a href={`mailto:${c.v}`}>{c.v}</a>
+                ) : (
+                  c.v
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 pb-20 md:px-12">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="flex flex-wrap items-center justify-between gap-6 border border-line px-8 py-9 md:px-10">
+        <div class="max-w-[640px]">
+          <div class="mb-3 font-mono text-[11px] tracking-widest text-dim">DIE DACHMARKE</div>
+          <p class="m-0 text-[15px] leading-[1.6] text-dim-2">
+            Immersive Markets ist auch das Dach für kleinere digitale Nebenprojekte und experimentelle
+            E-Commerce-Brands. Die bleiben bewusst im Hintergrund — hier geht es um Ihr Marketing.
+          </p>
+        </div>
+        <span class="cursor-pointer font-mono text-[12px] text-dim-2 whitespace-nowrap underline hover:text-lime">
+          weitere Projekte ↗
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter />
+</Layout>

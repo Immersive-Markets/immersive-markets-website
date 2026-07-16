@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+---
+
+<Layout title="Anfrage eingegangen — Immersive Markets">
+  <SiteHeader variant="minimal" />
+  <div class="imgrid flex flex-1 items-center justify-center px-5 py-12 md:px-12">
+    <div class="max-w-[620px] text-center">
+      <div class="mx-auto mb-8 flex size-14 items-center justify-center bg-lime">
+        <span class="text-[26px] text-ink" aria-hidden="true">✓</span>
+      </div>
+      <div class="mb-5 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Anfrage eingegangen</div>
+      <h1
+        class="m-0 mb-5 font-display text-[32px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[44px]"
+      >
+        Ihre Vorschau für<br />
+        <span id="firma-echo" class="bg-lime px-2 text-ink break-words">Ihr Unternehmen</span><br />
+        ist in Arbeit.
+      </h1>
+      <p class="mx-auto mb-9 max-w-[460px] text-base leading-relaxed text-dim-2 md:text-[17px]">
+        Innerhalb von 24&nbsp;Stunden bekommen Sie eine E-Mail mit Ihrem persönlichen Link. Kein Anruf, kein
+        Verkaufsdruck — Sie schauen in Ruhe und entscheiden dann.
+      </p>
+      <div class="inline-flex flex-wrap border border-line">
+        <a
+          href="/"
+          class="cursor-pointer px-6 py-4 font-mono text-[13px] text-bone transition-colors hover:text-lime"
+        >
+          ← Zur Startseite
+        </a>
+        <a
+          href="/leistungen"
+          class="cursor-pointer border-l border-line bg-ink-3 px-6 py-4 font-mono text-[13px] text-bone transition-colors hover:text-lime"
+        >
+          Leistungen ansehen →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    // Progressive enhancement: echo the company name from ?firma=…
+    // Page is fully functional without this script.
+    const p = new URLSearchParams(location.search).get("firma");
+    if (p) {
+      const el = document.getElementById("firma-echo");
+      if (el) el.textContent = p.replace(/[<>"']/g, "").slice(0, 80);
+    }
+  </script>
+</Layout>

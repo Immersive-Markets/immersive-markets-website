@@ -1,0 +1,55 @@
+---
+import Logo from "./Logo.astro";
+
+interface Props {
+  variant?: "home" | "subpage" | "minimal";
+}
+const { variant = "home" } = Astro.props;
+---
+
+<header
+  class="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-ink/90 px-5 py-4 backdrop-blur md:px-12"
+>
+  <Logo />
+
+  {variant === "home" && (
+    <nav class="hidden items-center font-mono text-[12px] tracking-wider text-dim-2 md:flex">
+      <a href="/leistungen" class="border-l border-line px-[18px] transition-colors hover:text-lime">
+        Leistungen
+      </a>
+      <a href="#preis" class="border-l border-line px-[18px] transition-colors hover:text-lime">Preis</a>
+      <a href="/ueber" class="border-l border-line px-[18px] transition-colors hover:text-lime">Über</a>
+      <a
+        href="/vorschau"
+        class="ml-[18px] bg-lime px-[18px] py-[10px] font-medium text-ink transition-colors hover:bg-bone"
+      >
+        Gratis-Vorschau&nbsp;→
+      </a>
+    </nav>
+
+    <a
+      href="/vorschau"
+      class="bg-lime px-4 py-2 font-mono text-[11px] font-medium text-ink transition-colors hover:bg-bone md:hidden"
+    >
+      Vorschau&nbsp;→
+    </a>
+  )}
+
+  {variant === "subpage" && (
+    <nav class="flex items-center font-mono text-[12px] tracking-wider text-dim-2">
+      <a href="/" class="hidden border-l border-line px-[18px] transition-colors hover:text-lime sm:block">
+        ← Home
+      </a>
+      <a
+        href="/vorschau"
+        class="ml-[18px] bg-lime px-[18px] py-[10px] font-medium text-ink transition-colors hover:bg-bone"
+      >
+        Gratis-Vorschau&nbsp;→
+      </a>
+    </nav>
+  )}
+
+  {variant === "minimal" && (
+    <a href="/" class="font-mono text-[12px] text-dim transition-colors hover:text-lime">← zurück</a>
+  )}
+</header>

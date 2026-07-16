@@ -1,0 +1,141 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const deliverables = [
+  {
+    tag: "SOCIAL MEDIA",
+    lines: ["12 Posts inkl. Grafik", "LinkedIn · Instagram · Facebook", "Planung & Einplanung"],
+  },
+  {
+    tag: "SEO & INHALTE",
+    lines: ["2 Blogartikel, recherchiert", "Keyword-Fokus", "Interne Verlinkung"],
+  },
+  {
+    tag: "LOKAL & DIREKT",
+    lines: ["4 Google-Business-Beiträge", "1 Newsletter", "Bewertungs-Impulse"],
+  },
+  {
+    tag: "DESIGN",
+    lines: ["Grafiken in Ihrer CI", "Karussells & Banner", "Wiederverwendbare Vorlagen"],
+  },
+  {
+    tag: "PFLEGE",
+    lines: ["Profil-Aktualisierung", "Monatlicher Kurz-Report", "Ein fester Ansprechpartner"],
+  },
+];
+const ki = [
+  "Themen recherchieren & clustern",
+  "Erste Textentwürfe & Varianten",
+  "Grafik-Rohlinge in Ihrer CI",
+  "Redaktionsplan & Einplanung vorbereiten",
+];
+const mensch = [
+  "Auswählen, was wirklich passt",
+  "Tonalität & Feinschliff",
+  "Fakten- und Marken-Check",
+  "Freigabe — nichts geht ohne diesen Schritt",
+];
+---
+
+<Layout title="Leistungen & Methodik — Immersive Markets">
+  <SiteHeader variant="subpage" />
+
+  <section class="imgrid border-b border-line px-5 pt-14 pb-14 md:px-12 md:pt-[74px] md:pb-16">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-5 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Leistungen &amp; Methodik</div>
+      <h1
+        class="m-0 max-w-[900px] font-display text-[36px] leading-[0.9] font-black uppercase -tracking-[0.03em] sm:text-5xl md:text-[60px]"
+      >
+        Was drin ist —<br />
+        und wer was macht.
+      </h1>
+      <p class="mt-7 max-w-[520px] text-base leading-[1.55] text-dim-2 md:text-[18px]">
+        Ein festes Monatspaket, klar aufgeteilt zwischen KI-Fleißarbeit und menschlicher Entscheidung. Keine
+        Beratungsstunden, keine Blackbox.
+      </p>
+    </div>
+  </section>
+
+  <section class="border-b border-line px-5 py-16 md:px-12 md:py-20">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-dim">Deliverables pro Monat</div>
+      <div class="grid gap-px border border-line bg-line sm:grid-cols-2 md:grid-cols-3">
+        {deliverables.map((d) => (
+          <div class="bg-ink p-8">
+            <div class="mb-3.5 font-mono text-[10px] tracking-widest text-lime">{d.tag}</div>
+            <div class="text-[15px] leading-[1.7] text-dim-2">
+              {d.lines.map((l, i) => (
+                <>
+                  {i > 0 && <br />}
+                  {l}
+                </>
+              ))}
+            </div>
+          </div>
+        ))}
+        <div class="bg-ink-2 p-8">
+          <div class="mb-3.5 font-mono text-[10px] tracking-widest text-dim">＋ PRINT-PAKET</div>
+          <div class="text-[15px] leading-[1.7] text-dim">
+            Flyer &amp; Broschüren<br />
+            Druckfertige Vorlagen<br />
+            Printanzeigen
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="imgrid border-b border-line px-5 py-16 md:px-12 md:py-20">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-dim">Der Trennstrich</div>
+      <div class="grid border border-line md:grid-cols-2">
+        <div class="border-b border-line p-8 md:border-r md:border-b-0 md:p-11">
+          <div class="mb-7 inline-block border border-line-deep px-3 py-1.5 font-mono text-[11px] tracking-widest text-dim">
+            DAS MACHT DIE KI
+          </div>
+          <ul class="flex flex-col">
+            {ki.map((item, i) => (
+              <li
+                class:list={[
+                  "text-base py-3.5 text-dim-2",
+                  i < ki.length - 1 ? "border-b border-line" : "pb-0",
+                ]}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="bg-ink-2 p-8 md:p-11">
+          <div class="mb-7 inline-block bg-lime px-3 py-1.5 font-mono text-[11px] tracking-widest text-ink">
+            DAS MACHT DER MENSCH
+          </div>
+          <ul class="flex flex-col">
+            {mensch.map((item, i) => (
+              <li
+                class:list={[
+                  "text-base py-3.5 text-bone",
+                  i < mensch.length - 1 ? "border-b border-line" : "pb-0",
+                ]}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div class="mt-11 flex justify-center">
+        <a
+          href="/vorschau"
+          class="cursor-pointer bg-lime px-7 py-4 font-mono text-[13px] text-ink transition-colors hover:bg-bone"
+        >
+          Marketing-Vorschau kostenlos erstellen →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <SiteFooter />
+</Layout>
