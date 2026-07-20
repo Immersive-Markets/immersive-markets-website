@@ -1,13 +1,15 @@
 ---
 const forYou = [
-  "Sie brauchen Marketing, haben aber weder Zeit noch ein Team dafür.",
-  "Sie wollen einen festen Monatspreis — keine Beratertage, keine Setup-Fee.",
-  "Sie wollen das Ergebnis sehen, bevor Sie sich binden.",
+  "Sie wollen komplettes Marketing — zum Festpreis, ohne eigenes Team und ohne Setup-Fee.",
+  "Ihnen reichen 30 Minuten Freigabe im Monat statt endloser Meetings.",
+  "Sie wollen KI-Tempo mit menschlicher Freigabe — pflegeleicht und all-inclusive.",
+  "Sie wollen das fertige Ergebnis sehen, bevor Sie einen Cent zahlen.",
 ];
 const notForYou = [
-  "Sie planen eine Großkampagne mit eigenem Budget-Komitee.",
-  "Sie wollen jeden Post selbst schreiben und mehrfach umbauen.",
-  "Der günstigste Preis zählt für Sie mehr als das Ergebnis.",
+  "Sie zahlen gern das Drei- bis Vierfache — plus Setup-Fee, Beratertage und Agentur-Overhead.",
+  "Ihnen ist der wöchentliche Jour Fixe wichtiger als das Ergebnis.",
+  "Sie lieben Freigabe-Schleifen, Angebote und Timesheets mehr als fertige Beiträge.",
+  "Sie glauben, gutes Marketing muss teuer und kompliziert sein.",
 ];
 ---
 
@@ -17,7 +19,7 @@ const notForYou = [
       <div
         class="mb-8 inline-block bg-lime px-3 py-1.5 font-mono text-[11px] uppercase tracking-[.12em] text-ink"
       >
-        Für Sie
+        Genau Ihr Ding
       </div>
       <ul class="flex flex-col">
         {forYou.map((item, i) => (
@@ -39,7 +41,7 @@ const notForYou = [
       <div
         class="mb-8 inline-block border border-line-deep px-3 py-1.5 font-mono text-[11px] uppercase tracking-[.12em] text-dim"
       >
-        Nichts für Sie
+        Bleiben Sie lieber bei der Agentur
       </div>
       <ul class="flex flex-col">
         {notForYou.map((item, i) => (

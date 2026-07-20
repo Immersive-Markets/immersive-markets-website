@@ -1,119 +1,114 @@
 ---
+const tiers = [
+  {
+    name: "Kostenlose Erstellung",
+    price: "0 €",
+    unit: "einmalig",
+    note: "Ihr komplettes Marketingpaket zum Kennenlernen — individuell erstellt, unverbindlich.",
+    features: [
+      "Vollständiges Marketingkonzept",
+      "Fertige Musterbeiträge, Flyer & Visitenkarten",
+      "SEO- & KI-Sichtbarkeits-Check",
+      "In 24 Stunden, ohne Setup-Fee",
+    ],
+    cta: "Gratis-Paket anfordern →",
+    featured: false,
+  },
+  {
+    name: "Komplette Online-Marketing-Betreuung",
+    price: "990 €",
+    unit: "/ Monat",
+    note: "Ihr komplettes digitales Marketing über alle Kanäle, jeden Monat verlässlich geliefert.",
+    features: [
+      "Alle digitalen Deliverables aus dem Abo",
+      "Freigabe jedes Beitrags durch einen Menschen",
+      "Keine Setup-Fee, keine Mindestlaufzeit",
+      "Volle Nutzungsrechte an allen Inhalten",
+    ],
+    cta: "Erst das Paket sehen →",
+    featured: true,
+  },
+  {
+    name: "Full Service inkl. Druck & Design",
+    price: "1.990 €",
+    unit: "/ Monat",
+    note: "Alles aus der Online-Betreuung — plus Druck- & Design-Flatrate für Ihre Offline-Präsenz.",
+    features: [
+      "Alles aus der Online-Marketing-Betreuung",
+      "Druck- & Design-Flatrate",
+      "Flyer, Broschüren & Visitenkarten",
+      "Druckfertige Vorlagen für Ihre CI",
+    ],
+    cta: "Erst das Paket sehen →",
+    featured: false,
+  },
+];
 ---
 
 <section id="preis" class="bg-bone px-5 py-16 text-ink md:px-12 md:py-[88px]">
-  <div class="pricing mx-auto max-w-[1000px]">
-    <!-- Radio state (CSS-only toggle) -->
-    <input type="radio" name="plan" id="plan-digital" class="peer/d sr-only" checked />
-    <input type="radio" name="plan" id="plan-print" class="peer/p sr-only" />
-
+  <div class="mx-auto max-w-[1240px]">
     <div class="mb-11 text-center">
       <div class="mb-3.5 font-mono text-[12px] uppercase tracking-[.16em] text-dim">Ein Paket, ein Preis</div>
       <h2 class="m-0 font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[42px]">
-        Fester Monatspreis.<br />
-        Monatlich kündbar.
+        Eine ganze Marketing-Abteilung.<br />
+        <span class="bg-lime px-[8px] text-ink">Zum Minijob-Preis.</span>
       </h2>
+      <p class="mx-auto mt-5 max-w-[520px] font-display text-[18px] font-bold uppercase -tracking-[0.01em] text-ink/70 md:text-[22px]">
+        Fester Monatspreis. Monatlich kündbar.
+      </p>
     </div>
 
-    <!-- Toggle -->
-    <div class="mb-8 flex justify-center">
-      <div class="flex border border-ink">
-        <label
-          for="plan-digital"
-          class="opt-digital cursor-pointer px-5 py-[11px] font-mono text-[12px] transition-colors"
+    <div class="grid items-stretch gap-6 md:grid-cols-3">
+      {tiers.map((tier) => (
+        <div
+          class:list={[
+            "relative flex flex-col p-8 md:p-9",
+            tier.featured
+              ? "bg-ink text-bone ring-2 ring-lime md:-my-3 md:py-12"
+              : "border border-ink/15 bg-bone text-ink",
+          ]}
         >
-          Digital
-        </label>
-        <label
-          for="plan-print"
-          class="opt-print cursor-pointer border-l border-ink px-5 py-[11px] font-mono text-[12px] transition-colors"
-        >
-          Digital + Print
-        </label>
-      </div>
-    </div>
-
-    <!-- Card -->
-    <div class="grid items-center gap-11 bg-ink p-8 text-bone md:grid-cols-2 md:p-12">
-      <div>
-        <div class="mb-4 font-mono text-[11px] tracking-[.12em] text-lime">
-          <span class="plan-name-d">Marketing digital</span>
-          <span class="plan-name-p">Marketing + Print</span>
-        </div>
-        <div class="flex items-end gap-2">
-          <span class="font-display text-[52px] leading-[0.85] font-black -tracking-[0.03em] md:text-[72px]">
-            <span class="price-d">990</span><span class="price-p">1.990</span>&nbsp;€
-          </span>
-          <span class="pb-2.5 font-mono text-[12px] text-dim">/ Monat</span>
-        </div>
-        <p class="mt-6 max-w-[340px] text-[15px] leading-relaxed text-dim-2">
-          <span class="note-d">
-            Ihr komplettes digitales Marketing über alle Kanäle, jeden Monat verlässlich geliefert.
-          </span>
-          <span class="note-p">
-            Alles aus dem digitalen Paket — plus Flyer, Broschüren und druckfertige Vorlagen für Ihre
-            Offline-Präsenz.
-          </span>
-        </p>
-        <div class="mt-8 flex w-fit border border-line">
+          {tier.featured && (
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[.12em] text-ink">
+              ★ Sehr beliebt
+            </div>
+          )}
+          <div class:list={["mb-4 font-mono text-[11px] tracking-[.12em]", tier.featured ? "text-lime" : "text-dim"]}>
+            {tier.name}
+          </div>
+          <div class="flex items-end gap-2">
+            <span class="font-display text-[44px] leading-[0.85] font-black -tracking-[0.03em] md:text-[52px]">
+              {tier.price}
+            </span>
+            <span class:list={["pb-2 font-mono text-[12px]", tier.featured ? "text-dim" : "text-dim"]}>
+              {tier.unit}
+            </span>
+          </div>
+          <p class:list={["mt-5 text-[14px] leading-relaxed", tier.featured ? "text-dim-2" : "text-ink/65"]}>
+            {tier.note}
+          </p>
+          <ul class:list={["mt-6 flex flex-col gap-3 text-[14px]", tier.featured ? "text-bone" : "text-ink"]}>
+            {tier.features.map((f) => (
+              <li class="flex gap-2.5"><span class="text-lime">✓</span>{f}</li>
+            ))}
+          </ul>
           <a
             href="/vorschau"
-            class="cursor-pointer bg-lime px-6 py-4 font-mono text-[13px] font-medium text-ink transition-colors hover:bg-bone"
+            class:list={[
+              "mt-auto cursor-pointer px-6 py-4 text-center font-mono text-[13px] font-medium transition-colors",
+              tier.featured
+                ? "bg-lime text-ink hover:bg-bone"
+                : "border border-ink text-ink hover:bg-ink hover:text-bone",
+            ]}
           >
-            Erst Vorschau, dann entscheiden →
+            {tier.cta}
           </a>
         </div>
-      </div>
-      <div class="border-t border-line pt-8 md:border-t-0 md:border-l md:pt-0 md:pl-11">
-        <div class="mb-4 font-mono text-[10px] tracking-widest text-dim">ENTHALTEN</div>
-        <ul class="flex flex-col gap-3 text-[15px] text-bone">
-          <li class="flex gap-3"><span class="text-lime">✓</span>Alle Deliverables aus dem Abo</li>
-          <li class="flex gap-3"><span class="text-lime">✓</span>Freigabe jedes Beitrags durch einen Menschen</li>
-          <li class="flex gap-3"><span class="text-lime">✓</span>Keine Setup-Fee, keine Mindestlaufzeit</li>
-          <li class="flex gap-3"><span class="text-lime">✓</span>Volle Nutzungsrechte an allen Inhalten</li>
-          <li class="print-only flex gap-3">
-            <span class="text-lime">✓</span>Flyer, Broschüren &amp; druckfertige Vorlagen
-          </li>
-        </ul>
-      </div>
+      ))}
     </div>
 
-    <p class="mt-6 text-center font-mono text-[11px] leading-relaxed text-dim">
+    <p class="mt-8 text-center font-mono text-[11px] leading-relaxed text-dim">
       Preise als Kleinunternehmer gem. §19 UStG, keine USt. · Sonderfälle mit hohem Volumen bespreche ich individuell.
     </p>
   </div>
 </section>
-
-<style>
-  /* CSS-only Digital / Print toggle, driven by the hidden radios above */
-  .pricing .price-p,
-  .pricing .note-p,
-  .pricing .plan-name-p,
-  .pricing .print-only {
-    display: none;
-  }
-
-  .pricing:has(#plan-print:checked) .price-d,
-  .pricing:has(#plan-print:checked) .note-d,
-  .pricing:has(#plan-print:checked) .plan-name-d {
-    display: none;
-  }
-  .pricing:has(#plan-print:checked) .price-p,
-  .pricing:has(#plan-print:checked) .note-p,
-  .pricing:has(#plan-print:checked) .plan-name-p {
-    display: inline;
-  }
-  .pricing:has(#plan-print:checked) .print-only {
-    display: flex;
-  }
-
-  /* Selected pill visuals */
-  .pricing:has(#plan-digital:checked) .opt-digital {
-    background: var(--color-ink);
-    color: var(--color-bone);
-  }
-  .pricing:has(#plan-print:checked) .opt-print {
-    background: var(--color-ink);
-    color: var(--color-bone);
-  }
-</style>

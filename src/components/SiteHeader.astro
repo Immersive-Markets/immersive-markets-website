@@ -8,8 +8,9 @@ const { variant = "home" } = Astro.props;
 ---
 
 <header
-  class="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-ink/90 px-5 py-4 backdrop-blur md:px-12"
+  class="sticky top-0 z-30 border-b border-line bg-ink/90 px-5 py-4 backdrop-blur md:px-12"
 >
+  <div class="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-4">
   <Logo />
 
   {variant === "home" && (
@@ -23,7 +24,7 @@ const { variant = "home" } = Astro.props;
         href="/vorschau"
         class="ml-[18px] bg-lime px-[18px] py-[10px] font-medium text-ink transition-colors hover:bg-bone"
       >
-        Gratis-Vorschau&nbsp;→
+        Gratis Marketing-Paket&nbsp;→
       </a>
     </nav>
 
@@ -31,7 +32,7 @@ const { variant = "home" } = Astro.props;
       href="/vorschau"
       class="bg-lime px-4 py-2 font-mono text-[11px] font-medium text-ink transition-colors hover:bg-bone md:hidden"
     >
-      Vorschau&nbsp;→
+      Paket&nbsp;→
     </a>
   )}
 
@@ -44,7 +45,7 @@ const { variant = "home" } = Astro.props;
         href="/vorschau"
         class="ml-[18px] bg-lime px-[18px] py-[10px] font-medium text-ink transition-colors hover:bg-bone"
       >
-        Gratis-Vorschau&nbsp;→
+        Gratis Marketing-Paket&nbsp;→
       </a>
     </nav>
   )}
@@ -52,4 +53,5 @@ const { variant = "home" } = Astro.props;
   {variant === "minimal" && (
     <a href="/" class="font-mono text-[12px] text-dim transition-colors hover:text-lime">← zurück</a>
   )}
+  </div>
 </header>

@@ -1,0 +1,163 @@
+---
+const contents = [
+  {
+    n: "01",
+    title: "Marketingkonzept als Präsentation",
+    note: "25 Folien: Status quo, Ziele, Kanalstrategie, Content-Säulen und ein fertiger 4-Wochen-Redaktionsplan.",
+  },
+  {
+    n: "02",
+    title: "9 fertige Musterbeiträge",
+    note: "LinkedIn, Instagram & Facebook — ausformuliert und gestaltet, in Ihrer CI. Keine Blindtexte.",
+  },
+  {
+    n: "03",
+    title: "Firmenflyer, druckfertig",
+    note: "A4 als PDF, direkt in die Druckerei zu geben.",
+  },
+  {
+    n: "04",
+    title: "Briefbogen & Rechnungsvorlage",
+    note: "Geschäftsausstattung in Ihrem Branding, sofort einsetzbar.",
+  },
+  {
+    n: "05",
+    title: "Visitenkarten",
+    note: "Vorder- und Rückseite, auf Ihre Ansprechpartner personalisiert.",
+  },
+  {
+    n: "06",
+    title: "Eine persönliche Landingpage",
+    note: "Alles gebündelt unter einem privaten Link — nur für Sie, zum Ansehen und Herunterladen.",
+  },
+];
+
+---
+
+<section id="paket" class="imgrid border-t border-line px-5 py-16 md:px-12 md:py-[88px]">
+  <div class="mx-auto max-w-[1240px]">
+    <div class="mb-10 md:mb-[52px]">
+      <div class="mb-3.5 font-mono text-[12px] uppercase tracking-[.16em] text-lime">
+        Kostenlos · unverbindlich · in 24 Stunden
+      </div>
+      <h2
+        class="m-0 max-w-[900px] font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] text-bone sm:text-4xl md:text-[46px]"
+      >
+        Ihr komplettes Marketingpaket.<br />
+        Bevor Sie einen <span class="bg-lime px-[8px] text-ink">Cent zahlen.</span>
+      </h2>
+      <p class="mt-6 max-w-[620px] text-base leading-[1.55] text-dim-2 md:text-[18px]">
+        Ich lese Ihre Website aus und baue daraus ein vollständiges, individuelles Marketingkonzept in Ihrer CI —
+        von der Strategie bis zum druckfertigen Flyer. Nicht als Skizze, sondern als fertiges Paket zum Mitnehmen.
+      </p>
+    </div>
+
+    <div class="mb-5 font-mono text-[11px] uppercase tracking-[.14em] text-dim">Das steckt drin</div>
+    <div class="reveal-grid grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+      {contents.map((c, i) => (
+        <div
+          class="reveal-card group relative flex flex-col gap-4 overflow-hidden bg-ink p-7 transition-colors duration-300 hover:bg-ink-2 md:p-8"
+          style={`--i:${i}`}
+        >
+          <span
+            class="pointer-events-none absolute -top-4 -right-2 font-display text-[80px] font-black leading-none text-line-deep/40 transition-all duration-300 group-hover:text-lime/15 md:text-[96px]"
+          >
+            {c.n}
+          </span>
+          <span class="font-display text-[22px] font-black leading-none text-lime transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5">
+            {c.n}
+          </span>
+          <div class="relative">
+            <div class="mb-1.5 text-[16px] font-bold text-bone md:text-[17px]">{c.title}</div>
+            <div class="text-sm leading-[1.5] text-dim-2">{c.note}</div>
+          </div>
+          <span class="mt-auto h-px w-8 bg-line-deep transition-all duration-300 group-hover:w-16 group-hover:bg-lime"></span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Warum kostenlos? -->
+    <div class="mt-10 grid gap-px border border-line bg-line md:mt-12 md:grid-cols-[auto_1fr]">
+      <div class="flex items-center bg-ink-2 px-6 py-5 md:px-8">
+        <span class="font-mono text-[11px] tracking-[.14em] text-lime">WARUM KOSTENLOS?</span>
+      </div>
+      <div class="bg-ink px-6 py-5 text-[15px] leading-relaxed text-dim-2 md:px-8">
+        Weil ein fertiges Konzept mehr überzeugt als jedes Verkaufsgespräch. Sie sehen genau, wie Ihr Marketing
+        aussehen kann — und entscheiden dann in Ruhe, ob ich es Monat für Monat für Sie weiterführe und umsetze.
+        Kein Anruf, kein Druck.
+      </div>
+    </div>
+
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a
+        href="/vorschau"
+        class="cursor-pointer bg-lime px-7 py-4 font-mono text-[13px] font-medium text-ink transition-colors hover:bg-bone"
+      >
+        Kostenloses Marketingpaket anfordern →
+      </a>
+      <a
+        href="#funktioniert"
+        class="cursor-pointer border border-line px-7 py-4 font-mono text-[13px] text-bone transition-colors hover:text-lime"
+      >
+        Wie das läuft
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hidden state only applies once JS has marked the grid ready, so
+     no-JS users always see the content. */
+  .reveal-grid.reveal-ready .reveal-card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease;
+    transition-delay: calc(var(--i) * 70ms);
+  }
+  .reveal-grid.reveal-ready .reveal-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-grid.reveal-ready .reveal-card {
+      opacity: 1;
+      transform: none;
+      transition: background-color 0.3s ease;
+    }
+  }
+</style>
+
+<script>
+  const grid = document.querySelector<HTMLElement>(".reveal-grid");
+  const cards = document.querySelectorAll<HTMLElement>(".reveal-card");
+  const reveal = () => cards.forEach((c) => c.classList.add("is-visible"));
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (grid && cards.length) {
+    grid.classList.add("reveal-ready");
+
+    if (reduce || !("IntersectionObserver" in window)) {
+      reveal();
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      cards.forEach((c) => io.observe(c));
+
+      // Safety net: if the observer never fires (edge cases), reveal anyway.
+      setTimeout(reveal, 2000);
+    }
+  }
+</script>

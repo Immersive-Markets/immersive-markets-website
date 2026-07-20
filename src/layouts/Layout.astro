@@ -32,5 +32,50 @@ const {
   </head>
   <body class="min-h-screen bg-ink text-bone">
     <slot />
+
+    <script>
+      // Progressive enhancement for Web3Forms-backed forms.
+      // Without JS, forms submit natively (POST + hidden `redirect`) and still work.
+      document.querySelectorAll<HTMLFormElement>("form[data-web3form]").forEach((form) => {
+        form.addEventListener("submit", async (e) => {
+          // `submit` only fires after native HTML5 validation passes.
+          e.preventDefault();
+
+          const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+          const original = button?.textContent ?? "";
+          if (button) {
+            button.disabled = true;
+            button.textContent = "Wird gesendet …";
+          }
+
+          const data = new FormData(form);
+          const firma = String(data.get("firma") ?? "");
+
+          try {
+            const res = await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: { Accept: "application/json" },
+              body: data,
+            });
+            const json = await res.json();
+
+            if (res.ok && json.success) {
+              const query = firma ? `?firma=${encodeURIComponent(firma)}` : "";
+              window.location.href = `/vorschau/danke${query}`;
+              return;
+            }
+            throw new Error(json.message || "Submission failed");
+          } catch (err) {
+            if (button) {
+              button.disabled = false;
+              button.textContent = original;
+            }
+            alert(
+              "Ihre Anfrage konnte gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an info@immersive-markets.de."
+            );
+          }
+        });
+      });
+    </script>
   </body>
 </html>

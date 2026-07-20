@@ -4,13 +4,22 @@ import SiteHeader from "../components/SiteHeader.astro";
 
 const steps = [
   { when: "JETZT", title: "Sie schicken den Link", note: "Zwei Minuten, kein Verkaufsgespräch.", active: true },
-  { when: "≤ 24 STUNDEN", title: "Ich baue Ihre Vorschau", note: "KI entwirft, ich prüfe und schärfe.", active: false },
-  { when: "PER E-MAIL", title: "Ihr Link kommt an", note: "Eine private Seite nur für Sie.", active: false },
-  { when: "IN RUHE", title: "Sie entscheiden", note: "Gefällt es, starten wir. Sonst nicht.", active: false },
+  { when: "≤ 24 STUNDEN", title: "Ich baue Ihr Paket", note: "KI entwirft, ich prüfe und schärfe.", active: false },
+  { when: "PER E-MAIL", title: "Ihr Link kommt an", note: "Eine private Landingpage nur für Sie.", active: false },
+  { when: "IN RUHE", title: "Sie entscheiden", note: "Gefällt es, setzen wir es fort. Sonst nicht.", active: false },
+];
+
+const included = [
+  "Marketingkonzept (25 Folien)",
+  "9 fertige Musterbeiträge",
+  "Firmenflyer, druckfertig",
+  "Briefbogen & Rechnungsvorlage",
+  "Visitenkarten",
+  "Persönliche Landingpage",
 ];
 ---
 
-<Layout title="Vorschau anfordern — Immersive Markets">
+<Layout title="Kostenloses Marketingpaket anfordern — Immersive Markets">
   <SiteHeader variant="minimal" />
   <div class="flex flex-1 grid-cols-[1.1fr_0.9fr] flex-col md:grid">
     <!-- Form -->
@@ -20,15 +29,32 @@ const steps = [
           Kostenlos · unverbindlich · in 24h
         </div>
         <h1 class="m-0 mb-3 font-display text-[32px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[40px]">
-          Ihre Marketing-<br />
-          Vorschau anfordern.
+          Ihr komplettes<br />
+          Marketingpaket anfordern.
         </h1>
-        <p class="m-0 mb-9 text-[15px] leading-relaxed text-dim-2">
-          Ein Link genügt. Ich lese Ihre Website aus und baue ein Stück fertiges Marketing in Ihrer CI — Sie
-          entscheiden erst danach.
+        <p class="m-0 mb-6 text-[15px] leading-relaxed text-dim-2">
+          Ein Link genügt. Ich lese Ihre Website aus und baue daraus ein vollständiges Marketingpaket in Ihrer CI —
+          Sie entscheiden erst danach.
         </p>
+        <ul class="m-0 mb-9 grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2">
+          {included.map((item) => (
+            <li class="flex items-start gap-2 text-[13px] leading-[1.4] text-dim-2">
+              <span class="mt-px text-lime">✓</span>{item}
+            </li>
+          ))}
+        </ul>
 
-        <form action="/vorschau/danke" method="get" class="flex flex-col gap-[22px]">
+        <form
+          action="https://api.web3forms.com/submit"
+          method="post"
+          data-web3form
+          class="flex flex-col gap-[22px]"
+        >
+          <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_KEY} />
+          <input type="hidden" name="subject" value="Neue Marketingpaket-Anfrage über die Website" />
+          <input type="hidden" name="from_name" value="Immersive Markets Website" />
+          <input type="hidden" name="redirect" value="https://immersive-markets.de/vorschau/danke" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
           <div>
             <label for="firma" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">
               FIRMEN-URL *
@@ -101,7 +127,7 @@ const steps = [
               class="mt-1 size-4 shrink-0 accent-[color:var(--color-lime)]"
             />
             <span>
-              Ich willige ein, dass zur Erstellung der Vorschau KI-gestützte Verarbeitung eingesetzt wird
+              Ich willige ein, dass zur Erstellung des Marketingpakets KI-gestützte Verarbeitung eingesetzt wird
               (transparent gem. Art.&nbsp;50 EU-KI-VO).
             </span>
           </label>
@@ -110,7 +136,7 @@ const steps = [
             type="submit"
             class="cursor-pointer bg-lime px-4 py-4 text-center font-mono text-sm font-medium text-ink transition-colors hover:bg-bone"
           >
-            Marketing-Vorschau kostenlos anfordern →
+            Kostenloses Marketingpaket anfordern →
           </button>
         </form>
       </div>
