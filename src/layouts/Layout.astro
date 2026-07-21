@@ -49,7 +49,11 @@ const {
           }
 
           const data = new FormData(form);
-          const firma = String(data.get("firma") ?? "");
+          // Per-form thank-you page + optional echo field (falls back to the
+          // vorschau defaults so existing forms keep working unchanged).
+          const danke = form.dataset.danke || "/vorschau/danke";
+          const echoField = form.dataset.echo || "firma";
+          const echo = String(data.get(echoField) ?? "");
 
           try {
             const res = await fetch("https://api.web3forms.com/submit", {
@@ -60,8 +64,8 @@ const {
             const json = await res.json();
 
             if (res.ok && json.success) {
-              const query = firma ? `?firma=${encodeURIComponent(firma)}` : "";
-              window.location.href = `/vorschau/danke${query}`;
+              const query = echo ? `?${echoField}=${encodeURIComponent(echo)}` : "";
+              window.location.href = `${danke}${query}`;
               return;
             }
             throw new Error(json.message || "Submission failed");
