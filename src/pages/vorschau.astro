@@ -4,7 +4,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 
 const steps = [
   { when: "JETZT", title: "Sie schicken den Link", note: "Zwei Minuten, kein Verkaufsgespräch.", active: true },
-  { when: "≤ 24 STUNDEN", title: "Ich baue Ihr Paket", note: "KI entwirft, ich prüfe und schärfe.", active: false },
+  { when: "≤ 24 STUNDEN", title: "Wir bauen Ihr Paket", note: "KI entwirft, wir prüfen und schärfen.", active: false },
   { when: "PER E-MAIL", title: "Ihr Link kommt an", note: "Eine private Landingpage nur für Sie.", active: false },
   { when: "IN RUHE", title: "Sie entscheiden", note: "Gefällt es, setzen wir es fort. Sonst nicht.", active: false },
 ];
@@ -33,7 +33,7 @@ const included = [
           Marketingpaket anfordern.
         </h1>
         <p class="m-0 mb-6 text-[15px] leading-relaxed text-dim-2">
-          Ein Link genügt. Ich lese Ihre Website aus und baue daraus ein vollständiges Marketingpaket in Ihrer CI —
+          Ein Link genügt. Wir lesen Ihre Website aus und bauen daraus ein vollständiges Marketingpaket in Ihrer CI —
           Sie entscheiden erst danach.
         </p>
         <ul class="m-0 mb-9 grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2">
@@ -145,7 +145,7 @@ const included = [
     <!-- Timeline -->
     <div class="bg-ink-2 px-5 py-12 md:px-14 md:py-16">
       <div class="max-w-[360px]">
-        <div class="mb-9 font-mono text-[11px] tracking-widest text-dim">SO LÄUFT ES WEITER</div>
+        <div class="mb-9 font-mono text-[11px] tracking-widest text-lime">SO LÄUFT ES WEITER</div>
         <ol class="flex flex-col">
           {steps.map((s, i) => (
             <li

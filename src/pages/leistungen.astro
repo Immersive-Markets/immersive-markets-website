@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import RequestForm from "../components/RequestForm.astro";
 
 const deliverables = [
   {
@@ -13,16 +14,16 @@ const deliverables = [
     lines: ["2 Blogartikel, recherchiert", "Keyword-Fokus", "Interne Verlinkung"],
   },
   {
-    tag: "LOKAL & DIREKT",
-    lines: ["4 Google-Business-Beiträge", "1 Newsletter", "Bewertungs-Impulse"],
-  },
-  {
     tag: "DESIGN",
     lines: ["Grafiken in Ihrer CI", "Karussells & Banner", "Wiederverwendbare Vorlagen"],
   },
   {
-    tag: "PFLEGE",
-    lines: ["Profil-Aktualisierung", "Monatlicher Kurz-Report", "Ein fester Ansprechpartner"],
+    tag: "1:1 AGENTURBETREUUNG",
+    lines: ["Ein fester, persönlicher Ansprechpartner", "Durchgehend erreichbar", "Kein Callcenter, kein Ticketsystem"],
+  },
+  {
+    tag: "VOLLE TRANSPARENZ",
+    lines: ["Sie sehen jeden Beitrag vor Freigabe", "Klare Leistungen, fester Preis", "Monatlicher Kurz-Report"],
   },
 ];
 const ki = [
@@ -60,7 +61,7 @@ const mensch = [
 
   <section class="border-b border-line px-5 py-16 md:px-12 md:py-20">
     <div class="mx-auto max-w-[1240px]">
-      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-dim">Deliverables pro Monat</div>
+      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Deliverables pro Monat</div>
       <div class="grid gap-px border border-line bg-line sm:grid-cols-2 md:grid-cols-3">
         {deliverables.map((d) => (
           <div class="bg-ink p-8">
@@ -76,11 +77,11 @@ const mensch = [
           </div>
         ))}
         <div class="bg-ink-2 p-8">
-          <div class="mb-3.5 font-mono text-[10px] tracking-widest text-dim">＋ PRINT-PAKET</div>
-          <div class="text-[15px] leading-[1.7] text-dim">
+          <div class="mb-3.5 font-mono text-[10px] tracking-widest text-lime">＋ PRINT-PAKET</div>
+          <div class="text-[15px] leading-[1.7] text-dim-2">
             Flyer &amp; Broschüren<br />
             Druckfertige Vorlagen<br />
-            Printanzeigen
+            Visitenkarten &amp; Briefbogen
           </div>
         </div>
       </div>
@@ -89,10 +90,10 @@ const mensch = [
 
   <section class="imgrid border-b border-line px-5 py-16 md:px-12 md:py-20">
     <div class="mx-auto max-w-[1240px]">
-      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-dim">Der Trennstrich</div>
+      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Wer macht was</div>
       <div class="grid border border-line md:grid-cols-2">
         <div class="border-b border-line p-8 md:border-r md:border-b-0 md:p-11">
-          <div class="mb-7 inline-block border border-line-deep px-3 py-1.5 font-mono text-[11px] tracking-widest text-dim">
+          <div class="mb-7 inline-block border border-line-deep px-3 py-1.5 font-mono text-[11px] tracking-widest text-dim-2">
             DAS MACHT DIE KI
           </div>
           <ul class="flex flex-col">
@@ -126,14 +127,23 @@ const mensch = [
           </ul>
         </div>
       </div>
-      <div class="mt-11 flex justify-center">
-        <a
-          href="/vorschau"
-          class="cursor-pointer bg-lime px-7 py-4 font-mono text-[13px] text-ink transition-colors hover:bg-bone"
-        >
-          Kostenloses Marketingpaket anfordern →
-        </a>
+    </div>
+  </section>
+
+  <section class="imgrid border-b border-line px-5 py-16 md:px-12 md:py-20">
+    <div class="mx-auto grid max-w-[1240px] items-center gap-10 md:grid-cols-[1fr_0.85fr] md:gap-16">
+      <div>
+        <div class="mb-5 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Unverbindlich starten</div>
+        <h2 class="m-0 font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[40px]">
+          Sehen Sie es,<br />
+          bevor Sie zahlen.
+        </h2>
+        <p class="mt-6 max-w-[440px] text-base leading-[1.55] text-dim-2 md:text-[17px]">
+          Fordern Sie Ihr komplettes Marketingpaket an — individuell aus Ihrer Website erstellt, in 24&nbsp;Stunden,
+          ohne Kosten und ohne Verpflichtung.
+        </p>
       </div>
+      <RequestForm idPrefix="leistungen" />
     </div>
   </section>
 

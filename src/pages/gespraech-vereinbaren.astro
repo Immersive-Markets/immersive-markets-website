@@ -1,0 +1,152 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+const points = [
+  "Kein Verkaufsgespräch, kein Druck",
+  "Persönlich mit unserem Team — nicht mit einem Callcenter",
+  "Antwort meist innerhalb von 24 Stunden",
+  "Sie schlagen Termine vor, wir melden uns zurück",
+];
+---
+
+<Layout title="Gespräch vereinbaren — Immersive Markets">
+  <SiteHeader variant="subpage" />
+  <div class="flex flex-1 grid-cols-[1.1fr_0.9fr] flex-col md:grid">
+    <!-- Form -->
+    <div class="border-b border-line px-5 py-12 md:border-r md:border-b-0 md:px-14 md:py-16">
+      <div class="mx-auto max-w-[520px] md:mx-0 md:mr-6 md:ml-auto">
+        <div class="mb-[18px] font-mono text-[12px] uppercase tracking-[.14em] text-lime">
+          Unverbindlich · persönlich · direkt
+        </div>
+        <h1 class="m-0 mb-3 font-display text-[32px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[40px]">
+          Lassen Sie uns<br />
+          ins Gespräch kommen.
+        </h1>
+        <p class="m-0 mb-8 text-[15px] leading-relaxed text-dim-2">
+          Sie haben Fragen, ein konkretes Vorhaben oder möchten einfach mal in Ruhe sprechen? Schreiben Sie uns kurz,
+          worum es geht und wann es Ihnen passt — wir melden uns persönlich bei Ihnen.
+        </p>
+
+        <form
+          action="https://api.web3forms.com/submit"
+          method="post"
+          data-web3form
+          data-danke="/gespraech-vereinbaren/danke"
+          data-echo="name"
+          class="flex flex-col gap-[22px]"
+        >
+          <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_KEY} />
+          <input type="hidden" name="subject" value="Neue Gesprächsanfrage über die Website" />
+          <input type="hidden" name="from_name" value="Immersive Markets Website" />
+          <input type="hidden" name="redirect" value="https://immersive-markets.de/gespraech-vereinbaren/danke" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label for="name" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">NAME *</label>
+              <input
+                id="name"
+                name="name"
+                required
+                placeholder="Vor- und Nachname"
+                class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+              />
+            </div>
+            <div>
+              <label for="firma" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">FIRMA</label>
+              <input
+                id="firma"
+                name="firma"
+                placeholder="Ihr Unternehmen"
+                class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+              />
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label for="email" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">E-MAIL *</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="name@firma.de"
+                class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+              />
+            </div>
+            <div>
+              <label for="tel" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">TELEFON</label>
+              <input
+                id="tel"
+                name="tel"
+                type="tel"
+                placeholder="+49 …"
+                class="w-full border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="nachricht" class="mb-2 block font-mono text-[11px] tracking-wider text-dim">
+              WORUM GEHT ES? / TERMINVORSCHLÄGE
+            </label>
+            <textarea
+              id="nachricht"
+              name="nachricht"
+              rows="5"
+              placeholder="Ihr Anliegen und wann es Ihnen zeitlich passt — z. B. Di./Do. nachmittags."
+              class="w-full resize-y border border-line bg-ink-3 px-4 py-3.5 text-[15px] text-bone"
+            ></textarea>
+          </div>
+
+          <label class="flex cursor-pointer items-start gap-3 text-[13px] leading-[1.5] text-dim-2">
+            <input
+              type="checkbox"
+              name="dsgvo"
+              required
+              class="mt-1 size-4 shrink-0 accent-[color:var(--color-lime)]"
+            />
+            <span>
+              Ich habe die <a href="/datenschutz" class="text-lime underline-offset-2 hover:underline">Datenschutzerklärung</a>
+              gelesen und bin mit der Verarbeitung meiner Daten zur Kontaktaufnahme einverstanden.
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            class="cursor-pointer bg-lime px-4 py-4 text-center font-mono text-sm font-medium text-ink transition-colors hover:bg-bone"
+          >
+            Gespräch anfragen →
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Side panel -->
+    <div class="bg-ink-2 px-5 py-12 md:px-14 md:py-16">
+      <div class="max-w-[360px]">
+        <div class="mb-9 font-mono text-[11px] tracking-widest text-lime">SO EINFACH GEHT ES</div>
+        <ul class="m-0 mb-10 flex flex-col gap-4">
+          {points.map((p) => (
+            <li class="flex items-start gap-3 text-[14px] leading-[1.5] text-dim-2">
+              <span class="mt-px text-lime">✓</span>{p}
+            </li>
+          ))}
+        </ul>
+        <div class="border-t border-line pt-8">
+          <div class="mb-3 font-mono text-[11px] tracking-widest text-lime">LIEBER DIREKT?</div>
+          <a
+            href="mailto:info@immersive-markets.de"
+            class="block text-[15px] text-bone transition-colors hover:text-lime"
+          >
+            info@immersive-markets.de
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <SiteFooter />
+</Layout>
