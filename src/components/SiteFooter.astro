@@ -1,46 +1,74 @@
 ---
-import Logo from "./Logo.astro";
+import { pillars } from "../data/pillars";
 const year = new Date().getFullYear();
+
+const spalten = [
+  {
+    titel: "Leistungen",
+    links: [{ label: "Übersicht", href: "/leistungen" }, ...pillars.map((p) => ({ label: p.name, href: `/leistungen/${p.id}` }))],
+  },
+  {
+    titel: "Angebot",
+    links: [
+      { label: "Zusammenarbeit", href: "/zusammenarbeit" },
+      { label: "Preise", href: "/preise" },
+      { label: "Selbstchecks", href: "/checks" },
+      { label: "Für Partner", href: "/partner" },
+    ],
+  },
+  {
+    titel: "Wissen",
+    links: [
+      { label: "Wissensbereich", href: "/wissen" },
+      { label: "KI-Transparenz", href: "/ki-transparenz" },
+      { label: "Über mich", href: "/ueber-mich" },
+    ],
+  },
+  {
+    titel: "Rechtliches",
+    links: [
+      { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" },
+      { label: "AGB", href: "/agb" },
+    ],
+  },
+  {
+    titel: "Kontakt",
+    links: [
+      { label: "Gespräch buchen", href: "/gespraech" },
+      { label: "info@immersive-markets.de", href: "mailto:info@immersive-markets.de" },
+    ],
+  },
+];
 ---
 
-<footer class="border-t-2 border-lime bg-ink-2 px-5 pt-14 pb-10 md:px-12">
-  <div class="mx-auto max-w-[1240px]">
-    <div class="flex flex-wrap items-start justify-between gap-8 border-b border-line pb-10">
-      <div class="max-w-[320px]">
-        <div>
-          <Logo size="sm" />
-        </div>
-      </div>
-
-      <div class="flex flex-wrap gap-x-14 gap-y-8 text-[13px]">
-        <div class="flex flex-col gap-[9px]">
-          <div class="mb-1 font-mono text-[10px] tracking-wider text-dim">ANGEBOT</div>
-          <a href="/leistungen" class="text-dim-2 hover:text-lime">Leistungen</a>
-          <a href="/#preis" class="text-dim-2 hover:text-lime">Preis</a>
-          <a href="/vorschau" class="text-dim-2 hover:text-lime">Marketingpaket anfordern</a>
-        </div>
-        <div class="flex flex-col gap-[9px]">
-          <div class="mb-1 font-mono text-[10px] tracking-wider text-dim">RECHTLICHES</div>
-          <a href="/impressum" class="text-dim-2 hover:text-lime">Impressum</a>
-          <a href="/datenschutz" class="text-dim-2 hover:text-lime">Datenschutz</a>
-          <a href="/agb" class="text-dim-2 hover:text-lime">AGB</a>
-        </div>
-        <div class="flex flex-col gap-[9px]">
-          <div class="mb-1 font-mono text-[10px] tracking-wider text-dim">KONTAKT</div>
-          <a href="/gespraech-vereinbaren" class="text-dim-2 hover:text-lime">Gespräch vereinbaren</a>
-          <a href="/ueber" class="text-dim-2 hover:text-lime">Über / Kontakt</a>
-          <a href="mailto:info@immersive-markets.de" class="text-dim-2 hover:text-lime">
-            info@immersive-markets.de
-          </a>
-        </div>
+<footer class="bg-white px-3 pt-16 md:px-5">
+  <div class="bg-forest relative mx-auto max-w-[1400px] overflow-hidden rounded-t-[32px] px-6 pt-14 text-white md:px-12">
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_3fr]">
+      <p class="m-0 max-w-[260px] text-[24px] leading-[1.15] font-semibold tracking-[-0.02em] text-lime-300">
+        Bereit für die nächste Generation.
+      </p>
+      <div class="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+        {spalten.map((s) => (
+          <div>
+            <div class="mb-4 text-[14px] font-semibold text-white/45">{s.titel}</div>
+            <ul class="flex flex-col gap-2.5 text-[14px]">
+              {s.links.map((l) => (
+                <li><a href={l.href} class="break-words text-white/85 transition-colors hover:text-lime-300">{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
 
-    <div class="flex flex-wrap items-center justify-between gap-4 pt-6 font-mono text-[11px] text-dim">
-      <span>© {year} Immersive Markets</span>
-      <span>
-        Immersive Markets ist auch die Dachmarke für <span class="text-dim-2 underline">weitere Projekte</span>.
-      </span>
+    <div class="mt-16 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 py-6 text-[13px] text-white/45">
+      <span>© {year} Immersive Markets · Felix Binder · Salem am Bodensee</span>
+      <span>Remote-first aus dem Bodenseekreis</span>
+    </div>
+
+    <div aria-hidden="true" class="pointer-events-none mt-4 -mb-[0.2em] select-none text-[clamp(44px,9.2vw,132px)] leading-[0.85] font-semibold tracking-[-0.05em] whitespace-nowrap text-white">
+      Immersive Markets
     </div>
   </div>
 </footer>

@@ -1,0 +1,62 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import SectionHead from "../../components/ui/SectionHead.astro";
+import CtaDuo from "../../components/ui/CtaDuo.astro";
+import { pillars } from "../../data/pillars";
+
+export function getStaticPaths() {
+  return pillars.map((p) => ({ params: { id: p.id }, props: { pillar: p } }));
+}
+
+const { pillar } = Astro.props;
+const isKi = pillar.id === "ki";
+
+const nutzen = [
+  { icon: "gauge", titel: "Ihre Ausgangslage", text: "Sie sehen, wo Ihr Betrieb in dieser Säule heute steht." },
+  { icon: "list-checks", titel: "Konkrete Maßnahmen", text: "Drei nächste Schritte, die zu Ihrem Betrieb passen." },
+  { icon: "calendar", titel: "Ein Plan für 90 Tage", text: "In welcher Reihenfolge Sie vorgehen — und was Sie selbst machen können." },
+];
+---
+
+<Layout title={`${pillar.check.name} — Immersive Markets`} description={pillar.check.hook}>
+  <SiteHeader />
+  <main>
+    <PageHero eyebrow={pillar.check.name} crumbs={[{ label: "Selbstchecks", href: "/checks" }]} title={pillar.check.hook}>
+      <p class="lead mx-auto mt-6 max-w-[640px]">Kostenlos, unverbindlich, in wenigen Minuten. Der {pillar.check.name} gehört zur Säule {pillar.name}.</p>
+      <div class="glass mx-auto mt-10 max-w-[560px] rounded-[24px] p-7 text-left">
+        <span class="inline-flex rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">In Vorbereitung</span>
+        <p class="mt-4 mb-6 text-[16px] text-body">
+          {isKi
+            ? "Der interaktive KI-Potenzial-Check ist als Prototyp fertig und geht in Kürze online."
+            : `Der ${pillar.check.name} ist in Arbeit und geht in den nächsten Wochen online.`}
+          {" "}Bis dahin klären wir das Gleiche gern direkt im Gespräch.
+        </p>
+        <a href="/gespraech" class="btn btn-dark">Stattdessen Gespräch buchen</a>
+      </div>
+    </PageHero>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <SectionHead eyebrow="Was Sie mitnehmen" title="Ehrlich, konkret, sofort" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {nutzen.map((n) => (
+          <div class="card p-7">
+            <Icon name={n.icon} size={22} class="text-lime-700" />
+            <h3 class="h-card mt-4 mb-2">{n.titel}</h3>
+            <p class="m-0 text-[16px] text-body">{n.text}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mx-auto mt-14 max-w-[720px] rounded-[24px] bg-surface p-7 text-center">
+        <p class="m-0 text-[16px] text-body">{pillar.intro}</p>
+        <a href={`/leistungen/${pillar.id}`} class="link-arrow mt-4 text-[15px]">Mehr zur Säule {pillar.name} <Icon name="arrow-right" size={16} /></a>
+      </div>
+    </section>
+
+    <CtaDuo />
+  </main>
+  <SiteFooter />
+</Layout>

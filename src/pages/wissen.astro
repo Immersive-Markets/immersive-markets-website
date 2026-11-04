@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import SectionHead from "../components/ui/SectionHead.astro";
+import CtaDuo from "../components/ui/CtaDuo.astro";
+import { pillars } from "../data/pillars";
+
+const ressourcen = [
+  { icon: "eye", titel: "KI-Transparenz", text: "Wo KI arbeitet, wo ein Mensch prüft.", href: "/ki-transparenz" },
+  { icon: "list-checks", titel: "Zusammenarbeit", text: "Erstgespräch, Bestandsaufnahme, Roadmap, Umsetzung.", href: "/zusammenarbeit" },
+  { icon: "euro", titel: "Preise & Preis-FAQ", text: "Drei Pakete, Laufzeit und was nicht enthalten ist.", href: "/preise#faq" },
+  { icon: "handshake", titel: "Für Partner", text: "Für Steuerberatung, Banken und Kammern.", href: "/partner" },
+];
+---
+
+<Layout title="Wissen — Immersive Markets" description="Selbstchecks, Leitfäden und Hintergründe für Traditionsunternehmen in der Nachfolge — sortiert nach Mitarbeitern, Kunden, Prozessen und KI.">
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow="Wissen"
+      title="Orientierung für<br />die nächste Generation."
+      lead="Selbstchecks, Spielregeln und Leitfäden — sortiert nach den vier Säulen Mitarbeiter, Kunden, Prozesse und KI."
+    />
+
+    <section class="-mt-10 px-5 pb-24 md:px-8">
+      <div class="mx-auto max-w-[1180px]">
+        <div class="mb-6 flex items-end justify-between gap-4">
+          <h2 class="m-0 text-[28px] font-semibold tracking-[-0.02em]">Selbstchecks</h2>
+          <a href="/checks" class="link-arrow text-[15px]">Alle Checks <Icon name="arrow-right" size={16} /></a>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {pillars.map((p) => (
+            <a href={`/checks/${p.id}`} class="card group flex flex-col p-6 transition-transform hover:-translate-y-0.5">
+              <div class="flex items-center justify-between">
+                <span class="flex size-9 items-center justify-center rounded-[11px] bg-lime-100 text-lime-800"><Icon name={p.icon} size={18} /></span>
+                {p.check.status === "bald" && <span class="rounded-[6px] bg-lime-300 px-2 py-0.5 text-[11px] font-semibold">Bald</span>}
+              </div>
+              <div class="mt-5 text-[13px] font-semibold text-lime-700">{p.check.name}</div>
+              <div class="mt-1 text-[17px] leading-snug font-semibold">{p.check.hook}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8">
+      <div class="mx-auto max-w-[1180px]">
+        <h2 class="mb-6 text-[28px] font-semibold tracking-[-0.02em]">Ressourcen</h2>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {ressourcen.map((r) => (
+            <a href={r.href} class="group flex flex-col rounded-[24px] bg-surface p-6 transition-colors hover:bg-lime-50">
+              <Icon name={r.icon} size={22} class="text-lime-700" />
+              <div class="mt-5 text-[17px] font-semibold">{r.titel}</div>
+              <div class="mt-1 text-[15px] text-body">{r.text}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="artikel" class="px-3 md:px-5">
+      <div class="bg-forest mx-auto max-w-[1400px] rounded-[32px] px-5 py-20 md:px-8 md:py-24">
+        <SectionHead tone="light" eyebrow="Bald" title="Artikel nach Säulen" lead="Die ersten Leitfäden sind in Arbeit. Bis dahin finden Sie die Grundlagen auf den Seiten der jeweiligen Säule." />
+        <div class="mx-auto mt-12 grid max-w-[1180px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {pillars.map((p) => (
+            <a href={`/leistungen/${p.id}`} class="glass-dark group rounded-[22px] p-6 transition-colors hover:bg-white/10">
+              <Icon name={p.icon} size={22} class="text-lime-300" />
+              <div class="mt-4 text-[18px] font-semibold text-white">{p.name}</div>
+              <div class="mt-1 text-[14px] text-white/60">{p.tagline}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaDuo />
+  </main>
+  <SiteFooter />
+</Layout>

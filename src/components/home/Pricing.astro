@@ -1,0 +1,32 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import PricingCards from "../ui/PricingCards.astro";
+
+const features = [
+  { icon: "sliders-horizontal", titel: "Säulen frei wählbar", text: "Jedes Quartal neu festlegen" },
+  { icon: "euro", titel: "Öffentliche Preise", text: "Keine versteckten Beratertage" },
+  { icon: "calendar", titel: "3 Monate Mindestlaufzeit", text: "Danach monatlich kündbar" },
+  { icon: "badge-check", titel: "Pilotangebot", text: "Die ersten 5 Kunden: 3 Monate zum halben Preis" },
+];
+---
+
+<section id="preise" class="bg-[linear-gradient(180deg,#fff_0%,#fff_55%,#f8fdeb_100%)] px-5 py-24 md:px-8 md:py-32">
+  <SectionHead eyebrow="Pakete & Preise" title="Preise, die zu Ihrem Betrieb passen" />
+
+  <div class="mx-auto mt-12 mb-14 grid max-w-[1000px] grid-cols-2 gap-x-6 gap-y-8 text-center md:grid-cols-4">
+    {features.map((f) => (
+      <div>
+        <Icon name={f.icon} size={18} class="mx-auto text-lime-700" />
+        <div class="mt-3 text-[15px] font-semibold">{f.titel}</div>
+        <div class="mt-1 text-[14px] leading-snug text-body">{f.text}</div>
+      </div>
+    ))}
+  </div>
+
+  <PricingCards />
+
+  <div class="mt-12 text-center">
+    <a href="/preise" class="link-arrow text-[16px] text-ink hover:text-lime-700">Alle Details zu Paketen und Preisen <Icon name="arrow-right" size={16} /></a>
+  </div>
+</section>

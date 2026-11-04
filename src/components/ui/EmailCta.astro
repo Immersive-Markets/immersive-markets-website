@@ -1,0 +1,20 @@
+---
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label = "Gespräch buchen", class: cls = "" } = Astro.props;
+const id = `handoff-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<form action="/gespraech" method="get" data-handoff class:list={["glass flex w-full max-w-[460px] flex-col gap-1.5 rounded-[16px] p-1.5 sm:flex-row sm:items-center sm:gap-1", cls]}>
+  <label class="sr-only" for={id}>E-Mail (geschäftlich)</label>
+  <input
+    id={id}
+    type="email"
+    placeholder="E-Mail (geschäftlich)"
+    autocomplete="email"
+    class="h-11 min-w-0 flex-1 rounded-[12px] bg-transparent text-center sm:text-left px-3.5 text-[15px] text-ink placeholder:text-muted focus:outline-none"
+  />
+  <button type="submit" class="btn btn-dark h-11 shrink-0 cursor-pointer px-4 text-[15px]">{label}</button>
+</form>

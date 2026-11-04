@@ -7,16 +7,16 @@ import SiteFooter from "../components/SiteFooter.astro";
 <Layout title="Impressum — Immersive Markets" description="Impressum und Anbieterkennzeichnung von Immersive Markets gemäß § 5 DDG.">
   <SiteHeader variant="subpage" />
 
-  <section class="imgrid px-5 pt-14 pb-16 md:px-12 md:pt-[74px] md:pb-20">
+  <section class="bg-[linear-gradient(180deg,#f8fdeb_0%,#fff_420px)] px-5 pt-16 pb-24 md:px-8 md:pt-24">
     <div class="legal mx-auto max-w-[760px]">
-      <div class="mb-3 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Rechtliches</div>
-      <h1 class="m-0 mb-10 font-display text-[34px] leading-[0.95] font-black uppercase -tracking-[0.03em] text-bone sm:text-5xl md:text-[52px]">
+      <div class="eyebrow mb-4">Rechtliches</div>
+      <h1 class="h-display m-0 mb-10">
         Impressum
       </h1>
 
       <h2>Angaben gemäß § 5 DDG</h2>
       <p>
-        <strong class="text-bone">Felix Bernd Binder</strong><br />
+        <strong class="text-ink">Felix Bernd Binder</strong><br />
         Immersive Markets (Einzelunternehmen)<br />
         Gartenstraße 3<br />
         88276 Berg<br />
@@ -94,21 +94,21 @@ import SiteFooter from "../components/SiteFooter.astro";
 <style>
   .legal :global(h2) {
     margin: 2.25rem 0 0.75rem;
-    font-family: var(--font-mono, monospace);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-lime);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
   }
   .legal :global(p),
   .legal :global(li) {
     margin: 0 0 1rem;
     font-size: 15px;
     line-height: 1.7;
-    color: var(--color-dim-2);
+    color: var(--color-body);
   }
   .legal :global(a) {
-    color: var(--color-lime);
+    color: var(--color-ink);
+    text-decoration: underline;
     text-underline-offset: 2px;
   }
   .legal :global(a:hover) {

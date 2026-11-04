@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import Icon from "../../components/Icon.astro";
+import PageHero from "../../components/ui/PageHero.astro";
+import CtaDuo from "../../components/ui/CtaDuo.astro";
+import { pillars } from "../../data/pillars";
+---
+
+<Layout title="Selbstchecks — Immersive Markets" description="Ein Selbstcheck pro Säule: kostenlos, unverbindlich, mit einer ehrlichen ersten Einschätzung für Ihren Betrieb.">
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow="Selbstchecks"
+      title="Der Einstieg<br />ohne Verpflichtung."
+      lead="Ein Check pro Säule, kostenlos und unverbindlich. Sie bekommen eine ehrliche erste Einschätzung — auch wenn Sie danach alles selbst umsetzen."
+    />
+
+    <section class="-mt-10 px-5 pb-24 md:px-8">
+      <div class="mx-auto grid max-w-[1180px] gap-5 md:grid-cols-2">
+        {pillars.map((p) => (
+          <a href={`/checks/${p.id}`} class="card group flex flex-col p-7 transition-transform hover:-translate-y-0.5 md:p-9">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2.5 text-[15px] font-semibold text-lime-700">
+                <span class="flex size-9 items-center justify-center rounded-[11px] bg-lime-100 text-lime-800"><Icon name={p.icon} size={18} /></span>
+                {p.check.name}
+              </span>
+              {p.check.status === "bald" && <span class="rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">Bald</span>}
+            </div>
+            <h2 class="mt-6 mb-3 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{p.check.hook}</h2>
+            <p class="m-0 mb-8 text-[15px] text-body">Säule {p.name} · ca. 5 Minuten · Ergebnis sofort</p>
+            <span class="link-arrow mt-auto text-[15px]">Zum Check <Icon name="arrow-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <CtaDuo title="Lieber direkt sprechen?" />
+  </main>
+  <SiteFooter />
+</Layout>

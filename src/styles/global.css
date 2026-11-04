@@ -1,45 +1,50 @@
 @import "tailwindcss";
+@import "@fontsource-variable/onest";
 
 @theme {
-  /* Palette (from the design system) */
-  --color-ink: #111110;
-  --color-ink-2: #0c0c0b;
-  --color-ink-3: #1c1c1a;
-  --color-bone: #F2F0E9;
-  --color-bone-2: #e2ded2;
-  --color-bone-3: #d8d4c8;
-  --color-lime: #C9F24A;
-  --color-line: #2c2c28;
-  --color-line-deep: #4B4E3C;
-  --color-dim: #8b8f78;
-  --color-dim-2: #b7b8ac;
-  --color-dim-3: #5c5c53;
-  --color-dim-4: #6f7263;
-  --color-slate-mid: #3a3a34;
+  --font-sans: "Onest Variable", ui-sans-serif, system-ui, sans-serif;
 
-  /* Typefaces */
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-ink: #141414;
+  --color-body: #525252;
+  --color-muted: #6b6b6b;
+  --color-line: #ebebeb;
+  --color-surface: #f6f6f4;
+
+  /* Brand lime scale — 300 is the brand colour; 700+ is for text on white */
+  --color-lime-50: #f8fdeb;
+  --color-lime-100: #f0fad2;
+  --color-lime-200: #e2f5a6;
+  --color-lime-300: #c9f24a;
+  --color-lime-400: #b6e02c;
+  --color-lime-500: #96be15;
+  --color-lime-600: #74940e;
+  --color-lime-700: #566e10;
+  --color-lime-800: #3e5012;
+  --color-lime-900: #2b3810;
+
+  --color-forest-800: #26310d;
+  --color-forest-900: #1a2209;
+  --color-forest-950: #0c1004;
 }
 
 @layer base {
-  html,
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   body {
     margin: 0;
-    background: var(--color-ink);
-    color: var(--color-bone);
-    font-family: var(--font-display);
-    -webkit-font-smoothing: antialiased;
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 450;
   }
   a {
-    color: var(--color-lime);
+    color: inherit;
     text-decoration: none;
   }
-  a:hover {
-    color: var(--color-bone);
-  }
   ::selection {
-    background: var(--color-lime);
+    background: var(--color-lime-300);
     color: var(--color-ink);
   }
   summary {
@@ -53,21 +58,182 @@
   textarea,
   select,
   button {
-    font-family: var(--font-display);
+    font: inherit;
   }
-  ::placeholder {
-    color: var(--color-dim-4);
-  }
-  input:focus,
-  textarea:focus {
-    outline: none;
-    border-color: var(--color-lime) !important;
+  :focus-visible {
+    outline: 2px solid var(--color-lime-600);
+    outline-offset: 2px;
   }
 }
 
-@utility imgrid {
-  background-image:
-    linear-gradient(#1a1a18 1px, transparent 1px),
-    linear-gradient(90deg, #1a1a18 1px, transparent 1px);
-  background-size: 56px 56px;
+/* ---------- Typography ---------- */
+@utility h-display {
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+@utility h-section {
+  font-weight: 600;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+}
+@utility h-card {
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+@utility lead {
+  font-weight: 500;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--color-body);
+}
+@utility eyebrow {
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ---------- Glossy surfaces ---------- */
+@utility glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.6),
+    inset 0 0 8px 2px rgba(255, 255, 255, 0.35),
+    0 0.5px 2px rgba(0, 0, 0, 0.08),
+    0 2px 16px -4px rgba(0, 0, 0, 0.1);
+}
+@utility glass-dark {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.2),
+    inset 0 0 8px 2px rgba(255, 255, 255, 0.06);
+}
+@utility card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow:
+    0 0.5px 2px rgba(0, 0, 0, 0.08),
+    0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Buttons ---------- */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 3rem;
+  padding: 0 1.25rem;
+  border-radius: 12px;
+  font-weight: 550;
+  font-size: 1rem;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+@utility btn-dark {
+  background: #000;
+  color: #fff;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    0 6px 6px -6px rgba(0, 0, 0, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  &:hover {
+    background: #262626;
+  }
+}
+@utility btn-lime {
+  background: var(--color-lime-300);
+  color: var(--color-ink);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 6px 6px -6px rgba(0, 0, 0, 0.25),
+    inset 0 0 10px rgba(255, 255, 255, 0.35);
+  &:hover {
+    background: var(--color-lime-400);
+  }
+}
+@utility btn-light {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.06);
+  &:hover {
+    background: #fff;
+  }
+}
+@utility link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 600;
+  color: var(--color-lime-700);
+  &:hover {
+    color: var(--color-lime-900);
+  }
+}
+
+/* ---------- Backgrounds ---------- */
+@utility bg-hero {
+  background:
+    radial-gradient(60% 45% at 50% 100%, rgba(201, 242, 74, 0.45), transparent 70%),
+    radial-gradient(40% 35% at 15% 80%, rgba(226, 245, 166, 0.6), transparent 70%),
+    radial-gradient(40% 35% at 85% 80%, rgba(240, 250, 210, 0.9), transparent 70%),
+    #fff;
+}
+@utility bg-tint {
+  background: linear-gradient(180deg, #fff 0%, #fff 35%, var(--color-lime-100) 100%);
+}
+@utility bg-forest {
+  background:
+    radial-gradient(55% 45% at 50% 0%, rgba(201, 242, 74, 0.2), transparent 70%),
+    linear-gradient(180deg, #23310b, #0f1605);
+}
+@utility bg-forest-fade {
+  background: linear-gradient(180deg, #fff 20%, #2f4a12 62%, var(--color-forest-950));
+}
+@utility bg-featured {
+  background: linear-gradient(155deg, #f4fcdc 0%, #e6f7b0 45%, #f8fdeb 100%);
+}
+
+/* Mega menu: open on hover or keyboard focus */
+@utility mega {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s linear 160ms;
+}
+.nav-item:hover > .mega,
+.nav-item:focus-within > .mega {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    visibility 0s;
+}
+.nav-item:hover > .nav-trigger .chev,
+.nav-item:focus-within > .nav-trigger .chev {
+  transform: rotate(180deg);
 }

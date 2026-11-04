@@ -1,16 +1,20 @@
 ---
 interface Props {
-  size?: "sm" | "md";
+  tone?: "dark" | "light";
+  class?: string;
 }
-const { size = "md" } = Astro.props;
-const box = size === "sm" ? "size-[26px]" : "size-8";
-const mark = size === "sm" ? "text-[11px]" : "text-sm";
-const label = size === "sm" ? "text-[11px]" : "text-sm";
+const { tone = "dark", class: cls = "" } = Astro.props;
 ---
 
-<a href="/" class="flex items-center gap-[11px] text-bone hover:text-bone" aria-label="Immersive Markets — Startseite">
-  <span class={`${box} bg-lime flex items-center justify-center`}>
-    <span class={`font-display font-black ${mark} text-ink -tracking-[0.04em]`}>IM</span>
-  </span>
-  <span class={`font-display font-extrabold uppercase -tracking-[0.01em] ${label}`}>Immersive Markets</span>
+<a
+  href="/"
+  class:list={[
+    "inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-[21px] font-semibold tracking-[-0.03em]",
+    tone === "dark" ? "text-ink" : "text-white",
+    cls,
+  ]}
+  aria-label="Immersive Markets — Startseite"
+>
+  <span class="size-[18px] rounded-[6px] bg-lime-300 shadow-[inset_0_1px_1px_rgba(255,255,255,.7),inset_0_0_6px_rgba(255,255,255,.4)]"></span>
+  Immersive Markets
 </a>

@@ -7,4 +7,11 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  redirects: {
+    "/ueber": "/ueber-mich",
+    "/gespraech-vereinbaren": "/gespraech",
+    "/gespraech-vereinbaren/danke": "/gespraech/danke",
+    "/vorschau": "/preise",
+    "/vorschau/danke": "/preise",
+  },
 });
