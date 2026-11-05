@@ -288,8 +288,6 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
     font-size: 12px;
     font-weight: 700;
   }
-  .pc-ink.ok { background: var(--color-lime-300); color: var(--color-ink); }
-  .pc-ink.warn { background: var(--color-forest-900); color: var(--color-lime-300); }
   .pc-ink.neutral { background: var(--color-ink); color: #fff; font-size: 11px; }
   .pc-ink.anim { animation: pc-stamp 0.42s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
   @keyframes pc-stamp { 0% { transform: scale(1.9); opacity: 0; } 55% { transform: scale(0.9); opacity: 1; } 100% { transform: scale(1); } }
@@ -303,16 +301,6 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
   .qcard.pre { opacity: 0; transform: translateX(24px); transition: none; }
   .opt.picked { border-color: var(--color-forest-900); background: var(--color-forest-900); color: #fff; }
   .opt.picked .k { background: var(--color-lime-300); color: var(--color-ink); border-color: transparent; }
-  .gain {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    pointer-events: none;
-    font-size: 13px;
-    font-weight: 700;
-    animation: gain 1s ease forwards;
-  }
-  @keyframes gain { 0% { opacity: 0; transform: translateY(-50%); } 25% { opacity: 1; } 100% { opacity: 0; transform: translateY(-190%); } }
   .seg { height: 6px; border-radius: 3px; background: rgba(0, 0, 0, 0.07); position: relative; overflow: hidden; }
   .seg::after { content: ""; position: absolute; inset: 0; background: var(--color-forest-900); transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.3, 0.8, 0.3, 1); }
   .seg.on::after { transform: scaleX(1); }
@@ -347,7 +335,7 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .pc *, .qcard, .seg::after, .radar-poly, .bump, .gain, .r-body { animation: none !important; transition: none !important; }
+    .pc *, .qcard, .seg::after, .radar-poly, .bump, .r-body { animation: none !important; transition: none !important; }
   }
 
   @media print {
@@ -418,8 +406,8 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
     });
     html +=
       '</div><div class="flex flex-wrap items-end justify-between gap-3 pt-4">' +
-      '<div><div class="text-[13px] font-semibold text-muted">Modernisierungsbedarf</div><div class="text-[40px] leading-none font-semibold tracking-[-0.03em] tabular-nums"><span class="pc-val">0</span><span class="text-[24px] text-muted"> %</span></div></div>' +
-      '<div class="text-right"><div class="text-[13px] font-semibold text-muted">Warnsignale</div><div class="text-[28px] leading-none font-semibold tabular-nums"><span class="pc-warn">0</span></div></div>' +
+      `<div><div class="text-[13px] font-semibold text-muted">Beantwortet</div><div class="text-[40px] leading-none font-semibold tracking-[-0.03em] tabular-nums"><span class="pc-val">0</span><span class="text-[22px] text-muted"> / ${fragen.length}</span></div></div>` +
+      `<div class="text-right"><div class="text-[13px] font-semibold text-muted">Bereiche</div><div class="text-[28px] leading-none font-semibold tabular-nums"><span class="pc-warn">0</span><span class="text-[18px] text-muted"> / ${scoredAreas.length}</span></div></div>` +
       "</div></div>";
     root.innerHTML = html;
     return {
@@ -431,14 +419,14 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
       warn: root.querySelector(".pc-warn")!,
     };
   }
-  function stamp(card: Card, i: number, m: number | undefined, anim: boolean) {
+  // Während des Checks bleibt jeder Stempel neutral; die Bewertung zeigt erst das Ergebnis.
+  function stamp(card: Card, i: number, anim: boolean) {
     const s = card.slots[i];
     if (!s) return;
     s.querySelector(".pc-ink")?.remove();
     const ink = document.createElement("span");
-    const kind = m === undefined ? "neutral" : m <= 2 ? "warn" : "ok";
-    ink.className = `pc-ink ${kind}${anim && !reduce ? " anim" : ""}`;
-    ink.textContent = kind === "warn" ? "!" : kind === "ok" ? "✓" : pad(i + 1);
+    ink.className = `pc-ink neutral${anim && !reduce ? " anim" : ""}`;
+    ink.textContent = pad(i + 1);
     s.appendChild(ink);
     if (anim && !reduce) {
       card.el.classList.remove("thud");
@@ -456,10 +444,10 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
   // Demo auf der Landingpage
   const demo = buildCard($("demoCard"));
   demo.name.textContent = "Muster Metallbau GmbH";
-  [undefined, undefined, undefined, 1, 2, 1, 3, 2].forEach((m, i) => stamp(demo, i, m, false));
+  [0, 1, 2, 3, 4, 5, 6, 7].forEach((i) => stamp(demo, i, false));
   demo.slots[8]?.classList.add("current");
-  demo.val.textContent = "67";
-  demo.warn.textContent = "4";
+  demo.val.textContent = "8";
+  demo.warn.textContent = "0";
   demo.rows[0].classList.add("done");
 
   /* ---------- Zähler ---------- */
@@ -477,16 +465,17 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
     };
     requestAnimationFrame(f);
   }
+  const areaComplete = (id: string) => fragen.every((q, i) => q.bereich !== id || answers[i] !== null);
   function updateLive() {
-    const b = bedarf();
-    animateNum(live.val, shown, b, 600);
-    if (b !== shown && !reduce) {
+    const n = answers.filter((a) => a !== null).length;
+    if (n !== shown && !reduce) {
       live.val.classList.remove("bump");
       void live.val.offsetWidth;
       live.val.classList.add("bump");
     }
-    shown = b;
-    live.warn.textContent = String(signals().length);
+    live.val.textContent = String(n);
+    shown = n;
+    live.warn.textContent = String(scoredAreas.filter((a) => areaComplete(a.id)).length);
   }
 
   /* ---------- Ansichten ---------- */
@@ -568,15 +557,8 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
     card.querySelectorAll(".opt").forEach((b) => b.classList.toggle("picked", b === btn));
     const q = fragen[idx];
     const o = q.optionen[i];
-    if (btn && o.m !== undefined) {
-      const g = document.createElement("span");
-      g.className = "gain";
-      g.style.color = "var(--color-lime-300)";
-      g.textContent = o.m <= 2 ? "+1 Warnsignal" : "Gut aufgestellt";
-      btn.appendChild(g);
-    }
     if (q.id === "branche") live.name.textContent = o.text;
-    stamp(live, idx, o.m, true);
+    stamp(live, idx, true);
     markRows(live);
     updateLive();
     renderSegs();
@@ -585,14 +567,11 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
     const areaDone = fragen.filter((x) => x.bereich === q.bereich).every((x) => answers[fragen.indexOf(x)] !== null);
     if (next < fragen.length && fragen[next].bereich !== q.bereich && areaDone) {
       const area = bereiche.find((b) => b.id === q.bereich)!;
+      const nextArea = bereiche.find((b) => b.id === fragen[next].bereich)!;
       if (q.bereich === "profil") {
-        toast("Profil erfasst", "Jetzt wird es ehrlich. Es folgen Markt, Talente, Führung, Prozesse sowie Digitalisierung und KI.");
+        toast("Profil erfasst", "Es folgen fünf Bereiche: Markt, Talente, Führung, Prozesse sowie Digitalisierung und KI.");
       } else {
-        const n = signals().filter((s) => s.bereich === q.bereich).length;
-        toast(
-          `${area.label} geschafft`,
-          n === 0 ? "Hier sind Sie gut aufgestellt." : `${n} ${n === 1 ? "Warnsignal" : "Warnsignale"} in diesem Bereich. Bisher ${bedarf()} % Modernisierungsbedarf.`,
-        );
+        toast(`${area.label} erfasst`, `Weiter mit ${nextArea.label}. Ihre Auswertung sehen Sie am Ende.`);
       }
     }
     setTimeout(
