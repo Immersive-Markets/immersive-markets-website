@@ -1,0 +1,65 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+
+const phasen = [
+  {
+    woche: "Woche 1",
+    titel: "Erstgespräch",
+    punkte: ["30 Minuten per Video, unverbindlich", "Wir klären, wo Ihr Betrieb steht", "Sie entscheiden, ob es passt"],
+    dark: false,
+  },
+  {
+    woche: "Woche 2–3",
+    titel: "Bestandsaufnahme",
+    punkte: ["Sichtung der aktiven Säulen", "Gemeinsame 90-Tage-Roadmap", "Zugang zum Kundenportal"],
+    dark: false,
+  },
+  {
+    woche: "Ab Woche 4",
+    titel: "Umsetzung",
+    punkte: ["Laufende Umsetzung der Roadmap", "Strategie-Calls je nach Paket", "Monatsreport und Lernbibliothek"],
+    dark: true,
+  },
+];
+---
+
+<section class="px-3 md:px-5">
+  <div class="mx-auto max-w-[1400px] rounded-[32px] bg-[linear-gradient(180deg,#fff_0%,#f4fcdc_45%,#eaf8bd_100%)] px-5 py-24 md:px-8 md:py-28">
+    <SectionHead
+      eyebrow="So läuft es ab"
+      title="Starten Sie mit Plan —<br />von Woche 1 an."
+      lead="Vom Erstgespräch bis zur laufenden Umsetzung: mit klarer Roadmap und festem Ansprechpartner."
+    />
+
+    <div class="mx-auto mt-16 grid max-w-[1180px] gap-5 md:grid-cols-3">
+      {phasen.map((p) => (
+        <div class="relative pt-5">
+          <span
+            class:list={[
+              "absolute top-0 left-1/2 z-10 -translate-x-1/2 rounded-[10px] px-3 py-1.5 text-[13px] font-semibold whitespace-nowrap",
+              p.dark ? "bg-lime-300 text-ink" : "bg-white text-ink shadow-[0_1px_6px_rgba(0,0,0,.1)]",
+            ]}
+          >{p.woche}</span>
+          <div class:list={["h-full rounded-[24px] p-7 pt-9", p.dark ? "bg-forest text-white" : "glass"]}>
+            <h3 class="m-0 mb-5 text-[22px] font-semibold tracking-[-0.02em]">{p.titel}</h3>
+            <ul class="flex flex-col gap-3 text-[15px]">
+              {p.punkte.map((pt) => (
+                <li class="flex gap-2.5">
+                  <Icon name="check" size={18} class:list={["mt-0.5 shrink-0", p.dark ? "text-lime-300" : "text-lime-600"]} strokeWidth={2.25} />
+                  <span class:list={[p.dark ? "text-white/85" : "text-body"]}>{pt}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 flex justify-center">
+      <a href="/zusammenarbeit" class="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-[14px] font-medium hover:bg-white">
+        <Icon name="map-pin" size={16} class="text-lime-700" /> Vor Ort nur bei der Implementierung, gegen Aufpreis · Mehr zur Zusammenarbeit
+      </a>
+    </div>
+  </div>
+</section>

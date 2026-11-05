@@ -1,0 +1,130 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import { pillars } from "../../data/pillars";
+
+const gruppen = [
+  {
+    id: "situation",
+    icon: "user-round",
+    label: "Ihre Situation",
+    sub: "Für jede Phase nach der Übergabe",
+    items: [
+      { titel: "Frisch übernommen", text: "Sie sind gerade ins Amt gekommen und sortieren, was zuerst dran ist." },
+      { titel: "Mitten im Umbau", text: "Erste Projekte laufen, aber es fehlt jemand, der den Überblick behält." },
+      { titel: "Bereit für Wachstum", text: "Die Grundlagen stehen. Jetzt sollen Team und Kundenstamm wachsen." },
+    ],
+  },
+  {
+    id: "branche",
+    icon: "factory",
+    label: "Ihre Branche",
+    sub: "Industrie, Produktion und Handwerk",
+    items: [
+      { titel: "Industrie", text: "Komplexe Produkte, lange Kundenbeziehungen und Fachkräfte, die schwer zu finden sind." },
+      { titel: "Produktion", text: "Viele Abläufe, viele Listen — und jede Menge Potenzial für Automatisierung." },
+      { titel: "Handwerk", text: "Volle Auftragsbücher, aber kaum Zeit für Website, Recruiting und Büro." },
+    ],
+  },
+];
+
+const reifegrad = [
+  { name: "Mitarbeiter", wert: 40 },
+  { name: "Kunden", wert: 55 },
+  { name: "Prozesse", wert: 30 },
+  { name: "KI", wert: 15 },
+];
+---
+
+<section class="px-5 py-24 md:px-8 md:py-32" data-segments>
+  <SectionHead
+    eyebrow="Für wen"
+    title="Ihr Betrieb hat Geschichte.<br />Jetzt bekommt er Zukunft."
+    lead="Inhaber- oder familiengeführt, mindestens in zweiter Generation oder seit über 25 Jahren am Markt, 20 bis 250 Mitarbeiter."
+  />
+
+  <div class="mx-auto mt-10 flex max-w-[520px] gap-2 rounded-[20px] bg-black/[.035] p-1.5">
+    {gruppen.map((g, i) => (
+      <button
+        type="button"
+        data-segment={g.id}
+        aria-pressed={i === 0 ? "true" : "false"}
+        class="seg-btn flex flex-1 flex-col items-center rounded-[15px] px-3 py-3 text-center transition-colors"
+      >
+        <Icon name={g.icon} size={18} />
+        <span class="mt-1 text-[14px] font-semibold">{g.label}</span>
+        <span class="text-[13px] leading-snug text-muted">{g.sub}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="mx-auto mt-10 grid max-w-[1240px] overflow-hidden rounded-[28px] bg-surface lg:grid-cols-[1fr_1.35fr]">
+    <div class="p-6 md:p-10">
+      {gruppen.map((g, i) => (
+        <ul data-segment-panel={g.id} hidden={i !== 0} class="flex flex-col">
+          {g.items.map((it, j) => (
+            <li class:list={["py-7", j > 0 && "border-t border-black/[.07]"]}>
+              <div class="text-[20px] font-semibold tracking-[-0.01em] text-lime-700">{it.titel}</div>
+              <p class="m-0 mt-1.5 text-[16px] text-body">{it.text}</p>
+            </li>
+          ))}
+        </ul>
+      ))}
+      <a href="/gespraech" class="link-arrow mt-4 text-[15px]">Passt das zu Ihnen? Lassen Sie uns sprechen <Icon name="arrow-right" size={16} /></a>
+    </div>
+
+    <div class="relative flex items-center justify-center bg-[radial-gradient(70%_70%_at_70%_30%,#e2f5a6,transparent_70%),linear-gradient(135deg,#26310d,#0c1004)] p-8 md:p-14">
+      <div class="glass w-full max-w-[420px] rounded-[24px] p-6">
+        <div class="flex items-center justify-between">
+          <div class="text-[13px] text-muted">Bestandsaufnahme</div>
+          <span class="rounded-full border border-line bg-white px-2.5 py-0.5 text-[11px] font-medium text-muted">Beispiel</span>
+        </div>
+        <div class="mt-1 mb-6 text-[22px] font-semibold tracking-[-0.02em]">Reifegrad nach Säulen</div>
+        <ul class="flex flex-col gap-4">
+          {reifegrad.map((r) => {
+            const p = pillars.find((x) => x.name === r.name)!;
+            return (
+              <li>
+                <div class="mb-1.5 flex items-center gap-2 text-[14px] font-medium">
+                  <Icon name={p.icon} size={15} class="text-lime-700" />{r.name}
+                </div>
+                <div class="h-2.5 overflow-hidden rounded-full bg-black/[.06]">
+                  <div class="h-full rounded-full bg-[linear-gradient(90deg,#96be15,#c9f24a)]" style={`width:${r.wert}%`}></div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <div class="mt-6 rounded-[14px] bg-lime-50 p-3.5 text-[14px] text-body">
+          <span class="font-semibold text-ink">Empfehlung:</span> mit der Säule Prozesse starten.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .seg-btn {
+    color: var(--color-body);
+  }
+  .seg-btn[aria-pressed="true"] {
+    background: #fff;
+    color: var(--color-lime-700);
+    box-shadow:
+      0 0.5px 2px rgba(0, 0, 0, 0.08),
+      0 2px 12px -4px rgba(0, 0, 0, 0.12);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-segments]").forEach((root) => {
+    const btns = [...root.querySelectorAll<HTMLButtonElement>("[data-segment]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[data-segment-panel]")];
+    btns.forEach((b) =>
+      b.addEventListener("click", () => {
+        btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        panels.forEach((p) => (p.hidden = p.dataset.segmentPanel !== b.dataset.segment));
+      }),
+    );
+  });
+</script>

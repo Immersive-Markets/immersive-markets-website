@@ -2,150 +2,82 @@
 import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import RequestForm from "../components/RequestForm.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import SectionHead from "../components/ui/SectionHead.astro";
+import CtaDuo from "../components/ui/CtaDuo.astro";
+import { pillars } from "../data/pillars";
 
-const deliverables = [
-  {
-    tag: "SOCIAL MEDIA",
-    lines: ["12 Posts inkl. Grafik", "LinkedIn · Instagram · Facebook", "Planung & Einplanung"],
-  },
-  {
-    tag: "SEO & INHALTE",
-    lines: ["2 Blogartikel, recherchiert", "Keyword-Fokus", "Interne Verlinkung"],
-  },
-  {
-    tag: "DESIGN",
-    lines: ["Grafiken in Ihrer CI", "Karussells & Banner", "Wiederverwendbare Vorlagen"],
-  },
-  {
-    tag: "1:1 AGENTURBETREUUNG",
-    lines: ["Ein fester, persönlicher Ansprechpartner", "Durchgehend erreichbar", "Kein Callcenter, kein Ticketsystem"],
-  },
-  {
-    tag: "VOLLE TRANSPARENZ",
-    lines: ["Sie sehen jeden Beitrag vor Freigabe", "Klare Leistungen, fester Preis", "Monatlicher Kurz-Report"],
-  },
-];
-const ki = [
-  "Themen recherchieren & clustern",
-  "Erste Textentwürfe & Varianten",
-  "Grafik-Rohlinge in Ihrer CI",
-  "Redaktionsplan & Einplanung vorbereiten",
-];
-const mensch = [
-  "Auswählen, was wirklich passt",
-  "Tonalität & Feinschliff",
-  "Fakten- und Marken-Check",
-  "Freigabe — nichts geht ohne diesen Schritt",
+const rolle = [
+  { icon: "user-round", titel: "Verantwortung wie intern", text: "Ich übernehme Digitalisierung, Modernisierung und Wachstum — so, wie es eine interne Stelle täte." },
+  { icon: "workflow", titel: "Beratung und Umsetzung", text: "Kein Konzept für die Schublade: Was wir beschließen, setze ich auch um." },
+  { icon: "timer", titel: "Nur so viel, wie Sie brauchen", text: "Remote-first und monatlich — statt einer Vollzeitstelle, die Sie erst besetzen müssten." },
 ];
 ---
 
-<Layout title="Leistungen & Methodik — Immersive Markets">
-  <SiteHeader variant="subpage" />
+<Layout title="Leistungen — Immersive Markets" description="Der externe Digitalchef für Traditionsunternehmen: vier Säulen, ein fester Ansprechpartner, Beratung und Umsetzung aus einer Hand.">
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow="Leistungen"
+      title="Ein externer Digitalchef —<br />keine Agentur, kein Berater-Tag."
+      lead="Vier Säulen, ein fester Ansprechpartner. Sie entscheiden, welche Säulen aktiv sind, und können das jedes Quartal anpassen."
+    >
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/gespraech" class="btn btn-dark">Gespräch buchen</a>
+        <a href="/preise" class="btn btn-light">Preise ansehen</a>
+      </div>
+    </PageHero>
 
-  <section class="imgrid border-b border-line px-5 pt-14 pb-14 md:px-12 md:pt-[74px] md:pb-16">
-    <div class="mx-auto max-w-[1240px]">
-      <div class="mb-5 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Leistungen &amp; Methodik</div>
-      <h1
-        class="m-0 max-w-[900px] font-display text-[36px] leading-[0.9] font-black uppercase -tracking-[0.03em] sm:text-5xl md:text-[60px]"
-      >
-        Was drin ist —<br />
-        und wer was macht.
-      </h1>
-      <p class="mt-7 max-w-[520px] text-base leading-[1.55] text-dim-2 md:text-[18px]">
-        Ein festes Monatspaket, klar aufgeteilt zwischen KI-Fleißarbeit und menschlicher Entscheidung. Keine
-        Beratungsstunden, keine Blackbox.
-      </p>
-    </div>
-  </section>
-
-  <section class="border-b border-line px-5 py-16 md:px-12 md:py-20">
-    <div class="mx-auto max-w-[1240px]">
-      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Deliverables pro Monat</div>
-      <div class="grid gap-px border border-line bg-line sm:grid-cols-2 md:grid-cols-3">
-        {deliverables.map((d) => (
-          <div class="bg-ink p-8">
-            <div class="mb-3.5 font-mono text-[10px] tracking-widest text-lime">{d.tag}</div>
-            <div class="text-[15px] leading-[1.7] text-dim-2">
-              {d.lines.map((l, i) => (
-                <>
-                  {i > 0 && <br />}
-                  {l}
-                </>
-              ))}
-            </div>
+    <section class="px-5 py-20 md:px-8 md:py-28">
+      <div class="mx-auto grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {rolle.map((r) => (
+          <div class="card p-7">
+            <span class="flex size-10 items-center justify-center rounded-[12px] bg-lime-100 text-lime-800"><Icon name={r.icon} size={20} /></span>
+            <h2 class="h-card mt-5 mb-2">{r.titel}</h2>
+            <p class="m-0 text-[16px] text-body">{r.text}</p>
           </div>
         ))}
-        <div class="bg-ink-2 p-8">
-          <div class="mb-3.5 font-mono text-[10px] tracking-widest text-lime">＋ PRINT-PAKET</div>
-          <div class="text-[15px] leading-[1.7] text-dim-2">
-            Flyer &amp; Broschüren<br />
-            Druckfertige Vorlagen<br />
-            Visitenkarten &amp; Briefbogen
-          </div>
+      </div>
+    </section>
+
+    <section class="bg-forest px-5 py-24 md:px-8 md:py-28">
+      <SectionHead tone="light" eyebrow="Die vier Säulen" title="Alles hängt an vier Säulen" lead="Jeder Check und jedes Umsetzungsthema gehört zu genau einer davon." />
+      <div class="mx-auto mt-14 grid max-w-[1180px] gap-5 md:grid-cols-2">
+        {pillars.map((p) => (
+          <a href={`/leistungen/${p.id}`} class="group flex flex-col rounded-[28px] bg-white p-7 transition-transform hover:-translate-y-0.5 md:p-9">
+            <div class="flex items-center gap-3">
+              <span class="flex size-10 items-center justify-center rounded-[12px] bg-lime-100 text-lime-800"><Icon name={p.icon} size={20} /></span>
+              <span class="text-[15px] font-semibold text-lime-700">{p.name}</span>
+            </div>
+            <h3 class="mt-5 mb-3 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{p.frage}</h3>
+            <p class="m-0 mb-6 text-[16px] text-body">{p.intro}</p>
+            <ul class="mb-8 flex flex-wrap gap-2">
+              {p.themen.map((t) => <li class="rounded-full bg-black/[.04] px-3 py-1 text-[13px] font-medium">{t}</li>)}
+            </ul>
+            <span class="link-arrow mt-auto text-[15px]">Mehr zur Säule {p.name} <Icon name="arrow-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <SectionHead eyebrow="Klare Grenzen" title="Was nicht dabei ist" />
+      <div class="mx-auto mt-12 grid max-w-[1000px] gap-5 md:grid-cols-2">
+        <div class="rounded-[28px] bg-surface p-8">
+          <Icon name="shield-check" size={22} class="text-lime-700" />
+          <h3 class="h-card mt-4 mb-2">App-Entwicklung &amp; IT-Sicherheit</h3>
+          <p class="m-0 text-[16px] text-body">Biete ich nicht selbst an. Dafür vermittle ich spezialisierte Partner aus meinem Netzwerk — Sie haben trotzdem einen Ansprechpartner.</p>
+        </div>
+        <div class="rounded-[28px] bg-surface p-8">
+          <Icon name="file-text" size={22} class="text-lime-700" />
+          <h3 class="h-card mt-4 mb-2">Content aus dem Nichts</h3>
+          <p class="m-0 text-[16px] text-body">Ich arbeite mit Material, das Sie liefern, und reichere es bei Bedarf mit KI an — gekennzeichnet, wo das nötig ist. Mehr unter <a href="/ki-transparenz" class="font-semibold text-lime-700 underline-offset-2 hover:underline">KI-Transparenz</a>.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="imgrid border-b border-line px-5 py-16 md:px-12 md:py-20">
-    <div class="mx-auto max-w-[1240px]">
-      <div class="mb-9 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Wer macht was</div>
-      <div class="grid border border-line md:grid-cols-2">
-        <div class="border-b border-line p-8 md:border-r md:border-b-0 md:p-11">
-          <div class="mb-7 inline-block border border-line-deep px-3 py-1.5 font-mono text-[11px] tracking-widest text-dim-2">
-            DAS MACHT DIE KI
-          </div>
-          <ul class="flex flex-col">
-            {ki.map((item, i) => (
-              <li
-                class:list={[
-                  "text-base py-3.5 text-dim-2",
-                  i < ki.length - 1 ? "border-b border-line" : "pb-0",
-                ]}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="bg-ink-2 p-8 md:p-11">
-          <div class="mb-7 inline-block bg-lime px-3 py-1.5 font-mono text-[11px] tracking-widest text-ink">
-            DAS MACHT DER MENSCH
-          </div>
-          <ul class="flex flex-col">
-            {mensch.map((item, i) => (
-              <li
-                class:list={[
-                  "text-base py-3.5 text-bone",
-                  i < mensch.length - 1 ? "border-b border-line" : "pb-0",
-                ]}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="imgrid border-b border-line px-5 py-16 md:px-12 md:py-20">
-    <div class="mx-auto grid max-w-[1240px] items-center gap-10 md:grid-cols-[1fr_0.85fr] md:gap-16">
-      <div>
-        <div class="mb-5 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Unverbindlich starten</div>
-        <h2 class="m-0 font-display text-[30px] leading-[0.95] font-black uppercase -tracking-[0.02em] sm:text-4xl md:text-[40px]">
-          Sehen Sie es,<br />
-          bevor Sie zahlen.
-        </h2>
-        <p class="mt-6 max-w-[440px] text-base leading-[1.55] text-dim-2 md:text-[17px]">
-          Fordern Sie Ihr komplettes Marketingpaket an — individuell aus Ihrer Website erstellt, in 24&nbsp;Stunden,
-          ohne Kosten und ohne Verpflichtung.
-        </p>
-      </div>
-      <RequestForm idPrefix="leistungen" />
-    </div>
-  </section>
-
+    <CtaDuo title="Welche Säule ist bei Ihnen<br />zuerst dran?" />
+  </main>
   <SiteFooter />
 </Layout>

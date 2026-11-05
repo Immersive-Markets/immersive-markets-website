@@ -1,0 +1,62 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import { pillars } from "../../data/pillars";
+
+const antworten = ["Von Hand in Word", "Mit einer Excel-Vorlage", "Aus einer Branchensoftware", "Das macht jeder anders"];
+
+const features = [
+  { icon: "timer", titel: "In ca. 5 Minuten", text: "Ein Klick pro Frage, keine Fachbegriffe" },
+  { icon: "gauge", titel: "Ergebnis sofort", text: "Größter Hebel und Reifegrad auf einen Blick" },
+  { icon: "list-checks", titel: "Drei Maßnahmen", text: "Konkret, mit geschätzter Ersparnis" },
+  { icon: "lock", titel: "Ohne Verpflichtung", text: "Werbe-Mails nur mit Ihrer Zustimmung" },
+  { icon: "sparkles", titel: "Feste Regeln, keine KI", text: "Die Auswertung folgt festen Regeln" },
+];
+---
+
+<section class="bg-forest-fade px-5 pt-24 pb-24 md:px-8 md:pt-32">
+  <SectionHead
+    eyebrow="Selbstchecks"
+    title="Wo stehen Sie?<br />In fünf Minuten wissen Sie es."
+    lead="Ein Selbstcheck pro Säule. Sie sehen sofort, wo Ihr größter Hebel liegt — kostenlos und unverbindlich."
+  >
+    <a href="/checks" class="link-arrow mt-5 text-[16px]">Alle Selbstchecks ansehen <Icon name="arrow-right" size={16} /></a>
+  </SectionHead>
+
+  <div class="relative mx-auto mt-14 max-w-[1100px]">
+    <div class="glass relative z-10 mx-auto max-w-[400px] rounded-[26px] p-5">
+      <div class="mb-1 flex items-center gap-2 text-[15px] font-semibold text-lime-700">
+        <Icon name="sparkles" size={17} /> KI-Potenzial-Check
+      </div>
+      <p class="m-0 mb-3 text-[14px] text-body">Frage 3 von 12 · Bereich Angebote</p>
+      <div class="mb-5 h-1.5 overflow-hidden rounded-full bg-black/[.06]"><div class="h-full w-1/4 rounded-full bg-lime-400"></div></div>
+      <div class="mb-4 text-[17px] leading-snug font-semibold">Wie werden Angebote bei Ihnen erstellt?</div>
+      <div class="flex flex-col gap-2">
+        {antworten.map((a, i) => (
+          <div class:list={["flex items-center gap-2.5 rounded-[12px] px-3.5 py-2.5 text-[14px] font-medium", i === 1 ? "bg-forest-900 text-white" : "border border-black/[.08] bg-white/80 text-ink"]}>
+            <span class:list={["flex size-5 items-center justify-center rounded-[6px] text-[11px] font-semibold", i === 1 ? "bg-lime-300 text-ink" : "bg-black/[.05] text-muted"]}>{i + 1}</span>{a}
+          </div>
+        ))}
+      </div>
+      <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-black px-3 py-1 text-[12px] font-semibold text-white">Vorschau</div>
+    </div>
+
+    <ul class="pointer-events-none absolute inset-y-0 right-0 hidden flex-col justify-center gap-5 lg:flex">
+      {pillars.map((p) => (
+        <li class="flex items-center gap-3 text-[14px] font-medium text-white/85">
+          <span class="h-px w-24 bg-gradient-to-l from-white/50 to-transparent"></span>{p.check.name}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="mx-auto mt-16 grid max-w-[1080px] grid-cols-2 gap-x-6 gap-y-10 text-center md:grid-cols-5">
+    {features.map((f) => (
+      <div>
+        <Icon name={f.icon} size={18} class="mx-auto text-lime-300" />
+        <div class="mt-3 text-[15px] font-semibold text-white">{f.titel}</div>
+        <div class="mt-1 text-[14px] leading-snug text-white/60">{f.text}</div>
+      </div>
+    ))}
+  </div>
+</section>

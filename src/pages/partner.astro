@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import SectionHead from "../components/ui/SectionHead.astro";
+
+const passt = [
+  "Inhaber- oder familiengeführt, mindestens 2. Generation oder seit 25+ Jahren am Markt",
+  "Eine Nachfolgerin oder ein Nachfolger ist im Amt und will das Unternehmen weiterentwickeln",
+  "20–250 Mitarbeiter, Branche Industrie, Produktion oder Handwerk",
+  "Erkennbarer Rückstand bei Website, Recruiting, internen Prozessen oder KI-Einsatz",
+];
+
+const ablauf = [
+  { titel: "Sie stellen den Kontakt her", text: "Ein kurzer Hinweis an Ihren Mandanten oder eine Einführung per E-Mail genügt." },
+  { titel: "Ich führe das Erstgespräch", text: "30 Minuten, unverbindlich. Ich prüfe, ob eine Partnerschaft passt." },
+  { titel: "Sie bleiben informiert", text: "Mit Einverständnis Ihres Mandanten halte ich Sie über den Fortschritt auf dem Laufenden." },
+];
+
+const zielgruppen = [
+  { icon: "file-text", label: "Steuerberatung" },
+  { icon: "building-2", label: "Sparkassen & Volksbanken" },
+  { icon: "badge-check", label: "Kammerberatung" },
+];
+---
+
+<Layout title="Für Partner — Immersive Markets" description="Steuerberater, Sparkassen, Volksbanken und Kammerberater: Empfehlen Sie Ihren Mandanten den externen Digitalchef für die Nachfolge.">
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow="Für Partner"
+      title="Eine Empfehlung, die Ihren<br />Mandanten wirklich hilft."
+      lead="Ihr Mandant hat übernommen — und braucht Unterstützung bei Digitalisierung, Website, Team oder Prozessen. Ich übernehme diese Rolle, ohne dass Sie zuständig bleiben müssen."
+    >
+      <div class="mt-8 flex flex-wrap justify-center gap-2">
+        {zielgruppen.map((z) => (
+          <span class="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[14px] font-medium">
+            <Icon name={z.icon} size={16} class="text-lime-700" />{z.label}
+          </span>
+        ))}
+      </div>
+    </PageHero>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <SectionHead eyebrow="Wann die Empfehlung passt" title="Ihr Mandant ist der Richtige, wenn …" />
+      <ul class="mx-auto mt-12 grid max-w-[1000px] gap-4 md:grid-cols-2">
+        {passt.map((p) => (
+          <li class="card flex gap-3 p-6 text-[16px] text-body">
+            <Icon name="check" size={20} class="mt-0.5 shrink-0 text-lime-600" strokeWidth={2.25} />{p}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="ablauf" class="px-3 md:px-5">
+      <div class="mx-auto max-w-[1400px] rounded-[32px] bg-[linear-gradient(180deg,#fff_0%,#f4fcdc_45%,#eaf8bd_100%)] px-5 py-20 md:px-8 md:py-24">
+        <SectionHead eyebrow="So läuft es ab" title="In drei Schritten" />
+        <div class="mx-auto mt-12 grid max-w-[1080px] gap-5 md:grid-cols-3">
+          {ablauf.map((a, i) => (
+            <div class="glass rounded-[24px] p-7">
+              <span class="flex size-9 items-center justify-center rounded-full bg-lime-300 text-[14px] font-semibold">{i + 1}</span>
+              <h3 class="h-card mt-5 mb-2">{a.titel}</h3>
+              <p class="m-0 text-[16px] text-body">{a.text}</p>
+            </div>
+          ))}
+        </div>
+        <p class="mx-auto mt-10 max-w-[640px] text-center text-[15px] text-body">
+          Was Sie empfehlen, ist der Einstieg in die Partnerschaft: Bestandsaufnahme und 90-Tage-Roadmap.
+          <a href="/zusammenarbeit" class="font-semibold text-lime-700 underline-offset-2 hover:underline">Mehr zur Zusammenarbeit</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="mandantenschutz" class="px-5 py-24 md:px-8 md:py-28">
+      <div class="mx-auto grid max-w-[1180px] items-center gap-10 lg:grid-cols-2">
+        <SectionHead align="left" eyebrow="Mandantenschutz" title="Ihre Beziehung bleibt Ihre" lead="Ich spreche Ihre Mandanten nicht ohne Ihr Wissen an und baue keine Beziehung auf, die Ihre ersetzt. Sie entscheiden, wie eng Sie beteiligt bleiben." />
+        <div class="bg-forest rounded-[28px] p-8 text-white md:p-10">
+          <Icon name="handshake" size={28} class="text-lime-300" />
+          <h3 class="mt-5 mb-3 text-[26px] font-semibold tracking-[-0.02em]">Partnergespräch vereinbaren</h3>
+          <p class="m-0 mb-7 text-[16px] text-white/70">Schreiben Sie kurz, worum es geht — ich melde mich persönlich.</p>
+          <a href="mailto:info@immersive-markets.de?subject=Partnergespr%C3%A4ch" class="btn btn-lime">Partnergespräch anfragen</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <SiteFooter />
+</Layout>

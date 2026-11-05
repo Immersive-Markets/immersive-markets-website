@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Icon from "../components/Icon.astro";
+
+const points = [
+  { icon: "message-circle", text: "Kein Verkaufsgespräch, kein Druck" },
+  { icon: "user-round", text: "Persönlich mit Felix Binder" },
+  { icon: "timer", text: "30 Minuten per Video" },
+  { icon: "calendar", text: "Sie schlagen Termine vor, ich melde mich zurück" },
+];
+
+const field = "h-12 w-full rounded-[12px] border border-line bg-white px-4 text-[15px] text-ink placeholder:text-muted focus:border-lime-500 focus:ring-4 focus:ring-lime-200 focus:outline-none";
+const label = "mb-1.5 block text-[14px] font-medium text-ink";
+---
+
+<Layout title="Gespräch buchen — Immersive Markets" description="30 Minuten per Video, unverbindlich. Wir klären, ob und wo Immersive Markets Ihnen als externer Digitalchef weiterhilft.">
+  <SiteHeader />
+  <main class="bg-hero px-5 pt-14 pb-24 md:px-8 md:pt-20">
+    <div class="mx-auto grid max-w-[1180px] items-start gap-10 lg:grid-cols-[.9fr_1.1fr]">
+      <div class="lg:pt-6">
+        <div class="glass mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] font-medium">
+          <span class="size-2 rounded-full bg-lime-400"></span>Erstgespräch · 30 Minuten
+        </div>
+        <h1 class="h-display m-0">Lassen Sie uns sprechen.</h1>
+        <p class="lead mt-6 max-w-[480px]">
+          Sie haben übernommen oder stehen kurz davor — und wollen wissen, ob und wo ein externer Digitalchef Ihnen weiterhilft. Schreiben Sie kurz, worum es geht und wann es Ihnen passt.
+        </p>
+        <ul class="mt-8 flex flex-col gap-3.5">
+          {points.map((p) => (
+            <li class="flex items-center gap-3 text-[16px] font-medium">
+              <span class="flex size-9 items-center justify-center rounded-[11px] bg-lime-100 text-lime-800"><Icon name={p.icon} size={18} /></span>{p.text}
+            </li>
+          ))}
+        </ul>
+        <p class="mt-8 text-[15px] text-body">
+          Lieber direkt? <a href="mailto:info@immersive-markets.de" class="font-semibold text-lime-700 hover:text-lime-900">info@immersive-markets.de</a>
+        </p>
+      </div>
+
+      <div class="glass rounded-[28px] p-6 md:p-9">
+        <form
+          action="https://api.web3forms.com/submit"
+          method="post"
+          data-web3form
+          data-danke="/gespraech/danke"
+          data-echo="name"
+          class="flex flex-col gap-5"
+        >
+          <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_KEY} />
+          <input type="hidden" name="subject" value="Neue Gesprächsanfrage über die Website" />
+          <input type="hidden" name="from_name" value="Immersive Markets Website" />
+          <input type="hidden" name="redirect" value="https://immersive-markets.de/gespraech/danke" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class={label}>Name *</label>
+              <input id="name" name="name" required autocomplete="name" placeholder="Vor- und Nachname" class={field} />
+            </div>
+            <div>
+              <label for="firma" class={label}>Firma</label>
+              <input id="firma" name="firma" autocomplete="organization" placeholder="Ihr Unternehmen" class={field} />
+            </div>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="email" class={label}>E-Mail *</label>
+              <input id="email" name="email" type="email" required autocomplete="email" placeholder="name@firma.de" data-prefill-email class={field} />
+            </div>
+            <div>
+              <label for="tel" class={label}>Telefon</label>
+              <input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="+49 …" class={field} />
+            </div>
+          </div>
+
+          <div>
+            <label for="nachricht" class={label}>Worum geht es? Wann passt es Ihnen?</label>
+            <textarea
+              id="nachricht"
+              name="nachricht"
+              rows="5"
+              placeholder="Ihr Anliegen und Terminvorschläge — z. B. Di./Do. nachmittags."
+              class={`${field} h-auto resize-y py-3`}
+            ></textarea>
+          </div>
+
+          <label class="flex cursor-pointer items-start gap-3 text-[14px] leading-[1.5] text-body">
+            <input type="checkbox" name="dsgvo" required class="mt-0.5 size-4 shrink-0 accent-[#566e10]" />
+            <span>
+              Ich habe die <a href="/datenschutz" class="font-medium text-ink underline underline-offset-2">Datenschutzerklärung</a>{" "}
+              gelesen und bin mit der Verarbeitung meiner Daten zur Kontaktaufnahme einverstanden.
+            </span>
+          </label>
+
+          <button type="submit" class="btn btn-dark h-12 w-full cursor-pointer">Gespräch anfragen</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <SiteFooter />
+</Layout>

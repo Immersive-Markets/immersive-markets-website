@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import Icon from "../../components/Icon.astro";
+---
+
+<Layout title="Anfrage eingegangen — Immersive Markets">
+  <SiteHeader variant="minimal" />
+  <main class="bg-hero flex min-h-[calc(100dvh-64px)] items-center justify-center px-5 py-16">
+    <div class="glass max-w-[620px] rounded-[32px] p-8 text-center md:p-12">
+      <span class="mx-auto flex size-14 items-center justify-center rounded-full bg-lime-300">
+        <Icon name="check" size={28} strokeWidth={2.5} />
+      </span>
+      <h1 class="h-section mt-6 mb-4">Danke, <span id="name-echo">Ihre Nachricht</span> ist angekommen.</h1>
+      <p class="lead mx-auto mb-8 max-w-[460px]">
+        Ich habe Ihre Anfrage erhalten und melde mich persönlich — meist innerhalb von 24&nbsp;Stunden. Wenn Sie Terminvorschläge gemacht haben, gehe ich direkt darauf ein.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="/" class="btn btn-light">Zur Startseite</a>
+        <a href="/leistungen" class="btn btn-dark">Leistungen ansehen</a>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    try {
+      const p = sessionStorage.getItem("im-echo");
+      const el = document.getElementById("name-echo");
+      if (p && el) el.textContent = p.slice(0, 80);
+      sessionStorage.removeItem("im-echo");
+    } catch {}
+  </script>
+</Layout>

@@ -1,0 +1,59 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import { pillars } from "../../data/pillars";
+
+const features = [
+  { icon: "user-round", titel: "Ein Ansprechpartner", text: "Kein wechselnder Account-Manager" },
+  { icon: "list-checks", titel: "90-Tage-Roadmap", text: "Klare Reihenfolge statt Aktionismus" },
+  { icon: "euro", titel: "Feste Monatspreise", text: "Öffentlich, ohne Überraschungen" },
+  { icon: "timer", titel: "Remote-first", text: "Schnell, ohne Anfahrtskosten" },
+  { icon: "eye", titel: "KI gekennzeichnet", text: "Ein Mensch prüft vor jeder Freigabe" },
+];
+---
+
+<section class="bg-forest px-5 py-24 md:px-8 md:py-32">
+  <div class="mx-auto max-w-[1240px]">
+    <SectionHead tone="light" title="Entwickelt für die Realität<br />im Mittelstand" />
+
+    <div class="mx-auto mt-14 grid max-w-[1080px] grid-cols-2 gap-x-6 gap-y-10 text-center md:grid-cols-5">
+      {features.map((f) => (
+        <div>
+          <Icon name={f.icon} size={20} class="mx-auto text-lime-300" />
+          <div class="mt-3 text-[15px] font-semibold text-white">{f.titel}</div>
+          <div class="mt-1 text-[14px] leading-snug text-white/60">{f.text}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {pillars.map((p, i) => (
+        <a
+          href={`/leistungen/${p.id}`}
+          class:list={[
+            "group flex flex-col rounded-[24px] p-6 transition-transform hover:-translate-y-0.5",
+            i === 0 ? "bg-[linear-gradient(180deg,#fff_55%,#eefad0)]" : "bg-white",
+          ]}
+        >
+          <span class="flex size-10 items-center justify-center rounded-[12px] bg-lime-100 text-lime-800">
+            <Icon name={p.icon} size={20} />
+          </span>
+          <h3 class="mt-5 mb-1 text-[22px] font-semibold tracking-[-0.02em]">{p.name}</h3>
+          <p class="m-0 text-[15px] text-body">{p.kurz}</p>
+          <ul class="mt-6 mb-8 flex flex-col gap-2.5 text-[15px]">
+            {p.themen.map((t) => (
+              <li class="flex items-center gap-2.5">
+                <Icon name="check" size={16} class="text-lime-600" strokeWidth={2.25} />{t}
+              </li>
+            ))}
+          </ul>
+          <span class="link-arrow mt-auto text-[15px]">{p.name} entdecken <Icon name="arrow-right" size={16} /></span>
+        </a>
+      ))}
+    </div>
+
+    <p class="mx-auto mt-14 max-w-[640px] text-center text-[16px] text-white/65">
+      App-Entwicklung und IT-Sicherheit biete ich nicht selbst an — dafür vermittle ich spezialisierte Partner aus meinem Netzwerk.
+    </p>
+  </div>
+</section>

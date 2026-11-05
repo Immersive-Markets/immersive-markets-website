@@ -1,0 +1,33 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  crumbs?: { label: string; href: string }[];
+}
+const { eyebrow, title, lead, crumbs } = Astro.props;
+---
+
+<section class="bg-hero px-5 pt-16 pb-20 md:px-8 md:pt-24 md:pb-28">
+  <div class="mx-auto max-w-[900px] text-center">
+    {crumbs && (
+      <nav class="mb-6 flex flex-wrap items-center justify-center gap-2 text-[14px] text-muted" aria-label="Brotkrumen">
+        {crumbs.map((c) => (
+          <>
+            <a href={c.href} class="hover:text-ink">{c.label}</a>
+            <span aria-hidden="true">/</span>
+          </>
+        ))}
+        <span class="font-medium text-ink">{eyebrow}</span>
+      </nav>
+    )}
+    {eyebrow && !crumbs && (
+      <div class="glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] font-medium text-ink">
+        <span class="size-2 rounded-full bg-lime-400"></span>{eyebrow}
+      </div>
+    )}
+    <h1 class="h-display m-0 text-balance" set:html={title} />
+    {lead && <p class="lead mx-auto mt-6 max-w-[680px] text-pretty">{lead}</p>}
+    <slot />
+  </div>
+</section>

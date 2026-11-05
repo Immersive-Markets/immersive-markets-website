@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import SectionHead from "../components/ui/SectionHead.astro";
+import CtaDuo from "../components/ui/CtaDuo.astro";
+
+const wo = [
+  { icon: "gauge", titel: "Selbstchecks", text: "Fragen und Auswertung folgen festen Regeln, nicht einer KI. Die Textbausteine im Ergebnis stammen aus einer festen Bibliothek." },
+  { icon: "file-text", titel: "Konzepte & Entwürfe", text: "Erste Textentwürfe, Recherche und Grafik-Rohlinge können KI-gestützt entstehen. Jedes Stück prüfe ich, bevor Sie es sehen." },
+  { icon: "message-circle", titel: "Kommunikation", text: "Eine persönliche Notiz zu Ihrem Konzept kann als KI-Entwurf vorbereitet werden — geprüft und freigegeben, bevor sie Sie erreicht." },
+];
+
+const schritte = [
+  { schritt: "Recherche & Themen", wer: "KI-gestützt", ki: true },
+  { schritt: "Erste Entwürfe", wer: "KI-gestützt", ki: true },
+  { schritt: "Fakten- & Markencheck", wer: "Mensch", ki: false },
+  { schritt: "Finale Freigabe", wer: "Mensch", ki: false },
+];
+---
+
+<Layout title="KI-Transparenz — Immersive Markets" description="Wo und wie Immersive Markets KI einsetzt, wo ein Mensch prüft, und wie das gekennzeichnet wird — gemäß Art. 50 EU-KI-VO.">
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow="KI-Transparenz"
+      title="Wo KI arbeitet.<br />Wo ein Mensch prüft."
+      lead="Kein Blackbox-Tool, keine versteckte Automatisierung. KI-generierte Inhalte, Chatbots und Konzepte aus Checks tragen einen Hinweis."
+    />
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <SectionHead eyebrow="Einsatzbereiche" title="Wo KI eingesetzt wird" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {wo.map((w) => (
+          <div class="card p-7">
+            <span class="flex size-10 items-center justify-center rounded-[12px] bg-lime-100 text-lime-800"><Icon name={w.icon} size={20} /></span>
+            <h2 class="h-card mt-5 mb-2">{w.titel}</h2>
+            <p class="m-0 text-[16px] text-body">{w.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="px-3 md:px-5">
+      <div class="bg-forest mx-auto grid max-w-[1400px] items-center gap-10 rounded-[32px] px-6 py-16 md:px-14 md:py-20 lg:grid-cols-2">
+        <SectionHead align="left" tone="light" eyebrow="Ablauf" title="Was immer ein Mensch macht" lead="Fakten- und Markencheck vor jeder Veröffentlichung. Die finale Freigabe liegt immer bei einem Menschen — nichts erscheint ohne Ihr OK." />
+        <div class="glass rounded-[24px] p-5">
+          {schritte.map((s, i) => (
+            <div class:list={["flex items-center justify-between py-3.5", i > 0 && "border-t border-black/[.06]"]}>
+              <span class="text-[16px] font-medium">{s.schritt}</span>
+              <span class:list={["rounded-full px-2.5 py-0.5 text-[12px] font-semibold", s.ki ? "bg-lime-200 text-lime-900" : "bg-forest-900 text-white"]}>{s.wer}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <div class="mx-auto max-w-[860px] rounded-[28px] bg-[linear-gradient(160deg,#f8fdeb,#eefad0)] p-8 md:p-10">
+        <span class="inline-flex rounded-[8px] bg-lime-300 px-2.5 py-1 text-[13px] font-semibold">EU AI Act</span>
+        <p class="mt-5 mb-0 text-[17px] leading-relaxed text-body">
+          KI-Einsatz wird transparent gekennzeichnet — gemäß Art. 50 der Verordnung (EU) 2024/1689, ab dem 02.08.2026 verbindlich. Details zur Datenverarbeitung finden Sie in der
+          <a href="/datenschutz" class="font-semibold text-ink underline underline-offset-2">Datenschutzerklärung</a>.
+        </p>
+      </div>
+    </section>
+
+    <CtaDuo title="Fragen zum KI-Einsatz?<br />Lassen Sie uns sprechen." />
+  </main>
+  <SiteFooter />
+</Layout>

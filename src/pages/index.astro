@@ -2,31 +2,38 @@
 import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import HeroHome from "../components/home/HeroHome.astro";
-import TrustBar from "../components/home/TrustBar.astro";
-import CostComparison from "../components/home/CostComparison.astro";
-import PackageContents from "../components/home/PackageContents.astro";
-import AudienceBoard from "../components/home/AudienceBoard.astro";
-import HowItWorks from "../components/home/HowItWorks.astro";
-import PricingCard from "../components/home/PricingCard.astro";
-import HumanInLoop from "../components/home/HumanInLoop.astro";
-import FaqAccordion from "../components/home/FaqAccordion.astro";
-import FinalCta from "../components/home/FinalCta.astro";
+import Hero from "../components/home/Hero.astro";
+import PillarsDark from "../components/home/PillarsDark.astro";
+import Audience from "../components/home/Audience.astro";
+import Person from "../components/home/Person.astro";
+import RulesDark from "../components/home/RulesDark.astro";
+import ChecksShowcase from "../components/home/ChecksShowcase.astro";
+import Pricing from "../components/home/Pricing.astro";
+import Timeline from "../components/home/Timeline.astro";
+import WissenTeaser from "../components/home/WissenTeaser.astro";
+import SectionHead from "../components/ui/SectionHead.astro";
+import FaqList from "../components/ui/FaqList.astro";
+import CtaDuo from "../components/ui/CtaDuo.astro";
+import { faqAllgemein } from "../data/faq";
 ---
 
 <Layout>
-  <SiteHeader variant="home" />
+  <SiteHeader />
   <main>
-    <HeroHome />
-    <TrustBar />
-    <PackageContents />
-    <CostComparison />
-    <AudienceBoard />
-    <HowItWorks />
-    <PricingCard />
-    <HumanInLoop />
-    <FaqAccordion />
-    <FinalCta />
+    <Hero />
+    <PillarsDark />
+    <Audience />
+    <Person />
+    <RulesDark />
+    <ChecksShowcase />
+    <Pricing />
+    <Timeline />
+    <WissenTeaser />
+    <section id="faq" class="px-5 pb-8 md:px-8">
+      <SectionHead eyebrow="Bevor Sie fragen" title="Häufige Fragen" class="mb-12" />
+      <FaqList items={faqAllgemein} />
+    </section>
+    <CtaDuo />
   </main>
   <SiteFooter />
 </Layout>

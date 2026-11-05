@@ -10,10 +10,10 @@ import SiteFooter from "../components/SiteFooter.astro";
 >
   <SiteHeader variant="subpage" />
 
-  <section class="imgrid px-5 pt-14 pb-16 md:px-12 md:pt-[74px] md:pb-20">
+  <section class="bg-[linear-gradient(180deg,#f8fdeb_0%,#fff_420px)] px-5 pt-16 pb-24 md:px-8 md:pt-24">
     <div class="legal mx-auto max-w-[760px]">
-      <div class="mb-3 font-mono text-[12px] uppercase tracking-[.14em] text-lime">Rechtliches</div>
-      <h1 class="m-0 mb-6 font-display text-[34px] leading-[0.95] font-black uppercase -tracking-[0.03em] text-bone sm:text-5xl md:text-[52px]">
+      <div class="eyebrow mb-4">Rechtliches</div>
+      <h1 class="h-display m-0 mb-6">
         Datenschutz&shy;erklärung
       </h1>
       <p class="lead">
@@ -25,7 +25,7 @@ import SiteFooter from "../components/SiteFooter.astro";
       <h2>1. Verantwortlicher</h2>
       <p>
         Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
-        <strong class="text-bone">Felix Bernd Binder</strong><br />
+        <strong class="text-ink">Felix Bernd Binder</strong><br />
         Immersive Markets (Einzelunternehmen)<br />
         Gartenstraße 3<br />
         88276 Berg, Deutschland<br />
@@ -86,11 +86,11 @@ import SiteFooter from "../components/SiteFooter.astro";
         technisch fehlerfreien Darstellung und der Sicherheit seiner Website.
       </p>
 
-      <h2>6. Kontaktformular &amp; Marketingpaket-Anfrage</h2>
+      <h2>6. Kontaktformular &amp; Gesprächsanfrage</h2>
       <p>
-        Wenn Sie mir über das Anfrageformular (kostenloses Marketingpaket) oder per E-Mail Anfragen zukommen
-        lassen, werden Ihre Angaben aus dem Formular inklusive der von Ihnen dort angegebenen Kontaktdaten (z.&nbsp;B.
-        Firmen-URL, Name, E-Mail-Adresse, Telefonnummer) zwecks Bearbeitung der Anfrage und für den Fall von
+        Wenn Sie mir über das Kontaktformular (z.&nbsp;B. „Gespräch buchen") oder per E-Mail Anfragen zukommen lassen,
+        werden Ihre Angaben aus dem Formular inklusive der von Ihnen dort angegebenen Kontaktdaten (z.&nbsp;B. Name,
+        Firma, E-Mail-Adresse, Telefonnummer, Nachricht) zwecks Bearbeitung der Anfrage und für den Fall von
         Anschlussfragen bei mir gespeichert und verarbeitet.
       </p>
       <p>
@@ -122,27 +122,18 @@ import SiteFooter from "../components/SiteFooter.astro";
 
       <h3>Einsatz von Künstlicher Intelligenz (KI)</h3>
       <p>
-        Zur Erstellung des individuellen Marketingpakets setze ich KI-gestützte Werkzeuge ein. Sofern Sie im
-        Formular hierin einwilligen, werden die von Ihnen bereitgestellten bzw. öffentlich zugänglichen
-        Unternehmensinformationen (z.&nbsp;B. Inhalte Ihrer Website) mithilfe KI-gestützter Systeme verarbeitet, um
-        Konzept- und Gestaltungsvorschläge zu erzeugen. Jedes Ergebnis wird vor der Übermittlung an Sie von einem
-        Menschen geprüft und freigegeben. Der KI-Einsatz wird transparent gekennzeichnet (Art. 50 der
-        Verordnung (EU) 2024/1689 — KI-Verordnung). Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a
-        DSGVO). Sie können diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.
+        Im Rahmen der Partnerschaft und bei Selbstchecks können KI-gestützte Werkzeuge eingesetzt werden, etwa zur
+        Recherche oder für erste Entwürfe. Jedes zur Veröffentlichung bestimmte Ergebnis wird vor der Übermittlung
+        an Sie von einem Menschen geprüft und freigegeben. Der KI-Einsatz wird transparent gekennzeichnet
+        (Art. 50 der Verordnung (EU) 2024/1689 — KI-Verordnung); Einzelheiten finden Sie auf der Seite
+        <a href="/ki-transparenz">KI-Transparenz</a>. Soweit die Verarbeitung auf Ihrer Einwilligung beruht
+        (Art. 6 Abs. 1 lit. a DSGVO), können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen.
       </p>
 
-      <h2>7. Google Fonts</h2>
+      <h2>7. Schriftarten</h2>
       <p>
-        Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten sogenannte Web Fonts, die von Google
-        bereitgestellt werden (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Beim
-        Aufruf einer Seite lädt Ihr Browser die benötigten Web Fonts, um Texte und Schriftarten korrekt
-        anzuzeigen. Zu diesem Zweck muss der von Ihnen verwendete Browser Verbindung zu den Servern von Google
-        aufnehmen. Hierdurch erlangt Google Kenntnis darüber, dass über Ihre IP-Adresse diese Website aufgerufen
-        wurde. Die Nutzung von Google Fonts erfolgt im Interesse einer einheitlichen und ansprechenden
-        Darstellung meines Online-Angebots. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1
-        lit. f DSGVO dar. Weitere Informationen finden Sie in der Datenschutzerklärung von Google:
-        <a href="https://policies.google.com/privacy" rel="noopener" target="_blank">
-          https://policies.google.com/privacy</a>.
+        Die auf dieser Website verwendeten Schriftarten werden lokal von meinem eigenen Server ausgeliefert. Beim
+        Aufruf der Seite wird keine Verbindung zu Servern Dritter (z.&nbsp;B. Google Fonts) aufgebaut.
       </p>
 
       <h2>8. Cookies</h2>
@@ -188,28 +179,27 @@ import SiteFooter from "../components/SiteFooter.astro";
     margin: 0 0 1.5rem;
     font-size: 17px;
     line-height: 1.65;
-    color: var(--color-dim-2);
+    color: var(--color-body);
   }
   .legal :global(h2) {
     margin: 2.5rem 0 0.75rem;
-    font-family: var(--font-mono, monospace);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-lime);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
   }
   .legal :global(h3) {
     margin: 1.75rem 0 0.5rem;
     font-size: 15px;
     font-weight: 700;
-    color: var(--color-bone);
+    color: var(--color-ink);
   }
   .legal :global(p),
   .legal :global(li) {
     margin: 0 0 1rem;
     font-size: 15px;
     line-height: 1.7;
-    color: var(--color-dim-2);
+    color: var(--color-body);
   }
   .legal :global(ul) {
     margin: 0 0 1rem;
@@ -220,7 +210,8 @@ import SiteFooter from "../components/SiteFooter.astro";
     margin-bottom: 0.35rem;
   }
   .legal :global(a) {
-    color: var(--color-lime);
+    color: var(--color-ink);
+    text-decoration: underline;
     text-underline-offset: 2px;
     word-break: break-word;
   }
@@ -229,10 +220,10 @@ import SiteFooter from "../components/SiteFooter.astro";
   }
   .legal :global(.note),
   .legal :global(.disclaimer) {
-    border-left: 2px solid var(--color-line-deep);
+    border-left: 2px solid var(--color-lime-300);
     padding-left: 1rem;
     font-size: 13px;
-    color: var(--color-dim);
+    color: var(--color-muted);
   }
   .legal :global(.disclaimer) {
     margin-top: 2.5rem;

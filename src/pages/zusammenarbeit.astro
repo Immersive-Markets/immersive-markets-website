@@ -1,0 +1,74 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Icon from "../components/Icon.astro";
+import PageHero from "../components/ui/PageHero.astro";
+import SectionHead from "../components/ui/SectionHead.astro";
+import CtaDuo from "../components/ui/CtaDuo.astro";
+import Timeline from "../components/home/Timeline.astro";
+
+const portal = [
+  { icon: "list-checks", titel: "Gemeinsame Roadmap", text: "Was umgesetzt wird — und wann" },
+  { icon: "gauge", titel: "Status jedes Themas", text: "Ohne Nachfragen per E-Mail" },
+  { icon: "file-text", titel: "Monatsreport", text: "Was erreicht wurde, was als Nächstes kommt" },
+  { icon: "message-circle", titel: "Direkter Kontakt", text: "Kein Ticketsystem, keine Warteschleife" },
+];
+
+const lernen = [
+  { icon: "users", titel: "Live-Online-Workshops", text: "Für Ihr Team, passend zu Ihren Themen." },
+  { icon: "graduation-cap", titel: "Lernbibliothek", text: "Eine wachsende Sammlung aufgezeichneter Module — je nach Paket." },
+  { icon: "map-pin", titel: "Vor Ort, wenn nötig", text: "Bei der Implementierung möglich, gegen Reisekosten und Tagessatz." },
+];
+---
+
+<Layout title="Zusammenarbeit — Immersive Markets" description="So läuft die Partnerschaft ab: Erstgespräch, Bestandsaufnahme, 90-Tage-Roadmap, remote-first mit Kundenportal und Lernbibliothek.">
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow="Zusammenarbeit"
+      title="Remote-first.<br />Trotzdem persönlich."
+      lead="Die Zusammenarbeit läuft digital — das ist bewusst so. Sie bekommen einen festen Ansprechpartner, eine klare Roadmap und volle Transparenz."
+    >
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/gespraech" class="btn btn-dark">Erstgespräch buchen</a>
+        <a href="/preise" class="btn btn-light">Pakete vergleichen</a>
+      </div>
+    </PageHero>
+
+    <div class="pt-8"><Timeline /></div>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <div class="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
+        <SectionHead align="left" eyebrow="Kundenportal" title="Alles an einem Ort" lead="Sie sehen jederzeit, was gerade passiert — und was als Nächstes kommt." />
+        <div class="grid gap-4 sm:grid-cols-2">
+          {portal.map((p) => (
+            <div class="card p-6">
+              <Icon name={p.icon} size={20} class="text-lime-700" />
+              <div class="mt-4 text-[17px] font-semibold">{p.titel}</div>
+              <div class="mt-1 text-[15px] text-body">{p.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-3 md:px-5">
+      <div class="bg-forest mx-auto max-w-[1400px] rounded-[32px] px-5 py-20 md:px-8 md:py-24">
+        <SectionHead tone="light" eyebrow="Lernen" title="Ihr Team wächst mit" />
+        <div class="mx-auto mt-12 grid max-w-[1080px] gap-4 md:grid-cols-3">
+          {lernen.map((l) => (
+            <div class="glass-dark rounded-[22px] p-7">
+              <Icon name={l.icon} size={22} class="text-lime-300" />
+              <div class="mt-4 text-[18px] font-semibold text-white">{l.titel}</div>
+              <div class="mt-1.5 text-[15px] text-white/65">{l.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaDuo title="Bereit für das Erstgespräch?" />
+  </main>
+  <SiteFooter />
+</Layout>

@@ -7,9 +7,9 @@ interface Props {
 }
 
 const {
-  title = "Immersive Markets — Marketing als Handwerk, nicht als Agentur-Apparat",
+  title = "Immersive Markets — Der externe Digitalchef für Ihre Nachfolge",
   description =
-    "Komplettes Marketing zum Festpreis, monatlich kündbar. Sehen Sie Ihre Kampagne, bevor Sie zahlen. KI-gestützt, von Hand freigegeben.",
+    "Wir machen Traditionsunternehmen bereit für die nächste Generation: an Mitarbeitern, Kunden und Inhabern. Beratung und Umsetzung aus einer Hand, remote-first, als monatliche Partnerschaft.",
 } = Astro.props;
 ---
 
@@ -22,12 +22,6 @@ const {
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Martian+Mono:wght@400;500&display=swap"
-    />
     <title>{title}</title>
 
     <script
@@ -35,8 +29,29 @@ const {
       src="https://stats.immersive-markets.de/script.js"
       data-website-id="1d712274-a850-447b-9dce-33157b51481b"></script>
   </head>
-  <body class="min-h-screen bg-ink text-bone">
+  <body class="min-h-screen bg-white text-ink">
     <slot />
+
+    <script>
+      // Hero e-mail fields hand the address to /gespraech without putting it in the URL.
+      document.querySelectorAll<HTMLFormElement>("form[data-handoff]").forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const email = form.querySelector<HTMLInputElement>("input[type=email]")?.value ?? "";
+          try {
+            if (email) sessionStorage.setItem("im-email", email);
+          } catch {}
+          window.location.href = "/gespraech";
+        });
+      });
+      const target = document.querySelector<HTMLInputElement>("input[data-prefill-email]");
+      if (target) {
+        try {
+          const stored = sessionStorage.getItem("im-email");
+          if (stored && !target.value) target.value = stored;
+        } catch {}
+      }
+    </script>
 
     <script>
       // Progressive enhancement for Web3Forms-backed forms.
@@ -54,9 +69,7 @@ const {
           }
 
           const data = new FormData(form);
-          // Per-form thank-you page + optional echo field (falls back to the
-          // vorschau defaults so existing forms keep working unchanged).
-          const danke = form.dataset.danke || "/vorschau/danke";
+          const danke = form.dataset.danke || "/gespraech/danke";
           const echoField = form.dataset.echo || "firma";
           const echo = String(data.get(echoField) ?? "");
 
@@ -69,8 +82,10 @@ const {
             const json = await res.json();
 
             if (res.ok && json.success) {
-              const query = echo ? `?${echoField}=${encodeURIComponent(echo)}` : "";
-              window.location.href = `${danke}${query}`;
+              try {
+                if (echo) sessionStorage.setItem("im-echo", echo);
+              } catch {}
+              window.location.href = danke;
               return;
             }
             throw new Error(json.message || "Submission failed");

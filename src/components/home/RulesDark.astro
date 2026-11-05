@@ -1,0 +1,55 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+
+const tiles = [
+  { icon: "user-round", titel: "Nur echte Menschen", text: "Kein Avatar, kein erfundenes Team" },
+  { icon: "eye", titel: "KI gekennzeichnet", text: "Transparent nach Art. 50 EU-KI-VO" },
+  { icon: "badge-check", titel: "Nur belegbare Zahlen", text: "Keine Logos oder Ergebnisse ohne Nachweis" },
+];
+
+const features = [
+  { icon: "lock", titel: "Zugriff nach Freigabe", text: "Ich nutze nur Zugänge, die Sie freigeben" },
+  { icon: "file-text", titel: "Ihre Inhalte", text: "Nutzungsrechte gehen an Sie über" },
+  { icon: "shield-check", titel: "Ehrlich bei Förderung", text: "Ich informiere, garantiere aber keine Zuschüsse" },
+  { icon: "handshake", titel: "Mandantenschutz", text: "Empfehlende Partner bleiben im Bild" },
+  { icon: "calendar", titel: "Planbare Laufzeit", text: "Nach 3 Monaten monatlich kündbar" },
+];
+---
+
+<section class="px-3 md:px-5">
+  <div class="bg-forest mx-auto max-w-[1400px] rounded-[32px] px-5 py-20 md:px-8 md:py-28">
+    <SectionHead
+      tone="light"
+      eyebrow="Spielregeln"
+      title="Verlässlich, wie Sie es von<br />einem Partner erwarten"
+      lead="Diese Regeln gelten für jede Partnerschaft — vom ersten Gespräch bis zum Monatsreport."
+    >
+      <a href="/ki-transparenz" class="mt-6 inline-flex items-center gap-1.5 text-[16px] font-semibold text-lime-300 hover:text-lime-200">
+        Zur KI-Transparenz <Icon name="arrow-right" size={16} />
+      </a>
+    </SectionHead>
+
+    <div class="mx-auto mt-14 grid max-w-[1000px] gap-4 md:grid-cols-3">
+      {tiles.map((t) => (
+        <div class="glass-dark flex flex-col items-center rounded-[22px] px-6 py-9 text-center">
+          <span class="flex size-14 items-center justify-center rounded-full bg-lime-300/15 text-lime-300">
+            <Icon name={t.icon} size={26} strokeWidth={1.5} />
+          </span>
+          <div class="mt-5 text-[17px] font-semibold text-white">{t.titel}</div>
+          <div class="mt-1 text-[14px] text-white/60">{t.text}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mx-auto mt-14 grid max-w-[1080px] grid-cols-2 gap-x-6 gap-y-10 text-center md:grid-cols-5">
+      {features.map((f) => (
+        <div>
+          <Icon name={f.icon} size={18} class="mx-auto text-white/80" />
+          <div class="mt-3 text-[15px] font-semibold text-white">{f.titel}</div>
+          <div class="mt-1 text-[14px] leading-snug text-white/55">{f.text}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
