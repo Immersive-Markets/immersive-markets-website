@@ -19,7 +19,10 @@ const wissenSpalten = [
   {
     titel: "Selbstchecks",
     sub: "Kostenlos starten, ohne Verpflichtung",
-    links: pillars.map((p) => ({ label: p.check.name, href: `/checks/${p.id}`, badge: p.check.status === "bald" ? "Bald" : "" })),
+    links: [
+      { label: "Modernisierungscheck", href: "/checks/modernisierung", badge: "Neu" },
+      ...pillars.map((p) => ({ label: p.check.name, href: `/checks/${p.id}`, badge: p.check.status === "bald" ? "Bald" : "" })),
+    ],
   },
   {
     titel: "Wissen & Ressourcen",
