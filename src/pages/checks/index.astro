@@ -7,6 +7,9 @@ import PageHero from "../../components/ui/PageHero.astro";
 import CtaDuo from "../../components/ui/CtaDuo.astro";
 import { pillars } from "../../data/pillars";
 import { fragen as modFragen } from "../../data/checks/modernisierung";
+import { fragen as kiFragen } from "../../data/checks/ki";
+
+const dauer = (id: string) => (id === "ki" ? `${kiFragen.length} Fragen · ca. ${Math.round(kiFragen.length * 0.3)} Minuten` : "ca. 5 Minuten");
 ---
 
 <Layout title="Selbstchecks — Immersive Markets" description="Ein Selbstcheck pro Säule: kostenlos, unverbindlich, mit einer ehrlichen ersten Einschätzung für Ihren Betrieb.">
@@ -41,7 +44,7 @@ import { fragen as modFragen } from "../../data/checks/modernisierung";
               {p.check.status === "bald" && <span class="rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">Bald</span>}
             </div>
             <h2 class="mt-6 mb-3 text-[26px] leading-tight font-semibold tracking-[-0.02em]">{p.check.hook}</h2>
-            <p class="m-0 mb-8 text-[15px] text-body">Säule {p.name} · ca. 5 Minuten · Ergebnis sofort</p>
+            <p class="m-0 mb-8 text-[15px] text-body">Säule {p.name} · {dauer(p.id)} · Ergebnis sofort</p>
             <span class="link-arrow mt-auto text-[15px]">Zum Check <Icon name="arrow-right" size={16} /></span>
           </a>
         ))}

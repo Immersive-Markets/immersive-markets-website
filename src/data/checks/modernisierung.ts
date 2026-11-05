@@ -2,42 +2,7 @@
 // Bewertung ist rein regelbasiert: jede Option trägt einen Reifegrad m (1 = schwach, 4 = stark).
 // Modernisierungsbedarf = 100 − Ø-Reifegrad (auf 0–100 % umgerechnet). Keine Benchmarks, keine KI.
 
-export type SaeuleId = "kunden" | "mitarbeiter" | "prozesse" | "ki";
-
-export interface Option {
-  text: string;
-  /** Reifegrad 1–4. Fehlt bei Profilfragen. */
-  m?: number;
-  /** Warnsignal-Satz für den Report, nur bei schwachen Antworten (m ≤ 2). */
-  signal?: string;
-}
-
-export interface Frage {
-  id: string;
-  bereich: string;
-  /** Kurzes Fachstichwort über der Frage, z. B. "Kundenkonzentration". */
-  thema?: string;
-  frage: string;
-  hinweis: string;
-  optionen: Option[];
-}
-
-export interface Bereich {
-  id: string;
-  label: string;
-  kurz: string;
-  /** Deutung im Report: [Reifegrad unter 40 %, 40–69 %, ab 70 %]. */
-  deutung?: [string, string, string];
-}
-
-export interface Massnahme {
-  id: string;
-  titel: string;
-  text: string;
-  saeule: SaeuleId;
-  fragen: string[];
-  schritte: [string, string, string];
-}
+import type { Bereich, CheckConfig, Frage, Massnahme, Stufe } from "./types";
 
 export const bereiche: Bereich[] = [
   { id: "profil", label: "Profil", kurz: "Profil" },
@@ -643,22 +608,25 @@ export const massnahmen: Massnahme[] = [
   },
 ];
 
-export const saeulenNamen: Record<SaeuleId, string> = {
-  kunden: "Kunden",
-  mitarbeiter: "Mitarbeiter",
-  prozesse: "Prozesse",
-  ki: "KI",
-};
-
-export const stufen = [
+export const stufen: Stufe[] = [
   { bis: 25, label: "Gut aufgestellt", text: "Ihr Unternehmen ist in vielen Punkten schon bereit für die nächste Generation. Jetzt geht es um gezielte nächste Schritte." },
   { bis: 50, label: "Spürbarer Nachholbedarf", text: "Das Fundament trägt. An mehreren Stellen arbeitet Ihr Unternehmen aber noch so, wie es vor zwanzig Jahren richtig war." },
   { bis: 75, label: "Deutlicher Modernisierungsstau", text: "Was Ihr Unternehmen bisher getragen hat, trägt nicht automatisch weiter. Mehrere Bereiche brauchen jetzt Ihre Handschrift." },
   { bis: 100, label: "Dringender Handlungsbedarf", text: "Ihr Unternehmen lebt stark vom Gewachsenen. Wer jetzt nicht anpackt, verliert Kunden und Fachkräfte an Betriebe, die es tun." },
 ];
 
-export const pakete = [
-  { name: "Fokus", saeulen: 1, preis: "1.490 €" },
-  { name: "Wachstum", saeulen: 2, preis: "2.490 €" },
-  { name: "Partner", saeulen: 4, preis: "3.990 €" },
-];
+export const modernisierung: CheckConfig = {
+  id: "modernisierung",
+  name: "Modernisierungscheck",
+  modus: "bedarf",
+  bereiche,
+  fragen,
+  massnahmen,
+  stufen,
+  texte: {
+    profil: "Modernisierungsprofil",
+    report: "Modernisierungs-Report",
+    ergebnis: "Modernisierungsbedarf",
+    rechtshinweis: "Hinweise zu EU AI Act und Entgelttransparenz ersetzen keine Rechtsberatung.",
+  },
+};

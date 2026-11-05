@@ -133,7 +133,7 @@ export const pillars: Pillar[] = [
     check: {
       name: "KI-Potenzial-Check",
       hook: "Wie viele Stunden pro Woche könnte KI Ihrem Betrieb zurückgeben?",
-      status: "bald",
+      status: "live",
     },
   },
 ];
