@@ -1,5 +1,6 @@
 ---
 import { pillars } from "../data/pillars";
+import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
 
 const spalten = [
@@ -44,9 +45,12 @@ const spalten = [
 <footer class="bg-white px-3 pt-16 md:px-5">
   <div class="bg-forest relative mx-auto max-w-[1400px] overflow-hidden rounded-t-[32px] px-6 pt-14 text-white md:px-12">
     <div class="grid gap-12 lg:grid-cols-[1.1fr_3fr]">
-      <p class="m-0 max-w-[260px] text-[24px] leading-[1.15] font-semibold tracking-[-0.02em] text-lime-300">
-        Bereit für die nächste Generation.
-      </p>
+      <div>
+        <Logo tone="light" />
+        <p class="mt-6 mb-0 max-w-[260px] text-[24px] leading-[1.15] font-semibold tracking-[-0.02em] text-lime-300">
+          Bereit für die nächste Generation.
+        </p>
+      </div>
       <div class="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
         {spalten.map((s) => (
           <div>
