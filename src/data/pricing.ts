@@ -42,12 +42,12 @@ export const tiers: Tier[] = [
   },
 ];
 
-// In jedem Paket gleich enthalten. Steht als eigener Block neben dem Vergleich.
+// In jedem Paket enthalten.
 export const fundament = [
-  { icon: "list-checks", titel: "90-Tage-Roadmap", text: "Was in welcher Reihenfolge umgesetzt wird, gemeinsam festgelegt." },
-  { icon: "layout-dashboard", titel: "Kundenportal", text: "Laufende und fertige Vorhaben, jederzeit einsehbar." },
-  { icon: "file-text", titel: "Monatsreport", text: "Was fertig ist, was es bringt und was als Nächstes kommt." },
-  { icon: "sliders-horizontal", titel: "Alle vier Säulen", text: "Vorhaben aus Mitarbeitern, Kunden, Prozessen und KI." },
+  "90-Tage-Roadmap und Kundenportal",
+  "Monatsreport",
+  "Lernbibliothek",
+  "Vorhaben aus allen vier Säulen",
 ];
 
 export const vorhabenText = (n: number) => `${n} Vorhaben gleichzeitig`;
@@ -56,14 +56,15 @@ export const enthalten = (t: Tier) => [
   vorhabenText(t.vorhaben),
   `Strategie-Call ${t.abstimmung}`,
   ...(t.vorrang ? ["Vorrang bei Anfragen"] : []),
-  "Das Fundament: Roadmap, Kundenportal, Monatsreport",
+  "Das Fundament: Roadmap, Kundenportal, Monatsreport, Lernbibliothek",
 ];
 
-// Vergleichstabelle: nur was sich zwischen den Paketen unterscheidet.
+// Vergleichstabelle: identische Zeilen für alle Pakete.
 export const vergleich: { label: string; werte: (string | boolean)[] }[] = [
   { label: "Vorhaben gleichzeitig", werte: tiers.map((t) => String(t.vorhaben)) },
   { label: "Strategie-Call", werte: tiers.map((t) => t.abstimmung) },
   { label: "Vorrang bei Anfragen", werte: tiers.map((t) => t.vorrang) },
+  ...fundament.map((f) => ({ label: f, werte: tiers.map(() => true) })),
 ];
 
 // Beispiele für Vorhaben, jeweils mit der passenden Themenseite.
