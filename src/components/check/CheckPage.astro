@@ -977,7 +977,7 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
     $("doneText").textContent =
       "Speichern Sie Ihren Report jetzt als PDF. Ich melde mich persönlich bei Ihnen" +
       (val("inTel") ? ", gern auch kurz telefonisch" : "") +
-      (optin ? ". Die Praxis-Tipps starten erst, wenn Sie die Bestätigungsmail anklicken." : ".");
+      (optin ? ". Die Bestätigungsmail für die Praxis-Tipps schicke ich Ihnen persönlich. Erst wenn Sie bestätigen, bekommen Sie Tipps." : ".");
     btn.disabled = false;
     btn.innerHTML = original;
     rep.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
