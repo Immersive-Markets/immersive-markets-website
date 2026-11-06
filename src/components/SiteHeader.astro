@@ -2,6 +2,7 @@
 import Logo from "./Logo.astro";
 import Icon from "./Icon.astro";
 import { pillars } from "../data/pillars";
+import { themenFuer } from "../data/themen";
 
 interface Props {
   variant?: "full" | "minimal";
@@ -10,49 +11,17 @@ const { variant = "full" } = Astro.props;
 
 const einstieg = [
   { label: "Alle Leistungen", href: "/leistungen", icon: "layout-dashboard" },
-  { label: "Selbstcheck starten", href: "/checks", icon: "gauge" },
   { label: "Zusammenarbeit", href: "/zusammenarbeit", icon: "handshake" },
-  { label: "Gespräch buchen", href: "/gespraech", icon: "calendar" },
-];
-
-const wissenSpalten = [
-  {
-    titel: "Selbstchecks",
-    sub: "Kostenlos starten, ohne Verpflichtung",
-    links: pillars.map((p) => ({ label: p.check.name, href: `/checks/${p.id}`, badge: p.check.status === "bald" ? "Bald" : "" })),
-  },
-  {
-    titel: "Wissen & Ressourcen",
-    sub: "Leitfäden und Hintergründe",
-    links: [
-      { label: "Wissensbereich", href: "/wissen", badge: "" },
-      { label: "Artikel nach Säulen", href: "/wissen#artikel", badge: "Bald" },
-      { label: "KI-Transparenz", href: "/ki-transparenz", badge: "" },
-      { label: "Häufige Fragen", href: "/#faq", badge: "" },
-    ],
-  },
-  {
-    titel: "Für Partner",
-    sub: "Für Steuerberatung, Banken und Kammern",
-    links: [
-      { label: "Partnerschaft", href: "/partner", badge: "" },
-      { label: "Ablauf einer Empfehlung", href: "/partner#ablauf", badge: "" },
-      { label: "Mandantenschutz", href: "/partner#mandantenschutz", badge: "" },
-    ],
-  },
-];
-
-const wissenHighlights = [
+  { label: "Modernisierungscheck", href: "/checks/modernisierung", icon: "gauge" },
   { label: "Preise ansehen", href: "/preise", icon: "euro" },
-  { label: "So läuft die Zusammenarbeit", href: "/zusammenarbeit", icon: "list-checks" },
-  { label: "KI-Potenzial-Check", href: "/checks/ki", icon: "sparkles" },
+  { label: "Gespräch anfragen", href: "/gespraech", icon: "calendar" },
 ];
 
 const ueberLinks = [
-  { label: "Über mich", sub: "Felix Binder, Salem am Bodensee", href: "/ueber-mich", icon: "user-round" },
+  { label: "Über mich", sub: "Felix Binder, Inhaber", href: "/ueber-mich", icon: "user-round" },
   { label: "Für Partner", sub: "Empfehlen ohne Risiko", href: "/partner", icon: "handshake" },
   { label: "KI-Transparenz", sub: "Wo KI arbeitet, wo ein Mensch prüft", href: "/ki-transparenz", icon: "eye" },
-  { label: "Kontakt", sub: "Gespräch per Video buchen", href: "/gespraech", icon: "message-circle" },
+  { label: "Kontakt", sub: "Gespräch per Video anfragen", href: "/gespraech", icon: "message-circle" },
 ];
 
 const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap rounded-[10px] px-3 text-[15px] font-medium text-ink transition-colors hover:bg-black/[.04]";
@@ -60,7 +29,7 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
 
 <header class="sticky top-0 z-40 border-b border-black/[.04] bg-white/80 backdrop-blur-xl">
   <div class="relative mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-6 px-5 md:px-8">
-    <Logo />
+    <Logo claim />
 
     {variant === "full" && (
       <>
@@ -79,13 +48,12 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
                       <div class="mt-0.5 text-[13px] leading-snug text-muted">{p.kurz}</div>
                     </a>
                     <ul class="mt-3 flex flex-col gap-1.5 text-[14px]">
-                      {p.themen.map((t) => (
-                        <li><a href={`/leistungen/${p.id}`} class="text-ink/85 hover:text-lime-700">{t}</a></li>
+                      {themenFuer(p.id).map((t) => (
+                        <li><a href={`/leistungen/${p.id}/${t.slug}`} class="text-ink/85 hover:text-lime-700">{t.name}</a></li>
                       ))}
                       <li class="mt-2 border-t border-line pt-3">
-                        <a href={`/checks/${p.id}`} class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-lime-700 hover:text-lime-900">
-                          {p.check.name}
-                          {p.check.status === "bald" && <span class="rounded-[4px] bg-lime-300 px-1.5 py-px text-[10px] font-semibold text-ink">Bald</span>}
+                        <a href={`/leistungen/${p.id}`} class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-lime-700 hover:text-lime-900">
+                          Zur Säule {p.name} <Icon name="arrow-right" size={14} />
                         </a>
                       </li>
                     </ul>
@@ -105,43 +73,6 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
 
           <a href="/zusammenarbeit" class={navLink}>Zusammenarbeit</a>
           <a href="/preise" class={navLink}>Preise</a>
-
-          <!-- Wissen -->
-          <div class="nav-item flex h-16 items-center">
-            <a href="/wissen" class={navLink} aria-haspopup="true">
-              Wissen <Icon name="chevron-down" size={16} class="chev transition-transform" />
-            </a>
-            <div class="mega absolute inset-x-5 top-full pt-2 md:inset-x-8">
-              <div class="card grid grid-cols-[1fr_1fr_1fr_270px] gap-8 rounded-[24px] p-6">
-                {wissenSpalten.map((s) => (
-                  <div>
-                    <div class="border-b border-line pb-3">
-                      <div class="text-[15px] font-semibold text-ink">{s.titel}</div>
-                      <div class="mt-0.5 text-[13px] text-muted">{s.sub}</div>
-                    </div>
-                    <ul class="mt-3 flex flex-col gap-2 text-[14px]">
-                      {s.links.map((l) => (
-                        <li>
-                          <a href={l.href} class="inline-flex items-center gap-1.5 text-ink/85 hover:text-lime-700">
-                            {l.label}
-                            {l.badge && <span class="rounded-[4px] bg-lime-300 px-1.5 py-px text-[10px] font-semibold text-ink">{l.badge}</span>}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-                <div class="bg-forest flex flex-col gap-2 rounded-[18px] p-4">
-                  <div class="mb-1 px-1 text-[14px] font-semibold text-white">Ihr Business Case</div>
-                  {wissenHighlights.map((e) => (
-                    <a href={e.href} class="glass-dark flex items-center gap-2.5 rounded-[12px] px-3 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-white/15">
-                      <Icon name={e.icon} size={16} class="text-lime-300" />{e.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Über mich -->
           <div class="nav-item relative flex h-16 items-center">
@@ -167,8 +98,7 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
         </nav>
 
         <div class="hidden items-center gap-2 lg:flex">
-          <a href="/checks" class="hidden px-3 text-[14px] font-medium whitespace-nowrap text-muted transition-colors hover:text-ink xl:inline">Selbstcheck</a>
-          <a href="/gespraech" class="btn btn-dark h-10 px-4 text-[15px]">Gespräch buchen</a>
+          <a href="/gespraech" class="btn btn-dark h-10 px-4 text-[15px]">Gespräch anfragen</a>
         </div>
 
         <button
@@ -204,23 +134,14 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
       <a href="/zusammenarbeit" class="block border-b border-line py-4 text-[17px] font-semibold">Zusammenarbeit</a>
       <a href="/preise" class="block border-b border-line py-4 text-[17px] font-semibold">Preise</a>
       <details class="border-b border-line">
-        <summary class="flex items-center justify-between py-4 text-[17px] font-semibold">Wissen <Icon name="chevron-down" size={18} /></summary>
-        <ul class="flex flex-col gap-3 pb-4">
-          <li><a href="/wissen" class="font-medium">Wissensbereich</a></li>
-          <li><a href="/checks" class="text-body">Selbstchecks</a></li>
-          <li><a href="/ki-transparenz" class="text-body">KI-Transparenz</a></li>
-          <li><a href="/partner" class="text-body">Für Partner</a></li>
-        </ul>
-      </details>
-      <details class="border-b border-line">
         <summary class="flex items-center justify-between py-4 text-[17px] font-semibold">Über mich <Icon name="chevron-down" size={18} /></summary>
         <ul class="flex flex-col gap-3 pb-4">
           {ueberLinks.map((l) => <li><a href={l.href} class="text-body">{l.label}</a></li>)}
         </ul>
       </details>
       <div class="mt-6 flex flex-col gap-3">
-        <a href="/gespraech" class="btn btn-dark w-full">Gespräch buchen</a>
-        <a href="/checks" class="btn btn-light w-full">Selbstcheck starten</a>
+        <a href="/gespraech" class="btn btn-dark w-full">Gespräch anfragen</a>
+        <a href="/checks/modernisierung" class="btn btn-light w-full">Modernisierungscheck starten</a>
       </div>
     </div>
   )}

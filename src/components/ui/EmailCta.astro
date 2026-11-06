@@ -3,7 +3,7 @@ interface Props {
   label?: string;
   class?: string;
 }
-const { label = "Gespräch buchen", class: cls = "" } = Astro.props;
+const { label = "Gespräch anfragen", class: cls = "" } = Astro.props;
 const id = `handoff-${Math.random().toString(36).slice(2, 8)}`;
 ---
 

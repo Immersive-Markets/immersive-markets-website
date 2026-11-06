@@ -4,12 +4,14 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
-  title = "Immersive Markets — Der externe Digitalchef für Ihre Nachfolge",
+  noindex = false,
+  title = "Immersive Markets — Der externe Modernisierungspartner für Nachfolger",
   description =
-    "Wir machen Traditionsunternehmen bereit für die nächste Generation: an Mitarbeitern, Kunden und Inhabern. Beratung und Umsetzung aus einer Hand, remote-first, als monatliche Partnerschaft.",
+    "Ich mache Traditionsunternehmen bereit für die nächste Generation: an Mitarbeitern, Kunden und Inhabern. Beratung und Umsetzung aus einer Hand, remote-first, als monatliche Partnerschaft.",
 } = Astro.props;
 ---
 
@@ -22,6 +24,7 @@ const {
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
     <title>{title}</title>
 
     <script

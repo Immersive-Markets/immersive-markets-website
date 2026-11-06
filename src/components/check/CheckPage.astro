@@ -1,0 +1,992 @@
+---
+// Gemeinsame Oberfläche für alle Selbstchecks: Landingpage, Fragen, Ergebnis, Lead-Gate und Report.
+// Inhalt und Bewertungsregeln kommen aus einer CheckConfig (src/data/checks/*).
+import Layout from "../../layouts/Layout.astro";
+import SiteHeader from "../SiteHeader.astro";
+import SiteFooter from "../SiteFooter.astro";
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import FaqList from "../ui/FaqList.astro";
+import type { CheckConfig } from "../../data/checks/types";
+
+export interface Landing {
+  metaTitle: string;
+  metaDescription: string;
+  crumb: string;
+  badge: string;
+  title: string;
+  lead: string;
+  nutzen: { icon: string; titel: string; text: string }[];
+  beispiel: { title: string; lead: string; fragen: { bereich: string; frage: string }[] };
+  schritte: { titel: string; text: string }[];
+  ueberMich: [string, string];
+  faq: { q: string; a: string }[];
+  schlussTitel: string;
+  ergebnisEyebrow: string;
+  radarLabel: string;
+  gateText: string;
+  optinText: string;
+  placeholderFirma: string;
+}
+
+interface Props {
+  config: CheckConfig;
+  landing: Landing;
+}
+
+const { config, landing: L } = Astro.props;
+const anzahl = config.fragen.length;
+const minuten = Math.round(anzahl * 0.3);
+const fill = (t: string) => t.replaceAll("{anzahl}", String(anzahl)).replaceAll("{minuten}", String(minuten));
+
+const field = "h-12 w-full rounded-[12px] border border-line bg-white px-4 text-[15px] text-ink placeholder:text-muted focus:border-lime-500 focus:ring-4 focus:ring-lime-200 focus:outline-none";
+const label = "mb-1.5 block text-[14px] font-medium text-ink";
+---
+
+<Layout title={L.metaTitle} description={fill(L.metaDescription)}>
+  <div class="print:hidden"><SiteHeader /></div>
+
+  <!-- LANDING -->
+  <main id="vLanding">
+    <section class="bg-hero px-5 pt-14 pb-20 md:px-8 md:pt-20 md:pb-28">
+      <div class="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-[1.1fr_.9fr]">
+        <div>
+          <nav class="mb-6 flex flex-wrap items-center gap-2 text-[14px] text-muted" aria-label="Brotkrumen">
+            <a href="/checks" class="hover:text-ink">Selbstchecks</a><span aria-hidden="true">/</span>
+            <span class="font-medium text-ink">{L.crumb}</span>
+          </nav>
+          <div class="glass mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] font-medium">
+            <span class="size-2 rounded-full bg-lime-400"></span>{L.badge}
+          </div>
+          <h1 class="h-display m-0 text-balance">{L.title}</h1>
+          <p class="lead mt-6 max-w-[560px] text-pretty">{fill(L.lead)}</p>
+          <div class="mt-9 flex flex-wrap items-center gap-5">
+            <button type="button" class="btn btn-dark cursor-pointer" data-start>Check starten <Icon name="arrow-right" size={18} /></button>
+            <span class="text-[15px] text-body">{anzahl} Fragen · ca. {minuten} Minuten · Ergebnis sofort</span>
+          </div>
+        </div>
+        <div>
+          <div id="demoCard"></div>
+          <p class="mt-3 text-center text-[13px] text-muted">Beispiel: So füllt sich Ihr Profil, Antwort für Antwort</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <SectionHead eyebrow="Was Sie mitnehmen" title="Ehrlich, konkret, sofort" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {L.nutzen.map((n) => (
+          <div class="card p-7">
+            <Icon name={n.icon} size={22} class="text-lime-700" />
+            <h3 class="h-card mt-4 mb-2">{n.titel}</h3>
+            <p class="m-0 text-[16px] text-body">{n.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="bg-forest px-5 py-24 md:px-8 md:py-28">
+      <SectionHead
+        tone="light"
+        eyebrow="Ein Vorgeschmack"
+        title={L.beispiel.title}
+        lead={L.beispiel.lead}
+      />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {L.beispiel.fragen.map((b, i) => (
+          <div class="glass-dark rounded-[24px] p-7">
+            <div class="flex items-center gap-2 text-[13px] font-semibold text-lime-300">
+              <span class="flex size-6 items-center justify-center rounded-[7px] bg-lime-300 text-[12px] text-ink">{i + 1}</span>{b.bereich}
+            </div>
+            <p class="m-0 mt-5 text-[21px] leading-snug font-semibold tracking-[-0.01em] text-white">{b.frage}</p>
+          </div>
+        ))}
+      </div>
+      <div class="mt-12 text-center">
+        <button type="button" class="btn btn-lime cursor-pointer" data-start>Alle {anzahl} Fragen beantworten <Icon name="arrow-right" size={18} /></button>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <SectionHead eyebrow="So funktioniert's" title="In drei Schritten zum Report" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {L.schritte.map((s, i) => (
+          <div class="rounded-[24px] bg-surface p-7">
+            <span class="text-[14px] font-semibold text-lime-700">Schritt {i + 1}</span>
+            <h3 class="h-card mt-3 mb-2">{fill(s.titel)}</h3>
+            <p class="m-0 text-[16px] text-body">{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <div class="mx-auto grid max-w-[1180px] gap-5 lg:grid-cols-[1fr_1.2fr]">
+        <div class="relative flex min-h-[260px] flex-col justify-end overflow-hidden rounded-[28px] bg-[radial-gradient(60%_60%_at_80%_20%,rgba(201,242,74,.35),transparent_70%),linear-gradient(160deg,#26310d,#0c1004)] p-7 text-white md:p-9">
+          <div aria-hidden="true" class="pointer-events-none absolute right-6 bottom-2 text-[160px] leading-none font-semibold tracking-[-0.06em] text-white/[.07]">FB</div>
+          <div class="relative text-[16px] font-semibold">Felix Binder</div>
+          <div class="relative text-[14px] text-white/60">Externer Modernisierungspartner · am Bodensee</div>
+        </div>
+        <div class="flex flex-col justify-center rounded-[28px] bg-[linear-gradient(160deg,#f8fdeb,#eefad0)] p-7 md:p-10">
+          <div class="eyebrow mb-4">Wer dahintersteht</div>
+          <p class="m-0 text-[19px] leading-snug font-medium text-ink">{L.ueberMich[0]}</p>
+          <p class="m-0 mt-4 text-[16px] text-body">{L.ueberMich[1]}</p>
+          <a href="/ueber-mich" class="link-arrow mt-6 text-[15px]">Mehr über mich <Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <SectionHead eyebrow="Häufige Fragen" title="Gut zu wissen" />
+      <div class="mt-12"><FaqList items={L.faq} /></div>
+    </section>
+
+    <section class="relative overflow-hidden px-5 py-24 md:px-8 md:py-28">
+      <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_50%_100%,rgba(201,242,74,.55),transparent_70%),linear-gradient(180deg,#fff_0%,#f8fdeb_60%,#e9f8b8_100%)]"></div>
+      <div class="mx-auto max-w-[760px] text-center">
+        <h2 class="h-section m-0 text-balance">{fill(L.schlussTitel)}</h2>
+        <button type="button" class="btn btn-dark mt-9 cursor-pointer" data-start>Check starten <Icon name="arrow-right" size={18} /></button>
+      </div>
+    </section>
+  </main>
+
+  <!-- CHECK -->
+  <main id="vCheck" hidden class="bg-tint overflow-x-clip min-h-[80vh] px-5 pt-10 pb-24 md:px-8 md:pt-14">
+    <div class="mx-auto grid max-w-[1180px] items-start gap-10 lg:grid-cols-[1fr_380px]">
+      <div>
+        <div class="mb-3 flex flex-wrap items-center justify-between gap-3 text-[14px] font-medium text-body">
+          <span id="qArea">Bereich</span>
+          <span id="qCount">Frage 1</span>
+        </div>
+        <div id="segs" class="mb-10 grid gap-1" aria-hidden="true"></div>
+        <div id="qcard" class="qcard" aria-live="polite"></div>
+        <div class="mt-7 flex flex-wrap items-center justify-between gap-3">
+          <button type="button" id="backBtn" class="cursor-pointer py-2 text-[15px] font-semibold text-body hover:text-ink disabled:cursor-default disabled:opacity-35">← Zurück</button>
+          <span class="hidden text-[13px] text-muted md:inline">Tipp: Tasten 1 bis 5 wählen eine Antwort</span>
+        </div>
+      </div>
+      <aside class="order-first flex flex-col gap-3 lg:sticky lg:top-24 lg:order-none">
+        <div id="toast" role="status" class="toast toast-hide"></div>
+        <div id="liveCard"></div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- RESULT -->
+  <main id="vResult" hidden class="px-5 pt-10 pb-24 md:px-8 md:pt-14 print:p-0">
+    <div class="mx-auto max-w-[1180px]">
+      <div class="mb-14 grid items-center gap-8 lg:grid-cols-[1.1fr_.9fr] print:hidden">
+        <div>
+          <div class="eyebrow">{L.ergebnisEyebrow}</div>
+          <div class="mt-4 flex items-baseline gap-3">
+            <span id="rScore" class="text-[clamp(4.5rem,11vw,8rem)] leading-[.9] font-semibold tracking-[-0.05em] tabular-nums">0</span>
+            <span id="rUnit" class="text-[clamp(1.5rem,4vw,3.5rem)] font-semibold tracking-[-0.03em] text-muted">{config.modus === "stunden" ? "Std. / Woche" : "%"}</span>
+          </div>
+          {config.modus === "stunden" && (
+            <p class="m-0 mt-3 text-[clamp(1.25rem,2.4vw,1.6rem)] font-semibold tracking-[-0.01em]">≈ <span id="rEuro">0 €</span> pro Jahr</p>
+          )}
+          <div id="rStufe" class="mt-4 inline-flex rounded-[8px] bg-forest-900 px-3 py-1.5 text-[15px] font-semibold text-lime-300"></div>
+          <p id="rStufeText" class="lead mt-4 max-w-[540px]"></p>
+          <div class="mt-6 flex flex-wrap gap-2.5">
+            <span class="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[14px] font-semibold"><span class="size-2 rounded-full bg-forest-900"></span><span id="rSignals"></span></span>
+            <span class="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[14px] font-semibold"><span class="size-2 rounded-full bg-lime-400"></span><span id="rLever"></span></span>
+          </div>
+          <div id="rTeaser" hidden class="mt-6 max-w-[540px] rounded-[20px] bg-forest-900 p-5 text-white">
+            <div class="text-[13px] font-semibold text-lime-300">Ihr deutlichstes Warnsignal</div>
+            <p id="rTeaserText" class="m-0 mt-1.5 text-[17px] leading-snug font-medium"></p>
+            <p id="rTeaserMore" class="m-0 mt-3 text-[14px] text-white/60"></p>
+          </div>
+          <p class="mt-5 max-w-[540px] text-[13px] text-muted">{config.modus === "stunden" && config.annahmen && `Grobe Schätzung. Annahmen: ${config.annahmen.stundensatz} € Vollkosten pro Stunde, ${config.annahmen.wochen} Arbeitswochen im Jahr. `}Auswertung nach festen Regeln auf Basis Ihrer Antworten, ohne KI und ohne Branchenvergleich. Grobe Orientierung, keine Unternehmens-, Rechts- oder Steuerberatung.</p>
+        </div>
+        <div class="card p-6">
+          <div class="eyebrow">{L.radarLabel}</div>
+          <div id="radar" class="mt-2"></div>
+          <div id="matList" class="mt-2 grid gap-x-6 gap-y-3 sm:grid-cols-2"></div>
+        </div>
+      </div>
+
+      <div class="grid items-start gap-8 lg:grid-cols-[1fr_400px]">
+        <article id="report" class="report locked card relative overflow-hidden p-7 md:p-10 print:shadow-none" aria-hidden="true">
+          <span class="lock-tag absolute top-6 right-6 z-10 inline-flex items-center gap-1.5 rounded-full bg-black px-3 py-1 text-[12px] font-semibold text-white print:hidden"><Icon name="lock" size={13} /> Gesperrt</span>
+          <div id="rBody" class="r-body flex flex-col gap-9"></div>
+        </article>
+
+        <aside class="lg:sticky lg:top-24 print:hidden">
+          <form id="gate" class="glass flex flex-col gap-4 rounded-[28px] p-6 md:p-7" novalidate>
+            <span class="inline-flex self-start rounded-[8px] bg-lime-300 px-2.5 py-1 text-[13px] font-semibold">Kostenlos · als PDF</span>
+            <h2 class="m-0 text-[26px] leading-tight font-semibold tracking-[-0.02em]">Ihren Report freischalten</h2>
+            <p class="m-0 text-[15px] text-body">{L.gateText}</p>
+            <div data-field="firma">
+              <label for="inFirma" class={label}>Firma *</label>
+              <input id="inFirma" name="firma" autocomplete="organization" placeholder={L.placeholderFirma} class={field} />
+              <p class="err m-0 mt-1 hidden text-[13px] text-red-700">Bitte geben Sie Ihre Firma an.</p>
+            </div>
+            <div>
+              <label for="inName" class={label}>Ihr Name <span class="font-normal text-muted">(optional)</span></label>
+              <input id="inName" name="name" autocomplete="name" placeholder="Vor- und Nachname" class={field} />
+            </div>
+            <div data-field="email">
+              <label for="inMail" class={label}>E-Mail *</label>
+              <input id="inMail" name="email" type="email" autocomplete="email" placeholder="name@firma.de" class={field} />
+              <p class="err m-0 mt-1 hidden text-[13px] text-red-700">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+            </div>
+            <div>
+              <label for="inTel" class={label}>Telefon <span class="font-normal text-muted">(optional, für Rückfragen)</span></label>
+              <input id="inTel" name="tel" type="tel" autocomplete="tel" placeholder="+49 …" class={field} />
+            </div>
+            <label class="flex cursor-pointer items-start gap-3 text-[14px] leading-[1.5] text-body">
+              <input type="checkbox" id="inOptin" class="mt-0.5 size-4 shrink-0 accent-[#566e10]" />
+              <span>{L.optinText} Sie erhalten vorher eine Bestätigungsmail (Double-Opt-in). Abmeldung jederzeit möglich.</span>
+            </label>
+            <button type="submit" class="btn btn-dark w-full cursor-pointer">Report freischalten <Icon name="arrow-right" size={18} /></button>
+            <p class="m-0 text-[13px] leading-snug text-muted">Mit dem Absenden verarbeite ich Ihre Angaben, um Ihnen den Report bereitzustellen und bei Rückfragen Kontakt aufzunehmen. Mehr in der <a href="/datenschutz" class="underline underline-offset-2">Datenschutzerklärung</a>.</p>
+          </form>
+
+          <div id="doneBox" hidden class="glass flex flex-col gap-4 rounded-[28px] p-6 md:p-7">
+            <span class="flex size-12 items-center justify-center rounded-full bg-lime-300"><Icon name="check" size={22} /></span>
+            <h2 class="m-0 text-[26px] leading-tight font-semibold tracking-[-0.02em]">Ihr Report ist freigeschaltet</h2>
+            <p id="doneText" class="m-0 text-[15px] text-body"></p>
+            <button type="button" id="pdfBtn" class="btn btn-dark w-full cursor-pointer"><Icon name="file-text" size={18} /> Report als PDF speichern</button>
+            <a href="/gespraech" id="talkBtn" class="btn btn-light w-full">Erstgespräch buchen</a>
+            <button type="button" id="restartBtn" class="cursor-pointer py-1 text-[14px] font-semibold text-body hover:text-ink">Check neu starten</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div class="print:hidden"><SiteFooter /></div>
+
+  <input type="hidden" id="w3key" value={import.meta.env.PUBLIC_WEB3FORMS_KEY ?? ""} />
+  <script type="application/json" id="check-config" set:html={JSON.stringify(config).replaceAll("<", "\\u003c")} />
+</Layout>
+
+<style is:global>
+  /* Profilkarte */
+  .pc { position: relative; }
+  .pc.thud { animation: pc-thud 0.28s ease; }
+  @keyframes pc-thud { 40% { transform: translateY(2px) scale(0.997); } }
+  .pc-slot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex: none;
+    border-radius: 999px;
+    border: 1.5px dashed rgba(0, 0, 0, 0.16);
+  }
+  .pc-slot.current { border: 1.5px solid var(--color-lime-500); animation: pc-pulse 1.6s ease-in-out infinite; }
+  @keyframes pc-pulse { 50% { box-shadow: 0 0 0 5px var(--color-lime-200); } }
+  .pc-ink {
+    position: absolute;
+    inset: -1.5px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .pc-ink.neutral { background: var(--color-ink); color: #fff; font-size: 11px; }
+  .pc-ink.anim { animation: pc-stamp 0.42s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  @keyframes pc-stamp { 0% { transform: scale(1.9); opacity: 0; } 55% { transform: scale(0.9); opacity: 1; } 100% { transform: scale(1); } }
+  .pc-row.done .pc-lab { color: var(--color-ink); }
+  .bump { animation: bump 0.4s ease; display: inline-block; }
+  @keyframes bump { 40% { transform: scale(1.08); color: var(--color-lime-700); } }
+
+  /* Fragen */
+  .qcard { transition: opacity 0.22s ease, transform 0.22s ease; }
+  .qcard.out { opacity: 0; transform: translateX(-24px); }
+  .qcard.pre { opacity: 0; transform: translateX(24px); transition: none; }
+  .opt.picked { border-color: var(--color-forest-900); background: var(--color-forest-900); color: #fff; }
+  .opt.picked .k { background: var(--color-lime-300); color: var(--color-ink); border-color: transparent; }
+  .seg { height: 6px; border-radius: 3px; background: rgba(0, 0, 0, 0.07); position: relative; overflow: hidden; }
+  .seg::after { content: ""; position: absolute; inset: 0; background: var(--color-forest-900); transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.3, 0.8, 0.3, 1); }
+  .seg.on::after { transform: scaleX(1); }
+  .toast {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-radius: 16px;
+    background: var(--color-forest-900);
+    color: #fff;
+    padding: 12px 14px;
+    font-size: 14px;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .toast b { display: block; color: var(--color-lime-300); font-size: 13px; }
+  .toast-hide { opacity: 0; transform: translateY(-6px); }
+
+  /* Report */
+  .report.locked .r-body { filter: blur(6px); user-select: none; pointer-events: none; }
+  .report.locked::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(to bottom, transparent, #fff 80%); }
+  .report:not(.locked) .lock-tag { display: none; }
+  .r-body { transition: filter 0.7s ease; }
+  .radar-poly { transform-origin: 170px 150px; animation: grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  @keyframes grow { from { transform: scale(0); opacity: 0; } }
+
+  /* Mobil: kompakte Live-Leiste statt ganzer Karte, Meldungen unten eingeblendet */
+  @media (max-width: 1023px) {
+    #liveCard .pc-rows,
+    #liveCard .pc-name { display: none; }
+    #liveCard .pc { padding: 12px 18px 14px; }
+    #toast { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pc *, .qcard, .seg::after, .radar-poly, .bump, .r-body { animation: none !important; transition: none !important; }
+  }
+
+  @media print {
+    @page { margin: 16mm; }
+    body { background: #fff !important; }
+    #vResult .report { box-shadow: none; padding: 0; }
+    #vResult .report::after { display: none; }
+    .r-body { filter: none !important; }
+    .r-avoid { break-inside: avoid; }
+  }
+</style>
+
+<script>
+  import type { CheckConfig } from "../../data/checks/types";
+  import { pakete, saeulenNamen } from "../../data/checks/shared";
+
+  const cfg = JSON.parse(document.getElementById("check-config")!.textContent!) as CheckConfig;
+  const { bereiche, fragen, massnahmen, stufen } = cfg;
+  const stundenModus = cfg.modus === "stunden";
+
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+  const scoredAreas = bereiche.filter((b) => b.id !== "profil");
+  const scoredQs = fragen.filter((q) => q.bereich !== "profil");
+
+  let answers: (number | null)[] = fragen.map(() => null);
+  let idx = 0;
+  let busy = false;
+  let shown = 0;
+  let live: Card;
+
+  /* ---------- Bewertung (deterministisch) ---------- */
+  const opt = (i: number) => (i < 0 || answers[i] == null ? null : fragen[i].optionen[answers[i]!]);
+  const mOf = (id: string) => {
+    const i = fragen.findIndex((q) => q.id === id);
+    return opt(i)?.m ?? null;
+  };
+  const toPct = (avg: number) => Math.round(((avg - 1) / 3) * 100);
+  function maturity(area: string) {
+    const ms = scoredQs.filter((q) => q.bereich === area).map((q) => mOf(q.id)).filter((m): m is number => m !== null);
+    if (!ms.length) return null;
+    return toPct(ms.reduce((a, b) => a + b, 0) / ms.length);
+  }
+  function bedarf() {
+    const ms = scoredQs.map((q) => mOf(q.id)).filter((m): m is number => m !== null);
+    if (!ms.length) return 0;
+    return 100 - toPct(ms.reduce((a, b) => a + b, 0) / ms.length);
+  }
+  function signals() {
+    return fragen
+      .map((q, i) => ({ q, o: opt(i) }))
+      .filter((x) => x.o?.m !== undefined && x.o.m <= 2 && x.o.signal)
+      .map((x) => ({ bereich: x.q.bereich, text: x.o!.signal!, m: x.o!.m! }));
+  }
+  const stufe = (s: number) => stufen.find((x) => s <= x.bis) ?? stufen[stufen.length - 1];
+
+  /* Zeitpotenzial (Modus "stunden"): Summe h × Größen-Multiplikator */
+  const fmtH = (n: number) => n.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const fmtEuro = (n: number) => (Math.round(n / 100) * 100).toLocaleString("de-DE") + " €";
+  const idxOf = (id: string) => fragen.findIndex((q) => q.id === id);
+  function mult() {
+    if (!cfg.multFrage) return 1;
+    return opt(idxOf(cfg.multFrage))?.mult ?? 1;
+  }
+  const hoursFor = (id: string) => (opt(idxOf(id))?.h ?? 0) * mult();
+  const hoursTotal = () => fragen.reduce((s, q) => s + hoursFor(q.id), 0);
+  const areaHours = (area: string) => fragen.filter((q) => q.bereich === area).reduce((s, q) => s + hoursFor(q.id), 0);
+  const euro = (h: number) => h * (cfg.annahmen?.stundensatz ?? 45) * (cfg.annahmen?.wochen ?? 46);
+
+  /* ---------- Profilkarte ---------- */
+  interface Card { el: HTMLElement; name: HTMLElement; slots: HTMLElement[]; rows: HTMLElement[]; val: HTMLElement; warn: HTMLElement }
+  function buildCard(root: HTMLElement): Card {
+    let html =
+      '<div class="pc glass rounded-[26px] p-5 md:p-6">' +
+      `<div class="flex items-center justify-between border-b border-black/10 pb-3 text-[13px] font-semibold text-body"><span>${esc(cfg.texte.profil)}</span><span class="text-lime-700">Live</span></div>` +
+      '<div class="pc-name min-h-[1.6em] pt-3 pb-1 text-[17px] font-semibold">Ihr Unternehmen</div><div class="pc-rows">';
+    bereiche.forEach((b) => {
+      html += `<div class="pc-row flex items-center gap-3 border-b border-dashed border-black/10 py-2.5" data-area="${b.id}"><span class="pc-lab w-[84px] shrink-0 text-[13px] leading-tight font-semibold text-muted">${b.kurz}</span><div class="flex flex-wrap gap-1.5">`;
+      fragen.forEach((q, i) => {
+        if (q.bereich === b.id) html += `<span class="pc-slot" data-i="${i}"></span>`;
+      });
+      html += "</div></div>";
+    });
+    html +=
+      '</div><div class="flex flex-wrap items-end justify-between gap-3 pt-4">' +
+      `<div><div class="text-[13px] font-semibold text-muted">Beantwortet</div><div class="text-[40px] leading-none font-semibold tracking-[-0.03em] tabular-nums"><span class="pc-val">0</span><span class="text-[22px] text-muted"> / ${fragen.length}</span></div></div>` +
+      `<div class="text-right"><div class="text-[13px] font-semibold text-muted">Bereiche</div><div class="text-[28px] leading-none font-semibold tabular-nums"><span class="pc-warn">0</span><span class="text-[18px] text-muted"> / ${scoredAreas.length}</span></div></div>` +
+      "</div></div>";
+    root.innerHTML = html;
+    return {
+      el: root.querySelector(".pc")!,
+      name: root.querySelector(".pc-name")!,
+      slots: [...root.querySelectorAll<HTMLElement>(".pc-slot")],
+      rows: [...root.querySelectorAll<HTMLElement>(".pc-row")],
+      val: root.querySelector(".pc-val")!,
+      warn: root.querySelector(".pc-warn")!,
+    };
+  }
+  // Während des Checks bleibt jeder Stempel neutral; die Bewertung zeigt erst das Ergebnis.
+  function stamp(card: Card, i: number, anim: boolean) {
+    const s = card.slots[i];
+    if (!s) return;
+    s.querySelector(".pc-ink")?.remove();
+    const ink = document.createElement("span");
+    ink.className = `pc-ink neutral${anim && !reduce ? " anim" : ""}`;
+    ink.textContent = pad(i + 1);
+    s.appendChild(ink);
+    if (anim && !reduce) {
+      card.el.classList.remove("thud");
+      void card.el.offsetWidth;
+      card.el.classList.add("thud");
+    }
+  }
+  function markRows(card: Card) {
+    card.rows.forEach((r) => {
+      const ids = [...r.querySelectorAll<HTMLElement>(".pc-slot")].map((s) => +s.dataset.i!);
+      r.classList.toggle("done", ids.every((i) => answers[i] !== null));
+    });
+  }
+
+  // Demo auf der Landingpage
+  const demo = buildCard($("demoCard"));
+  demo.name.textContent = "Muster Metallbau GmbH";
+  [0, 1, 2, 3, 4, 5, 6, 7].forEach((i) => stamp(demo, i, false));
+  demo.slots[8]?.classList.add("current");
+  demo.val.textContent = "8";
+  demo.warn.textContent = "0";
+  demo.rows[0].classList.add("done");
+
+  /* ---------- Zähler ---------- */
+  function animateNum(el: HTMLElement, from: number, to: number, dur: number, fmt: (n: number) => string = (n) => String(Math.round(n))) {
+    // Ohne sichtbaren Tab läuft requestAnimationFrame nicht; dann direkt den Endwert zeigen.
+    if (reduce || dur === 0 || document.hidden) {
+      el.textContent = fmt(to);
+      return;
+    }
+    const t0 = performance.now();
+    const f = (t: number) => {
+      const p = Math.min(1, (t - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(from + (to - from) * e);
+      if (p < 1) requestAnimationFrame(f);
+    };
+    requestAnimationFrame(f);
+    // Absicherung, falls requestAnimationFrame gedrosselt ist: Endwert steht spätestens nach der Animationsdauer.
+    setTimeout(() => (el.textContent = fmt(to)), dur + 60);
+  }
+  const areaComplete = (id: string) => fragen.every((q, i) => q.bereich !== id || answers[i] !== null);
+  function updateLive() {
+    const n = answers.filter((a) => a !== null).length;
+    if (n !== shown && !reduce) {
+      live.val.classList.remove("bump");
+      void live.val.offsetWidth;
+      live.val.classList.add("bump");
+    }
+    live.val.textContent = String(n);
+    shown = n;
+    live.warn.textContent = String(scoredAreas.filter((a) => areaComplete(a.id)).length);
+  }
+
+  /* ---------- Ansichten ---------- */
+  function show(view: "vLanding" | "vCheck" | "vResult") {
+    (["vLanding", "vCheck", "vResult"] as const).forEach((v) => ($(v).hidden = v !== view));
+    window.scrollTo(0, 0);
+  }
+
+  function startCheck() {
+    answers = fragen.map(() => null);
+    idx = 0;
+    shown = 0;
+    busy = false;
+    live = buildCard($("liveCard"));
+    const segs = $("segs");
+    segs.style.gridTemplateColumns = `repeat(${fragen.length}, minmax(0, 1fr))`;
+    segs.innerHTML = fragen.map(() => '<span class="seg"></span>').join("");
+    show("vCheck");
+    renderQ(false);
+  }
+  const renderSegs = () => [...$("segs").children].forEach((s, i) => s.classList.toggle("on", answers[i] !== null));
+
+  function renderQ(animate: boolean) {
+    const q = fragen[idx];
+    const ai = bereiche.findIndex((b) => b.id === q.bereich);
+    const area = bereiche[ai];
+    const card = $("qcard");
+    const paint = () => {
+      $("qArea").textContent = `Bereich ${ai + 1} von ${bereiche.length} · ${area.label}`;
+      $("qCount").textContent = `Frage ${idx + 1} von ${fragen.length}`;
+      card.innerHTML =
+        `<div class="text-[14px] font-semibold text-lime-700">Frage ${pad(idx + 1)}${q.thema ? " · " + esc(q.thema) : ""}</div>` +
+        `<h2 class="mt-3 mb-3 max-w-[22ch] text-[clamp(1.75rem,3.2vw,2.5rem)] leading-[1.12] font-semibold tracking-[-0.025em] text-balance">${esc(q.frage)}</h2>` +
+        `<p class="m-0 mb-8 max-w-[58ch] text-[16px] text-body">${esc(q.hinweis)}</p><div class="flex flex-col gap-2.5">` +
+        q.optionen
+          .map(
+            (o, i) =>
+              `<button type="button" class="opt relative flex cursor-pointer items-center gap-3.5 rounded-[14px] border border-black/[.08] bg-white px-4 py-4 text-left text-[16px] font-semibold shadow-[0_0.5px_2px_rgba(0,0,0,.06)] transition hover:translate-x-0.5 hover:border-black/25${answers[idx] === i ? " picked" : ""}" data-i="${i}">` +
+              `<span class="k flex size-7 shrink-0 items-center justify-center rounded-[8px] border border-black/10 bg-black/[.03] text-[13px] text-muted">${i + 1}</span><span class="flex-1 md:pr-28">${esc(o.text)}</span></button>`,
+          )
+          .join("") +
+        "</div>";
+      card.querySelectorAll<HTMLButtonElement>(".opt").forEach((b) => b.addEventListener("click", () => pick(+b.dataset.i!)));
+      ($("backBtn") as HTMLButtonElement).disabled = idx === 0;
+      live.slots.forEach((s, i) => s.classList.toggle("current", i === idx));
+      renderSegs();
+    };
+    if (!animate || reduce) {
+      paint();
+      busy = false;
+      return;
+    }
+    card.classList.add("out");
+    setTimeout(() => {
+      paint();
+      card.classList.remove("out");
+      card.classList.add("pre");
+      void card.offsetWidth;
+      card.classList.remove("pre");
+      busy = false;
+    }, 220);
+  }
+
+  let toastTimer: number | undefined;
+  function toast(title: string, text: string) {
+    const t = $("toast");
+    t.innerHTML = `<span><b>${esc(title)}</b>${esc(text)}</span>`;
+    t.classList.remove("toast-hide");
+    clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => t.classList.add("toast-hide"), 3000);
+  }
+
+  function pick(i: number) {
+    if (busy) return;
+    busy = true;
+    answers[idx] = i;
+    const card = $("qcard");
+    const btn = card.querySelector<HTMLElement>(`.opt[data-i="${i}"]`);
+    card.querySelectorAll(".opt").forEach((b) => b.classList.toggle("picked", b === btn));
+    const q = fragen[idx];
+    const o = q.optionen[i];
+    if (q.id === "branche") live.name.textContent = o.text;
+    stamp(live, idx, true);
+    markRows(live);
+    updateLive();
+    renderSegs();
+
+    const next = idx + 1;
+    const areaDone = fragen.filter((x) => x.bereich === q.bereich).every((x) => answers[fragen.indexOf(x)] !== null);
+    if (next < fragen.length && fragen[next].bereich !== q.bereich && areaDone) {
+      const area = bereiche.find((b) => b.id === q.bereich)!;
+      const nextArea = bereiche.find((b) => b.id === fragen[next].bereich)!;
+      if (q.bereich === "profil") {
+        const namen = scoredAreas.map((a) => a.label);
+        toast("Profil erfasst", `Es folgen ${namen.length} Bereiche: ${namen.slice(0, -1).join(", ")} und ${namen[namen.length - 1]}.`);
+      } else {
+        toast(`${area.label} erfasst`, `Weiter mit ${nextArea.label}. Ihre Auswertung sehen Sie am Ende.`);
+      }
+    }
+    setTimeout(
+      () => {
+        if (next >= fragen.length) {
+          busy = false;
+          finish();
+          return;
+        }
+        idx = next;
+        renderQ(true);
+      },
+      reduce ? 120 : 620,
+    );
+  }
+
+  const goBack = () => {
+    if (idx > 0 && !busy) {
+      busy = true;
+      idx--;
+      renderQ(true);
+    }
+  };
+  $("backBtn").addEventListener("click", goBack);
+  document.addEventListener("keydown", (e) => {
+    if ($("vCheck").hidden || (e.target as HTMLElement).tagName === "INPUT") return;
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && n <= fragen[idx].optionen.length) {
+      e.preventDefault();
+      pick(n - 1);
+    } else if (e.key === "ArrowLeft" || e.key === "Backspace") {
+      e.preventDefault();
+      goBack();
+    }
+  });
+  document.querySelectorAll("[data-start]").forEach((b) => b.addEventListener("click", startCheck));
+
+  /* ---------- Ergebnis ---------- */
+  function radarSVG(vals: number[], labels: string[]) {
+    const n = vals.length;
+    const cx = 180, cy = 160, R = 100;
+    const ang = (i: number) => -Math.PI / 2 + (i * 2 * Math.PI) / n;
+    const pt = (i: number, r: number) => [cx + Math.cos(ang(i)) * r, cy + Math.sin(ang(i)) * r];
+    const P = (a: number[]) => a.map((v) => v.toFixed(1)).join(",");
+    const idx = [...Array(n).keys()];
+    let s = `<svg viewBox="0 0 360 320" class="mx-auto block h-auto w-full max-w-[360px]" role="img" aria-label="Reifegrad in ${n} Bereichen">`;
+    [25, 50, 75, 100].forEach((p) => {
+      const pts = idx.map((i) => P(pt(i, (R * p) / 100))).join(" ");
+      s += `<polygon points="${pts}" fill="none" stroke="#e5e5e5" stroke-width="1"${p === 100 ? "" : ' stroke-dasharray="3 4"'}/>`;
+    });
+    idx.forEach((i) => {
+      const [x, y] = pt(i, R);
+      s += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#e5e5e5"/>`;
+    });
+    const dp = vals.map((v, i) => P(pt(i, (R * Math.max(6, v)) / 100))).join(" ");
+    s += `<g class="radar-poly"><polygon points="${dp}" fill="#c9f24a" fill-opacity=".45" stroke="#26310d" stroke-width="2.5" stroke-linejoin="round"/>`;
+    vals.forEach((v, i) => {
+      const [x, y] = pt(i, (R * Math.max(6, v)) / 100);
+      s += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#fff" stroke="#26310d" stroke-width="2.5"/>`;
+    });
+    s += "</g>";
+    labels.forEach((l, i) => {
+      const [x, y] = pt(i, R + 16);
+      const c = Math.cos(ang(i));
+      const anchor = Math.abs(c) < 0.2 ? "middle" : c > 0 ? "start" : "end";
+      const dy = Math.sin(ang(i)) > 0.5 ? 10 : Math.sin(ang(i)) < -0.5 ? -2 : 4;
+      s += `<text x="${x.toFixed(1)}" y="${(y + dy).toFixed(1)}" text-anchor="${anchor}" font-size="13" font-weight="600" fill="#141414">${esc(l)}</text>`;
+    });
+    return s + "</svg>";
+  }
+
+  interface Ranked { id: string; titel: string; text: string; saeule: keyof typeof saeulenNamen; schritte: readonly string[]; gap: number; sum: number; h: number; bereich: string }
+  interface Result {
+    score: number;
+    stufe: (typeof stufen)[number];
+    mats: number[];
+    weakest: (typeof bereiche)[number];
+    strongest: (typeof bereiche)[number];
+    sigs: ReturnType<typeof signals>;
+    top: Ranked[];
+    weitere: Ranked[];
+    paket: (typeof pakete)[number];
+    hours: number;
+    hottest: (typeof bereiche)[number];
+    grundlage: Ranked | null;
+    branche: string;
+    groesse: string;
+    amtszeit: string;
+  }
+  let result: Result;
+
+  function compute(): Result {
+    const score = bedarf();
+    const mats = scoredAreas.map((a) => maturity(a.id) ?? 50);
+    const weakest = scoredAreas[mats.indexOf(Math.min(...mats))];
+    const strongest = scoredAreas[mats.indexOf(Math.max(...mats))];
+    const ranked: Ranked[] = massnahmen
+      .map((m) => {
+        const gaps = m.fragen.map((id) => 4 - (mOf(id) ?? 4));
+        const sum = gaps.reduce((a, b) => a + b, 0);
+        const bereich = fragen.find((q) => q.id === m.fragen[0])!.bereich;
+        const h = m.fragen.reduce((acc, id) => acc + hoursFor(id), 0);
+        return { id: m.id, titel: m.titel, text: m.text, saeule: m.saeule, schritte: m.schritte, gap: sum / gaps.length, sum, h, bereich };
+      })
+      // Größte Ø-Lücke zuerst, dann Gesamtlücke; bei Gleichstand gilt die Reihenfolge der Bibliothek (Vertrieb vorn).
+      .sort((a, b) => b.gap - a.gap || b.sum - a.sum);
+    // Je eine Maßnahme aus den drei schwächsten Bereichen; bei gleichem Reifegrad zählt die Bereichsreihenfolge.
+    const areaRank = scoredAreas.map((a, i) => ({ id: a.id, v: mats[i], i })).sort((x, y) => x.v - y.v || x.i - y.i);
+    const top: Ranked[] = [];
+    let grundlage: Ranked | null = null;
+    if (stundenModus) {
+      // Zeitpotenzial entscheidet; bei Gleichstand die größere Reifegrad-Lücke.
+      const byHours = [...ranked].sort((a, b) => b.h - a.h || b.gap - a.gap);
+      for (const m of byHours) if (top.length < 3 && m.h > 0) top.push(m);
+      for (const m of ranked) if (top.length < 3 && !top.includes(m)) top.push(m);
+    } else {
+      for (const a of areaRank) {
+        const m = ranked.find((x) => x.bereich === a.id && x.gap > 0 && !top.includes(x));
+        if (m) top.push(m);
+        if (top.length === 3) break;
+      }
+      for (const m of ranked) if (top.length < 3 && !top.includes(m)) top.push(m);
+    }
+    const g = cfg.grundlage;
+    if (g && (maturity(g.bereich) ?? 100) < g.schwelle) {
+      const gm = ranked.find((m) => m.id === g.massnahme);
+      if (gm && !top.includes(gm)) grundlage = gm;
+    }
+    const relevant = (m: Ranked) => m.gap > 0 || m.h > 0;
+    const weitere = ranked
+      .filter((m) => !top.includes(m) && m !== grundlage && relevant(m))
+      .sort((a, b) => (stundenModus ? b.h - a.h : 0) || b.gap - a.gap)
+      .slice(0, 4);
+    const hrs = scoredAreas.map((a) => areaHours(a.id));
+    const hottest = scoredAreas[hrs.indexOf(Math.max(...hrs))];
+    const nSaeulen = new Set([...top, ...(grundlage ? [grundlage] : [])].filter(relevant).map((t) => t.saeule)).size;
+    const paket = nSaeulen <= 1 ? pakete[0] : nSaeulen === 2 ? pakete[1] : pakete[2];
+    return {
+      score,
+      stufe: stufe(score),
+      mats,
+      weakest,
+      strongest,
+      sigs: signals(),
+      top,
+      weitere,
+      paket,
+      hours: hoursTotal(),
+      hottest,
+      grundlage,
+      branche: opt(idxOf("branche"))?.text ?? "Ihrer Branche",
+      groesse: opt(idxOf("groesse"))?.text ?? "",
+      amtszeit: opt(idxOf("amtszeit"))?.text ?? "",
+    };
+  }
+
+  const prio = (gap: number) => (gap >= 2.5 ? "Priorität hoch" : gap >= 1 ? "Priorität mittel" : "Feinschliff");
+  const tag = (m: Ranked) => `${stundenModus && m.h > 0 ? `ca. ${fmtH(m.h)} Std./Woche` : prio(m.gap)} · Säule ${saeulenNamen[m.saeule]}`;
+  const deutung = (a: (typeof bereiche)[number], v: number) => a.deutung?.[v < 40 ? 0 : v < 70 ? 1 : 2] ?? "";
+  const bar = (v: number) =>
+    `<div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-black/[.07]"><i class="block h-full rounded-full bg-forest-900" style="width:${Math.max(4, v)}%"></i></div>`;
+  const sec = (title: string, body: string, cls = "") => `<section class="${cls}"><h3 class="eyebrow mb-3">${title}</h3>${body}</section>`;
+
+  function renderReport(firma: string) {
+    const r = result;
+    const sz = r.groesse ? ` mit ${r.groesse.toLowerCase()} Mitarbeitern` : "";
+    const amt = !r.amtszeit
+      ? ""
+      : r.amtszeit.startsWith("Seit")
+        ? ` Sie tragen die operative Verantwortung ${r.amtszeit.charAt(0).toLowerCase() + r.amtszeit.slice(1)}.`
+        : ` ${r.amtszeit}.`;
+
+    const areaOrder = scoredAreas.map((a, i) => ({ a, v: r.mats[i] })).sort((x, y) => x.v - y.v);
+    const areasHtml = areaOrder
+      .map(({ a, v }) => {
+        const sigs = r.sigs.filter((s) => s.bereich === a.id);
+        return (
+          `<div class="r-avoid rounded-[20px] border border-line p-5"><div class="flex flex-wrap items-baseline justify-between gap-2"><b class="text-[17px]">${esc(a.label)}</b><span class="text-[14px] font-semibold tabular-nums text-body">Reifegrad ${v} %${stundenModus ? ` · ca. ${fmtH(areaHours(a.id))} Std./Woche` : ""}</span></div>${bar(v)}` +
+          `<p class="m-0 mt-3 text-[15px] leading-relaxed text-ink">${esc(deutung(a, v))}</p>` +
+          (sigs.length
+            ? `<ul class="m-0 mt-4 flex list-none flex-col gap-2 p-0">${sigs
+                .map(
+                  (s) =>
+                    `<li class="flex gap-3 rounded-[14px] bg-surface p-3.5"><span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-forest-900 text-[12px] font-bold text-lime-300">!</span><span class="text-[14px] text-ink">${esc(s.text)}</span></li>`,
+                )
+                .join("")}</ul>`
+            : `<p class="m-0 mt-3 text-[14px] font-semibold text-lime-700">Keine Warnsignale in diesem Bereich.</p>`) +
+          `</div>`
+        );
+      })
+      .join("");
+
+    const measuresHtml = r.top
+      .map(
+        (m, i) =>
+          `<div class="r-avoid rounded-[20px] border border-line p-5"><div class="flex flex-wrap items-start gap-4"><span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-lime-300 text-[14px] font-bold">${pad(i + 1)}</span><div class="min-w-0 flex-1"><div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"><b class="text-[17px]">${esc(m.titel)}</b><span class="text-[13px] font-semibold whitespace-nowrap text-lime-700">${tag(m)}</span></div><p class="m-0 mt-1 text-[15px] text-body">${esc(m.text)}</p>` +
+          `<ol class="m-0 mt-3 flex list-none flex-col gap-1.5 p-0">${m.schritte.map((st, k) => `<li class="flex gap-2.5 text-[14px] text-ink"><span class="w-5 shrink-0 font-semibold text-lime-700">${k + 1}.</span>${esc(st)}</li>`).join("")}</ol></div></div></div>`,
+      )
+      .join("");
+
+    const [m1, m2, m3] = r.top;
+    const phasen: [string, string, string[]][] = [
+      [
+        "Tag 1 bis 30",
+        r.grundlage ? `Grundlage schaffen und ${m1.titel}` : `Bestandsaufnahme und ${m1.titel}`,
+        [
+          "Ist-Aufnahme und 90-Tage-Roadmap in den ersten zwei bis drei Wochen",
+          ...(r.grundlage ? [r.grundlage.schritte[1]] : []),
+          m1.schritte[0],
+        ],
+      ],
+      ["Tag 31 bis 60", `${m1.titel} umsetzen, ${m2.titel} starten`, [m1.schritte[1], m1.schritte[2], m2.schritte[0]]],
+      ["Tag 61 bis 90", `${m2.titel} umsetzen, ${m3.titel} vorbereiten`, [m2.schritte[1], m3.schritte[0], "Bilanz ziehen und die nächsten 90 Tage planen"]],
+    ];
+    const grundlageHtml = r.grundlage
+      ? sec(
+          "Zuerst die Grundlage",
+          `<div class="rounded-[20px] bg-forest-900 p-5 text-white"><b class="text-[17px]">${esc(r.grundlage.titel)}</b><p class="m-0 mt-1.5 text-[15px] text-white/75">${esc(cfg.grundlage!.text)}</p><ol class="m-0 mt-3 flex list-none flex-col gap-1.5 p-0">${r.grundlage.schritte.map((st, k) => `<li class="flex gap-2.5 text-[14px]"><span class="w-5 shrink-0 font-semibold text-lime-300">${k + 1}.</span>${esc(st)}</li>`).join("")}</ol></div>`,
+          "r-avoid",
+        )
+      : "";
+    const planHtml = `<div class="grid gap-5 sm:grid-cols-3">${phasen
+      .map(
+        ([d, t, ps]) =>
+          `<div class="border-t-[3px] border-forest-900 pt-3"><div class="text-[13px] font-semibold text-muted">${d}</div><b class="mt-1 block text-[15px] leading-snug">${esc(t)}</b><ul class="m-0 mt-2 flex list-disc flex-col gap-1 pl-4 text-[14px] text-body">${ps.map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div>`,
+      )
+      .join("")}</div>`;
+
+    const weitereHtml = r.weitere.length
+      ? sec(
+          "Weitere Handlungsfelder",
+          `<p class="m-0 mb-3 text-[15px] text-body">Nach den ersten 90 Tagen stehen diese Themen an:</p><div class="grid gap-3 sm:grid-cols-2">${r.weitere
+            .map((m) => `<div class="rounded-[16px] bg-surface p-4"><div class="text-[12px] font-semibold text-muted">${tag(m)}</div><b class="mt-1 block text-[15px]">${esc(m.titel)}</b><p class="m-0 mt-1 text-[14px] text-body">${esc(m.text)}</p></div>`)
+            .join("")}</div>`,
+          "r-avoid",
+        )
+      : "";
+
+    const pakHtml = `<div class="grid gap-3 sm:grid-cols-3">${pakete
+      .map(
+        (p) =>
+          `<div class="rounded-[16px] p-4 ${p.name === r.paket.name ? "bg-forest-900 text-white" : "bg-surface"}"><div class="text-[13px] ${p.name === r.paket.name ? "text-lime-300" : "text-body"}">${p.name === r.paket.name ? "Empfohlen · " : ""}${p.saeulen === 4 ? "Alle 4" : p.saeulen} ${p.saeulen === 1 ? "Säule" : "Säulen"}</div><div class="mt-1 text-[17px] font-semibold">${p.name}</div><div class="text-[22px] font-semibold tabular-nums">${p.preis}<span class="text-[14px] font-medium opacity-70"> / Monat</span></div></div>`,
+      )
+      .join("")}</div><p class="m-0 mt-2 text-[12px] text-muted">Die Empfehlung richtet sich danach, wie viele Säulen Ihre drei Maßnahmen berühren. Kein Ausweis der Umsatzsteuer gem. § 19 UStG. Mindestlaufzeit 3 Monate, danach monatlich kündbar. Nicht enthalten: Werbebudget, Lizenzen, Vor-Ort-Termine.</p>`;
+
+    $("rBody").innerHTML =
+      `<header><div class="eyebrow">${esc(cfg.texte.report)} · ${new Date().toLocaleDateString("de-DE")}</div><h2 id="rTitle" class="mt-3 mb-0 text-[clamp(1.6rem,3vw,2.2rem)] leading-tight font-semibold tracking-[-0.02em]">${firma ? esc(cfg.texte.report) + " für " + esc(firma) : "Ihr " + esc(cfg.texte.report)}</h2></header>` +
+      sec(
+        "Ausgangslage",
+        `<p class="m-0 max-w-[66ch] text-[16px] leading-relaxed">Unternehmen aus ${esc(r.branche)}${esc(sz)}.${esc(amt)} ` +
+          (stundenModus
+            ? `Das geschätzte Zeitpotenzial durch KI und Automatisierung liegt bei rund <b>${fmtH(r.hours)} Stunden pro Woche</b>, grob ${fmtEuro(euro(r.hours))} im Jahr. Am meisten Zeit steckt in <b>${esc(r.hottest.label)}</b>. Ihre Reife liegt im Schnitt bei ${100 - r.score} % (${esc(r.stufe.label)}), den größten Nachholbedarf zeigen Ihre Antworten bei ${esc(r.weakest.label)}. `
+            : `Ihr ${esc(cfg.texte.ergebnis)} liegt bei <b>${r.score} %</b> (${esc(r.stufe.label)}). Den größten Nachholbedarf zeigen Ihre Antworten bei <b>${esc(r.weakest.label)}</b>, am weitesten sind Sie bei ${esc(r.strongest.label)}. `) +
+          `${r.sigs.length} von ${scoredQs.filter((q) => q.optionen.some((o) => o.m !== undefined)).length} Antworten sind Warnsignale. ${esc(r.stufe.text)}</p>` +
+          (stundenModus && cfg.annahmen
+            ? `<p class="m-0 mt-2 text-[12px] text-muted">Schätzung auf Basis Ihrer Antworten und der Größe Ihrer Verwaltung. Annahmen: ${cfg.annahmen.stundensatz} € Vollkosten pro Stunde, ${cfg.annahmen.wochen} Arbeitswochen im Jahr.</p>`
+            : "") +
+          `<div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">${scoredAreas.map((a, i) => `<div class="rounded-[14px] bg-surface p-3.5"><div class="min-h-[2.4em] text-[13px] leading-tight text-body">${esc(a.label)}</div><div class="text-[22px] font-semibold tabular-nums">${r.mats[i]} %</div>${bar(r.mats[i])}</div>`).join("")}</div><p class="m-0 mt-2 text-[12px] text-muted">Reifegrad je Bereich, 100 % = voll zukunftsfähig aufgestellt.</p>`,
+        "r-avoid",
+      ) +
+      sec("Ihre Bereiche im Detail", `<p class="m-0 mb-4 text-[15px] text-body">Sortiert nach Handlungsbedarf, mit allen Warnsignalen aus Ihren Antworten.</p><div class="flex flex-col gap-3">${areasHtml}</div>`) +
+      grundlageHtml +
+      sec(stundenModus ? "Drei Maßnahmen mit dem größten Zeitpotenzial" : "Drei Maßnahmen mit dem größten Hebel", `<div class="flex flex-col gap-3">${measuresHtml}</div>`) +
+      sec("Ihr 90-Tage-Plan", planHtml, "r-avoid") +
+      weitereHtml +
+      sec("Investitionsrahmen", pakHtml, "r-avoid") +
+      `<section class="r-avoid rounded-[20px] bg-[linear-gradient(155deg,#f4fcdc_0%,#e6f7b0_45%,#f8fdeb_100%)] p-6"><h3 class="m-0 text-[20px] font-semibold">Nächster Schritt: Erstgespräch, 30 Minuten per Video</h3><p class="m-0 mt-2 max-w-[60ch] text-[15px] text-body">Wir gehen Ihre Warnsignale gemeinsam durch und klären, welche Maßnahme bei Ihnen zuerst dran ist. Kein Verkaufsgespräch. Termin unter immersive-markets.de/gespraech oder per E-Mail an info@immersive-markets.de.</p></section>` +
+      `<p class="m-0 text-[12px] text-muted">Felix Binder · Immersive Markets · am Bodensee. Auswertung nach festen Regeln auf Basis Ihrer Antworten, ohne KI und ohne Branchenvergleich. Grobe Orientierung, keine Unternehmens-, Rechts- oder Steuerberatung.${cfg.texte.rechtshinweis ? " " + esc(cfg.texte.rechtshinweis) : ""}</p>`;
+  }
+
+  function finish() {
+    result = compute();
+    const r = result;
+    show("vResult");
+    if (stundenModus) {
+      animateNum($("rScore"), 0, r.hours, 1400, fmtH);
+      animateNum($("rEuro"), 0, euro(r.hours), 1400, fmtEuro);
+    } else {
+      animateNum($("rScore"), 0, r.score, 1400);
+    }
+    $("rStufe").textContent = r.stufe.label;
+    $("rStufeText").textContent = r.stufe.text;
+    $("rSignals").textContent = `${r.sigs.length} ${r.sigs.length === 1 ? "Warnsignal" : "Warnsignale"} in Ihren Antworten`;
+    $("rLever").textContent = stundenModus ? `Größtes Zeitpotenzial: ${r.hottest.label}` : `Größter Hebel: ${r.weakest.label}`;
+    const first = [...r.sigs].sort((a, b) => a.m - b.m)[0];
+    $("rTeaser").hidden = !first;
+    if (first) {
+      $("rTeaserText").textContent = first.text;
+      $("rTeaserMore").textContent =
+        r.sigs.length > 1 ? `Dazu ${r.sigs.length - 1} weitere Warnsignale und was Sie dagegen tun: im Report unten.` : "Was Sie dagegen tun: im Report unten.";
+    }
+    $("radar").innerHTML = radarSVG(r.mats, scoredAreas.map((a) => a.kurz));
+    $("matList").innerHTML = scoredAreas
+      .map(
+        (a, i) =>
+          `<div class="text-[14px]"><div class="flex justify-between"><span>${esc(a.label)}</span><span class="font-semibold whitespace-nowrap tabular-nums text-body">${r.mats[i]} %</span></div><div class="mt-1 h-1.5 overflow-hidden rounded-full bg-black/[.07]"><i class="block h-full rounded-full bg-forest-900" style="width:${Math.max(4, r.mats[i])}%"></i></div></div>`,
+      )
+      .join("");
+    renderReport("");
+    const rep = $("report");
+    rep.classList.add("locked");
+    rep.setAttribute("aria-hidden", "true");
+    $("gate").hidden = false;
+    $("doneBox").hidden = true;
+  }
+
+  /* ---------- Lead-Gate ---------- */
+  const gate = $("gate") as HTMLFormElement;
+  const val = (id: string) => ($(id) as HTMLInputElement).value.trim();
+  const setErr = (name: string, on: boolean) => gate.querySelector(`[data-field="${name}"] .err`)!.classList.toggle("hidden", !on);
+
+  function summary() {
+    const r = result;
+    const lines = fragen.map((q, i) => `${q.frage}\n→ ${opt(i)?.text ?? "–"}`);
+    return [
+      ...(stundenModus ? [`Zeitpotenzial: ${fmtH(r.hours)} Std./Woche (≈ ${fmtEuro(euro(r.hours))} pro Jahr)`, `KI-Reife: ${100 - r.score} % (${r.stufe.label})`] : [`${cfg.texte.ergebnis}: ${r.score} % (${r.stufe.label})`]),
+      `Reifegrad: ${scoredAreas.map((a, i) => `${a.label} ${r.mats[i]} %`).join(" · ")}`,
+      `Warnsignale: ${r.sigs.length}`,
+      `Top-Maßnahmen: ${r.top.map((t) => t.titel).join(", ")}${r.grundlage ? ` (Grundlage: ${r.grundlage.titel})` : ""}`,
+      `Passendes Paket: ${r.paket.name}`,
+      "",
+      ...lines,
+    ].join("\n");
+  }
+
+  gate.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const firma = val("inFirma");
+    const mail = val("inMail");
+    const okF = firma.length > 1;
+    const okM = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail);
+    setErr("firma", !okF);
+    setErr("email", !okM);
+    if (!okF) return $("inFirma").focus();
+    if (!okM) return $("inMail").focus();
+
+    const btn = gate.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = "Wird freigeschaltet …";
+
+    const optin = ($("inOptin") as HTMLInputElement).checked;
+    const key = ($("w3key") as HTMLInputElement).value;
+    let sent = false;
+    if (key) {
+      const data = new FormData();
+      data.append("access_key", key);
+      data.append("subject", `Neuer Lead: ${cfg.name} · ${firma}`);
+      data.append("from_name", `${cfg.name} immersive-markets.de`);
+      data.append("firma", firma);
+      data.append("name", val("inName"));
+      data.append("email", mail);
+      data.append("telefon", val("inTel"));
+      data.append("werbe_einwilligung", optin ? "Ja (Double-Opt-in ausstehend)" : "Nein");
+      data.append("check", cfg.name);
+      data.append("ergebnis", stundenModus ? `${fmtH(result.hours)} Std./Woche` : `${result.score} % ${cfg.texte.ergebnis}`);
+      data.append("auswertung", summary());
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { Accept: "application/json" }, body: data });
+        const json = await res.json();
+        sent = res.ok && json.success;
+      } catch {
+        sent = false;
+      }
+    }
+    if (key && !sent) {
+      btn.disabled = false;
+      btn.innerHTML = original;
+      alert("Ihre Angaben konnten gerade nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie an info@immersive-markets.de.");
+      return;
+    }
+
+    try {
+      sessionStorage.setItem("im-email", mail);
+    } catch {}
+    renderReport(firma);
+    const rep = $("report");
+    rep.classList.remove("locked");
+    rep.setAttribute("aria-hidden", "false");
+    gate.hidden = true;
+    $("doneBox").hidden = false;
+    $("doneText").textContent =
+      "Speichern Sie Ihren Report jetzt als PDF. Ich melde mich persönlich bei Ihnen" +
+      (val("inTel") ? ", gern auch kurz telefonisch" : "") +
+      (optin ? ". Die Praxis-Tipps starten erst, wenn Sie die Bestätigungsmail anklicken." : ".");
+    btn.disabled = false;
+    btn.innerHTML = original;
+    rep.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  });
+  ["inFirma", "inMail"].forEach((id) => $(id).addEventListener("input", () => setErr(id === "inFirma" ? "firma" : "email", false)));
+
+  $("pdfBtn").addEventListener("click", () => window.print());
+  $("restartBtn").addEventListener("click", () => {
+    gate.reset();
+    startCheck();
+  });
+</script>

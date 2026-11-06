@@ -7,6 +7,8 @@ import PageHero from "../../components/ui/PageHero.astro";
 import SectionHead from "../../components/ui/SectionHead.astro";
 import CtaDuo from "../../components/ui/CtaDuo.astro";
 import { pillars } from "../../data/pillars";
+import { themenFuer } from "../../data/themen";
+import { checkFuer } from "../../data/checks/einstieg";
 
 export function getStaticPaths() {
   return pillars.map((p) => ({ params: { id: p.id }, props: { pillar: p } }));
@@ -14,6 +16,8 @@ export function getStaticPaths() {
 
 const { pillar } = Astro.props;
 const others = pillars.filter((p) => p.id !== pillar.id);
+const themen = themenFuer(pillar.id);
+const check = checkFuer(pillar.id);
 ---
 
 <Layout title={`${pillar.name} — Leistungen — Immersive Markets`} description={`${pillar.frage} ${pillar.tagline}.`}>
@@ -21,7 +25,9 @@ const others = pillars.filter((p) => p.id !== pillar.id);
   <main>
     <PageHero eyebrow={pillar.name} crumbs={[{ label: "Leistungen", href: "/leistungen" }]} title={pillar.frage} lead={pillar.intro}>
       <ul class="mt-8 flex flex-wrap justify-center gap-2">
-        {pillar.themen.map((t) => <li class="glass rounded-full px-3.5 py-1.5 text-[14px] font-medium">{t}</li>)}
+        {themen.map((t) => (
+          <li><a href={`/leistungen/${pillar.id}/${t.slug}`} class="glass block rounded-full px-3.5 py-1.5 text-[14px] font-medium transition-colors hover:bg-white">{t.name}</a></li>
+        ))}
       </ul>
     </PageHero>
 
@@ -38,20 +44,34 @@ const others = pillars.filter((p) => p.id !== pillar.id);
       </div>
     </section>
 
+    <section class="px-5 pb-20 md:px-8 md:pb-28">
+      <SectionHead eyebrow="Die Themen" title={`Was in der Säule ${pillar.name} passiert`} />
+      <div class:list={["mx-auto mt-12 grid max-w-[1180px] gap-5 sm:grid-cols-2", themen.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"]}>
+        {themen.map((t) => (
+          <a href={`/leistungen/${pillar.id}/${t.slug}`} class="group flex flex-col rounded-[24px] bg-surface p-7 transition-colors hover:bg-lime-50">
+            <span class="text-[13px] font-semibold text-lime-700">{t.name}</span>
+            <h3 class="mt-2 mb-6 text-[19px] leading-snug font-semibold">{t.headline}</h3>
+            <span class="link-arrow mt-auto text-[15px]">Mehr erfahren <Icon name="arrow-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
     <section class="px-3 md:px-5">
       <div class="bg-forest mx-auto grid max-w-[1400px] items-center gap-10 rounded-[32px] px-6 py-16 md:grid-cols-[1fr_.9fr] md:px-14 md:py-20">
         <div>
           <div class="eyebrow mb-4 text-white/60">Einstieg ohne Verpflichtung</div>
           <h2 class="h-section m-0 text-white">{pillar.check.hook}</h2>
-          <p class="lead mt-5 text-white/70">Der {pillar.check.name} gibt Ihnen eine erste, ehrliche Einschätzung — kostenlos und unverbindlich.</p>
+          <p class="lead mt-5 text-white/70">Der {check.name} zeigt Ihnen, wo Ihr Betrieb in der Säule {pillar.name} steht. Kostenlos und unverbindlich.</p>
         </div>
         <div class="glass rounded-[24px] p-7">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-2 text-[15px] font-semibold text-lime-700"><Icon name={pillar.icon} size={18} />{pillar.check.name}</span>
-            {pillar.check.status === "bald" && <span class="rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">Bald</span>}
+          <span class="flex items-center gap-2 text-[15px] font-semibold text-lime-700"><Icon name="gauge" size={18} />{check.name}</span>
+          <p class="mt-1 text-[14px] text-muted">{check.umfang}</p>
+          <p class="mt-3 mb-6 text-[16px] text-body">{check.ergebnis}</p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href={check.href} class="btn btn-dark">Check starten</a>
+            <a href="/gespraech" class="link-arrow text-[15px]">Lieber direkt sprechen <Icon name="arrow-right" size={16} /></a>
           </div>
-          <p class="mt-3 mb-6 text-[16px] text-body">Ein Klick pro Frage, ehrliches Ergebnis, konkrete nächste Schritte.</p>
-          <a href={`/checks/${pillar.id}`} class="btn btn-dark">Zum Check</a>
         </div>
       </div>
     </section>

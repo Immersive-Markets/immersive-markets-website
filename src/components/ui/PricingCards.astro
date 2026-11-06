@@ -6,7 +6,7 @@ interface Props {
   ctaHref?: string;
   ctaLabel?: string;
 }
-const { ctaHref = "/gespraech", ctaLabel = "Gespräch buchen" } = Astro.props;
+const { ctaHref = "/gespraech", ctaLabel = "Gespräch anfragen" } = Astro.props;
 ---
 
 <div class="mx-auto grid max-w-[1180px] items-start gap-5 md:grid-cols-3">
@@ -20,13 +20,13 @@ const { ctaHref = "/gespraech", ctaLabel = "Gespräch buchen" } = Astro.props;
       <div class="flex items-center justify-between gap-3">
         <h3 class="m-0 text-[26px] font-semibold tracking-[-0.02em]">{tier.name}</h3>
         {tier.featured && (
-          <span class="rounded-[8px] bg-lime-300 px-2.5 py-1 text-[11px] font-semibold tracking-wide whitespace-nowrap text-ink uppercase">Am beliebtesten</span>
+          <span class="rounded-[8px] bg-lime-300 px-2.5 py-1 text-[11px] font-semibold tracking-wide whitespace-nowrap text-ink uppercase">Empfohlen</span>
         )}
       </div>
       <p class="mt-1 mb-6 text-[15px] text-body">{tier.saeulen}</p>
       <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
         <span class="text-[40px] leading-none font-semibold tracking-[-0.03em] whitespace-nowrap lg:text-[44px]">{tier.preis}</span>
-        <span class="text-[14px] whitespace-nowrap text-muted">/ Monat, netto</span>
+        <span class="text-[14px] whitespace-nowrap text-muted">/ Monat</span>
       </div>
       <a href={ctaHref} class="btn btn-dark mt-7 w-full">{ctaLabel}</a>
       <div class="mt-7 border-t border-black/[.07] pt-6">

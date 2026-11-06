@@ -1,0 +1,52 @@
+---
+import CheckPage, { type Landing } from "../../components/check/CheckPage.astro";
+import { ki } from "../../data/checks/ki";
+
+// {anzahl} und {minuten} werden aus der Fragenliste befüllt.
+const landing: Landing = {
+  metaTitle: "KI-Potenzial-Check für die Verwaltung — Immersive Markets",
+  metaDescription:
+    "Wie viele Stunden pro Woche könnte KI Ihrer Verwaltung zurückgeben? {anzahl} Fragen zu Angeboten, Korrespondenz, Belegen, Wissen und KI-Regeln. Ergebnis sofort, Report mit 90-Tage-Plan gratis.",
+  crumb: "KI-Potenzial-Check",
+  badge: "Säule KI · für Büro und Verwaltung",
+  title: "Wie viele Stunden pro Woche könnte KI Ihrer Verwaltung zurückgeben?",
+  lead: "Angebote, E-Mails, Belege, Protokolle: In jedem Büro steckt Routine, die KI heute zuverlässig vorbereiten kann. {anzahl} Fragen zeigen Ihnen, wo bei Ihnen die meiste Zeit liegt und was Sie zuerst regeln sollten.",
+  nutzen: [
+    { icon: "clock", titel: "Ihr Zeitpotenzial in Stunden", text: "Geschätzte Stunden pro Woche und ein grober Euro-Wert pro Jahr, mit offen genannten Annahmen." },
+    { icon: "shield-check", titel: "Ihr Stand bei Regeln und AI Act", text: "Ob Tools, Lizenzen, Datenregeln und Schulung so aufgestellt sind, dass KI sicher Zeit sparen kann." },
+    { icon: "list-checks", titel: "Drei Anwendungen mit Plan", text: "Die drei Maßnahmen mit dem größten Zeitgewinn, mit konkreten Schritten und 90-Tage-Plan. Als PDF." },
+  ],
+  beispiel: {
+    title: "Drei Fragen aus dem Check",
+    lead: "Die meisten Unternehmen unterschätzen, wie viel Routine in ihrem Büro steckt. Und wie wenig davon geregelt ist.",
+    fragen: [
+      { bereich: "Dokumentenauswertung", frage: "Wie werden Zeichnungen, Leistungsverzeichnisse und Stücklisten aus Anfragen ausgewertet?" },
+      { bereich: "E-Rechnung", frage: "Wie verarbeiten Sie strukturierte E-Rechnungen im Format XRechnung oder ZUGFeRD?" },
+      { bereich: "Lizenzen & Datenschutz", frage: "Über welche Zugänge nutzen Ihre Mitarbeiter KI-Tools?" },
+    ],
+  },
+  schritte: [
+    { titel: "{anzahl} Fragen beantworten", text: "Ein Klick pro Frage, zu Angebot, Korrespondenz, Belegen, Wissen und Regeln." },
+    { titel: "Ergebnis sofort sehen", text: "Zeitpotenzial pro Woche, Euro-Wert pro Jahr und Ihre KI-Reife in fünf Bereichen." },
+    { titel: "Report herunterladen", text: "Deutung je Bereich, drei Anwendungen mit Schritten und ein 90-Tage-Plan, als PDF." },
+  ],
+  ueberMich: [
+    "Ich setze KI und Automatisierung in Traditionsunternehmen um, mit klaren Regeln und messbarem Nutzen.",
+    "Den Check habe ich gebaut, weil die meisten Unternehmen nicht wissen, wo sie anfangen sollen. Er gibt Ihnen eine ehrliche erste Einschätzung, auch wenn Sie danach alles selbst umsetzen.",
+  ],
+  faq: [
+    { q: "Was kostet der Check?", a: "Nichts. Check und Report sind kostenlos und unverbindlich." },
+    { q: "Wie genau ist die Schätzung?", a: "Sie ist eine grobe, bewusst vorsichtige Orientierung auf Basis Ihrer Antworten und der Größe Ihrer Verwaltung. Die Auswertung folgt festen Regeln, ohne KI und ohne Branchenvergleich. Die tatsächliche Ersparnis klären wir gern im Gespräch." },
+    { q: "Was passiert mit meinen Antworten und Daten?", a: "Ihre Antworten nutze ich nur, um Ihren Report zu erstellen und Sie bei Rückfragen zu erreichen. Werbe-E-Mails bekommen Sie nur, wenn Sie das ausdrücklich ankreuzen und per E-Mail bestätigen." },
+    { q: "Muss ich danach etwas kaufen?", a: "Nein. Viele Maßnahmen im Report können Sie selbst umsetzen. Wenn Sie Unterstützung möchten, buchen Sie ein Gespräch." },
+  ],
+  schlussTitel: "{minuten} Minuten, und Sie wissen, wo Ihre Zeit bleibt.",
+  ergebnisEyebrow: "Ihr Ergebnis · Zeitpotenzial durch KI",
+  radarLabel: "KI-Reife · je weiter außen, desto weiter sind Sie",
+  gateText: "Deutung je Bereich, alle Warnsignale, drei Anwendungen mit Zeitpotenzial und Schritten, 90-Tage-Plan und Preisrahmen.",
+  optinText: "Ja, ich möchte gelegentlich Praxis-Tipps zu KI im Unternehmen per E-Mail.",
+  placeholderFirma: "Muster Metallbau GmbH",
+};
+---
+
+<CheckPage config={ki} landing={landing} />
