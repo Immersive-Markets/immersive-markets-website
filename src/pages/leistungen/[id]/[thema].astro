@@ -1,0 +1,167 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
+import Icon from "../../../components/Icon.astro";
+import PageHero from "../../../components/ui/PageHero.astro";
+import SectionHead from "../../../components/ui/SectionHead.astro";
+import FaqList from "../../../components/ui/FaqList.astro";
+import CtaDuo from "../../../components/ui/CtaDuo.astro";
+import { pillars, getPillar } from "../../../data/pillars";
+import { themen, getThema, themenFuer } from "../../../data/themen";
+
+export function getStaticPaths() {
+  return themen.map((t) => ({ params: { id: t.pillar, thema: t.slug }, props: { thema: t } }));
+}
+
+const { thema } = Astro.props;
+const pillar = getPillar(thema.pillar)!;
+const geschwister = themenFuer(pillar.id);
+const verwandt = thema.verwandt
+  .map((slug) => getThema(slug))
+  .filter((t) => t !== undefined)
+  .map((t) => ({ ...t, pillarName: pillars.find((p) => p.id === t.pillar)!.name }));
+---
+
+<Layout title={`${thema.name} — ${pillar.name} — Immersive Markets`} description={thema.meta}>
+  <SiteHeader />
+  <main>
+    <PageHero
+      eyebrow={thema.name}
+      crumbs={[
+        { label: "Leistungen", href: "/leistungen" },
+        { label: pillar.name, href: `/leistungen/${pillar.id}` },
+      ]}
+      title={thema.headline}
+      lead={thema.lead}
+    >
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/gespraech" class="btn btn-dark">Gespräch buchen</a>
+        <a href={`/checks/${pillar.id}`} class="btn btn-light">{pillar.check.name}</a>
+      </div>
+      <nav class="mt-10 flex flex-wrap justify-center gap-2" aria-label={`Themen der Säule ${pillar.name}`}>
+        {geschwister.map((g) => (
+          <a
+            href={`/leistungen/${pillar.id}/${g.slug}`}
+            aria-current={g.slug === thema.slug ? "page" : undefined}
+            class:list={[
+              "rounded-full px-3.5 py-1.5 text-[14px] font-medium transition-colors",
+              g.slug === thema.slug ? "bg-ink text-white" : "glass hover:bg-white",
+            ]}
+          >
+            {g.name}
+          </a>
+        ))}
+      </nav>
+    </PageHero>
+
+    <section class="px-5 py-20 md:px-8 md:py-28">
+      <SectionHead eyebrow="Die Ausgangslage" title="Kommt Ihnen das bekannt vor?" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {thema.ausgangslage.map((a, i) => (
+          <div class="card p-7">
+            <span class="flex size-9 items-center justify-center rounded-full bg-lime-300 text-[14px] font-semibold">{i + 1}</span>
+            <h2 class="h-card mt-5 mb-2">{a.titel}</h2>
+            <p class="m-0 text-[16px] text-body">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="px-3 md:px-5">
+      <div class="bg-forest mx-auto max-w-[1400px] rounded-[32px] px-5 py-20 md:px-8 md:py-24">
+        <SectionHead
+          tone="light"
+          eyebrow="So gehe ich vor"
+          title="Was ich für Sie übernehme"
+          lead="Beratung und Umsetzung aus einer Hand. Sie entscheiden, ich setze um und halte Sie im Kundenportal auf dem Laufenden."
+        />
+        <ol class="mx-auto mt-12 grid max-w-[1080px] gap-4 md:grid-cols-2">
+          {thema.umsetzung.map((u, i) => (
+            <li class="glass-dark rounded-[22px] p-7">
+              <span class="flex size-9 items-center justify-center rounded-full bg-lime-300 text-[14px] font-semibold text-ink">{i + 1}</span>
+              <h3 class="mt-4 mb-1.5 text-[18px] font-semibold text-white">{u.titel}</h3>
+              <p class="m-0 text-[15px] text-white/65">{u.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
+      <div class="mx-auto grid max-w-[1180px] gap-5 lg:grid-cols-[1.15fr_1fr]">
+        <div class="bg-featured rounded-[28px] border border-lime-200 p-8 md:p-10">
+          <div class="eyebrow mb-3">Ergebnis</div>
+          <h2 class="m-0 text-[28px] leading-tight font-semibold tracking-[-0.02em]">Das haben Sie danach in der Hand</h2>
+          <ul class="mt-7 flex flex-col gap-3.5 text-[16px]">
+            {thema.ergebnis.map((e) => (
+              <li class="flex gap-3">
+                <Icon name="check" size={20} class="mt-0.5 shrink-0 text-lime-600" strokeWidth={2.25} />{e}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="flex flex-col gap-5">
+          <div class="card p-7">
+            <Icon name="handshake" size={22} class="text-lime-700" />
+            <h2 class="h-card mt-4 mb-2">Das bringen Sie mit</h2>
+            <p class="m-0 text-[16px] text-body">{thema.mitbringen}</p>
+          </div>
+          <div class="rounded-[24px] bg-surface p-7">
+            <Icon name="shield-check" size={22} class="text-lime-700" />
+            <h2 class="h-card mt-4 mb-2">Klare Grenze</h2>
+            <p class="m-0 text-[16px] text-body">{thema.grenze}</p>
+          </div>
+        </div>
+      </div>
+      {thema.hinweis && (
+        <p class="mx-auto mt-6 flex max-w-[1180px] gap-2.5 rounded-[16px] border border-line px-5 py-4 text-[14px] text-body">
+          <Icon name="badge-check" size={18} class="mt-0.5 shrink-0 text-lime-700" />{thema.hinweis}
+        </p>
+      )}
+    </section>
+
+    <section class="px-3 md:px-5">
+      <div class="mx-auto grid max-w-[1400px] items-center gap-10 rounded-[32px] bg-[linear-gradient(180deg,#fff_0%,#f4fcdc_45%,#eaf8bd_100%)] px-6 py-16 md:grid-cols-[1fr_.9fr] md:px-14 md:py-20">
+        <div>
+          <div class="eyebrow mb-4">Im Paket enthalten</div>
+          <h2 class="h-section m-0">{thema.name} gehört zur Säule {pillar.name}.</h2>
+          <p class="lead mt-5">
+            Sie buchen keine Einzelleistung, Sie aktivieren eine Säule. Im Paket Fokus ab 1.490 € netto im Monat, jedes Quartal neu wählbar.
+          </p>
+          <a href="/preise" class="link-arrow mt-6 text-[16px]">Pakete und Preise ansehen <Icon name="arrow-right" size={16} /></a>
+        </div>
+        <div class="glass rounded-[24px] p-7">
+          <div class="flex items-center justify-between">
+            <span class="flex items-center gap-2 text-[15px] font-semibold text-lime-700"><Icon name={pillar.icon} size={18} />{pillar.check.name}</span>
+            {pillar.check.status === "bald" && <span class="rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">Bald</span>}
+          </div>
+          <p class="mt-3 mb-6 text-[17px] font-semibold">{pillar.check.hook}</p>
+          <a href={`/checks/${pillar.id}`} class="btn btn-dark">Zum Check</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 pt-24 md:px-8 md:pt-28">
+      <SectionHead eyebrow={`FAQ ${thema.name}`} title="Häufige Fragen" class="mb-12" />
+      <FaqList items={thema.faq} />
+    </section>
+
+    <section class="px-5 pt-24 md:px-8 md:pt-28">
+      <SectionHead title="Passt oft dazu" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 md:grid-cols-3">
+        {verwandt.map((v) => (
+          <a href={`/leistungen/${v.pillar}/${v.slug}`} class="card group flex flex-col p-7 transition-transform hover:-translate-y-0.5">
+            <span class="text-[13px] font-semibold text-lime-700">{v.pillarName}</span>
+            <h3 class="h-card mt-2 mb-2">{v.name}</h3>
+            <p class="m-0 mb-6 text-[15px] text-body">{v.headline}</p>
+            <span class="link-arrow mt-auto text-[15px]">Mehr erfahren <Icon name="arrow-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <CtaDuo title={`Wo steht Ihr Betrieb<br />beim Thema ${thema.name}?`} />
+  </main>
+  <SiteFooter />
+</Layout>
