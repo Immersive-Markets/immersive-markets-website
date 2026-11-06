@@ -1,0 +1,52 @@
+---
+import CheckPage, { type Landing } from "../../components/check/CheckPage.astro";
+import { modernisierung } from "../../data/checks/modernisierung";
+
+// {anzahl} und {minuten} werden aus der Fragenliste befüllt.
+const landing: Landing = {
+  metaTitle: "Modernisierungscheck für Nachfolger — Immersive Markets",
+  metaDescription:
+    "Wie zukunftsfähig ist das Unternehmen, das Sie übernommen haben? {anzahl} Fragen zu Markt, Talenten, Führung, Prozessen und KI. Ergebnis sofort, ausführlicher Report mit 90-Tage-Plan gratis.",
+  crumb: "Modernisierungscheck",
+  badge: "Für Nachfolgerinnen und Nachfolger im Amt",
+  title: "Wie zukunftsfähig ist das Unternehmen, das Sie übernommen haben?",
+  lead: "Was Ihr Unternehmen bisher getragen hat, trägt nicht automatisch weiter. {anzahl} Fragen zu Markt, Talenten, Führung, Prozessen sowie Digitalisierung und KI zeigen Ihnen, wo Sie zuerst anpacken sollten.",
+  nutzen: [
+    { icon: "gauge", titel: "Ihr Modernisierungsbedarf in Prozent", text: "Eine klare Zahl über fünf Bereiche: Markt, Talente, Führung, Prozesse sowie Digitalisierung und KI." },
+    { icon: "eye", titel: "Die Warnsignale, schwarz auf weiß", text: "Jede kritische Antwort wird zum konkreten Satz. Damit argumentieren Sie intern, auch gegenüber dem Senior." },
+    { icon: "list-checks", titel: "Ein ausführlicher Report", text: "Deutung je Bereich, drei Maßnahmen mit konkreten Schritten, 90-Tage-Plan und Preisrahmen. Als PDF." },
+  ],
+  beispiel: {
+    title: "Drei Fragen, die viele Nachfolger ins Grübeln bringen",
+    lead: "Sie haben übernommen. Jetzt machen Sie es zu Ihrem Unternehmen. Dafür brauchen Sie einen ehrlichen Blick auf das, was ist.",
+    fragen: [
+      { bereich: "Kundenprofitabilität", frage: "Kennen Sie den Deckungsbeitrag je Kunde oder je Auftrag?" },
+      { bereich: "Übergabe", frage: "Bei wem holen sich Mitarbeiter bei wichtigen Fragen das letzte Wort?" },
+      { bereich: "EU AI Act", frage: "Wie stellen Sie die seit 2025 geforderte KI-Kompetenz Ihrer Mitarbeiter sicher?" },
+    ],
+  },
+  schritte: [
+    { titel: "{anzahl} Fragen beantworten", text: "Ein Klick pro Frage. Die Fragen gehen ins Detail, wie in einem guten Beratungsgespräch." },
+    { titel: "Ergebnis sofort sehen", text: "Modernisierungsbedarf, Reifegrad in fünf Bereichen und Ihr deutlichstes Warnsignal." },
+    { titel: "Report herunterladen", text: "Warnsignale, Maßnahmen und 90-Tage-Plan für Ihr Unternehmen, als PDF." },
+  ],
+  ueberMich: [
+    "Ich begleite Nachfolgerinnen und Nachfolger, die ihr Unternehmen modernisieren wollen, mit Beratung und Umsetzung aus einer Hand.",
+    "Den Check habe ich gebaut, weil nach der Übergabe oft der ehrliche Blick von außen fehlt. Er zeigt Ihnen, wo Ihr Unternehmen steht, auch wenn Sie danach alles selbst umsetzen.",
+  ],
+  faq: [
+    { q: "Was kostet der Check?", a: "Nichts. Check und Report sind kostenlos und unverbindlich." },
+    { q: "Wie genau ist das Ergebnis?", a: "Der Check gibt eine ehrliche erste Orientierung auf Basis Ihrer Antworten. Die Auswertung folgt festen Regeln, ohne KI und ohne Branchenvergleich. Was davon für Ihr Unternehmen wirklich zählt, klären wir gern im Gespräch." },
+    { q: "Was passiert mit meinen Antworten und Daten?", a: "Ihre Antworten nutze ich nur, um Ihren Report zu erstellen und Sie bei Rückfragen zu erreichen. Werbe-E-Mails bekommen Sie nur, wenn Sie das ausdrücklich ankreuzen und per E-Mail bestätigen." },
+    { q: "Muss ich danach etwas kaufen?", a: "Nein. Viele Maßnahmen im Report können Sie selbst umsetzen. Wenn Sie Unterstützung möchten, buchen Sie ein Gespräch." },
+  ],
+  schlussTitel: "{minuten} Minuten, und Sie wissen, wo Sie anpacken.",
+  ergebnisEyebrow: "Ihr Ergebnis · Modernisierungsbedarf",
+  radarLabel: "Reifegrad · je weiter außen, desto zukunftsfähiger",
+  gateText: "Deutung je Bereich, alle Warnsignale, drei Maßnahmen mit konkreten Schritten, 90-Tage-Plan und Preisrahmen.",
+  optinText: "Ja, ich möchte gelegentlich Praxis-Tipps zur Modernisierung per E-Mail.",
+  placeholderFirma: "Muster Metallbau GmbH",
+};
+---
+
+<CheckPage config={modernisierung} landing={landing} />

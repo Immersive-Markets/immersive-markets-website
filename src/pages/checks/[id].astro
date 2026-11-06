@@ -9,11 +9,11 @@ import CtaDuo from "../../components/ui/CtaDuo.astro";
 import { pillars } from "../../data/pillars";
 
 export function getStaticPaths() {
-  return pillars.map((p) => ({ params: { id: p.id }, props: { pillar: p } }));
+  // Checks mit eigener Seite (z. B. /checks/ki) hier ausnehmen.
+  return pillars.filter((p) => p.check.status !== "live").map((p) => ({ params: { id: p.id }, props: { pillar: p } }));
 }
 
 const { pillar } = Astro.props;
-const isKi = pillar.id === "ki";
 
 const nutzen = [
   { icon: "gauge", titel: "Ihre Ausgangslage", text: "Sie sehen, wo Ihr Betrieb in dieser Säule heute steht." },
@@ -30,9 +30,7 @@ const nutzen = [
       <div class="glass mx-auto mt-10 max-w-[560px] rounded-[24px] p-7 text-left">
         <span class="inline-flex rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">In Vorbereitung</span>
         <p class="mt-4 mb-6 text-[16px] text-body">
-          {isKi
-            ? "Der interaktive KI-Potenzial-Check ist als Prototyp fertig und geht in Kürze online."
-            : `Der ${pillar.check.name} ist in Arbeit und geht in den nächsten Wochen online.`}
+          {`Der ${pillar.check.name} ist in Arbeit und geht in den nächsten Wochen online.`}
           {" "}Bis dahin klären wir das Gleiche gern direkt im Gespräch.
         </p>
         <a href="/gespraech" class="btn btn-dark">Stattdessen Gespräch anfragen</a>
