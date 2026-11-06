@@ -21,8 +21,8 @@ const stationen = [
     zeit: "seit 2023",
     rolle: "Projektleiter, zuvor Account & Marketing Manager",
     ort: "TM-Solution GmbH",
-    text: "Seit Januar 2024 leite ich Projekte: Projektüberwachung und Marketingstrategie. Davor neun Monate Account- und Marketing-Management.",
-    saeulen: ["Kunden", "Prozesse"],
+    text: "Ich berate Industrieunternehmen in Marketing, Vertrieb, Recruiting, Digitalisierung und Online-Sichtbarkeit: Maschinenbauer, Automatisierer, Lohnfertiger, Zulieferer, Komponentenhersteller, Industriedienstleister und Inbetriebnehmer. Heute leite ich dort ein interdisziplinäres Team, das diese Projekte umsetzt. Vieles setze ich auch selbst um.",
+    saeulen: ["Mitarbeiter", "Kunden", "Prozesse"],
   },
   {
     zeit: "2022 bis 2023",
@@ -63,9 +63,9 @@ const ausbildung = [
 ];
 
 const bezug = [
-  { icon: "users", saeule: "Mitarbeiter", text: "Personalmarketing war Thema meiner Bachelorarbeit. Bei ZF habe ich globale Schulungen und Webinare moderiert." },
-  { icon: "megaphone", saeule: "Kunden", text: "Kampagnen, Website, Branchenplattformen, Social Media, SEO und Newsletter habe ich selbst geplant und gesteuert." },
-  { icon: "workflow", saeule: "Prozesse", text: "Reporting und Dashboards mit Power BI, Wissensmanagement mit SharePoint, dazu Projektleitung im Tagesgeschäft." },
+  { icon: "users", saeule: "Mitarbeiter", text: "Recruiting-Projekte für Industriekunden. Personalmarketing war Thema meiner Bachelorarbeit, bei ZF habe ich globale Schulungen moderiert." },
+  { icon: "megaphone", saeule: "Kunden", text: "Marketing, Vertrieb und Online-Sichtbarkeit für Maschinenbauer, Zulieferer und Industriedienstleister. Kampagnen, Website, SEO und Newsletter auch selbst umgesetzt." },
+  { icon: "workflow", saeule: "Prozesse", text: "Digitalisierung bei Industriekunden, Reporting und Dashboards mit Power BI, dazu die Leitung eines interdisziplinären Teams." },
   { icon: "sparkles", saeule: "KI", text: "KI und Automationen setze ich in meiner eigenen Arbeit ein, mit festen Regeln und gekennzeichnet." },
 ];
 
@@ -76,7 +76,7 @@ const regeln = [
 ];
 ---
 
-<Layout title="Über mich — Immersive Markets" description="Felix Binder: seit 2020 in Marketing, Wissensmanagement und Projektleitung, unter anderem bei ZF. Heute externer Modernisierungspartner für Nachfolger.">
+<Layout title="Über mich — Immersive Markets" description="Felix Binder berät seit 2023 Industrieunternehmen in Marketing, Vertrieb, Recruiting und Digitalisierung. Als externer Modernisierungspartner begleitet er Nachfolger.">
   <SiteHeader />
   <main>
     <section class="bg-hero px-5 pt-16 pb-20 md:px-8 md:pt-24 md:pb-28">
@@ -87,7 +87,7 @@ const regeln = [
           </div>
           <h1 class="h-display m-0">Eine Person,<br />kein Konzern.</h1>
           <p class="lead mt-6 max-w-[560px]">
-            Ich bin Felix Binder. Seit 2020 arbeite ich in Marketing, Wissensmanagement und Projektleitung, unter anderem bei ZF in Friedrichshafen. Heute leite ich Projekte bei der TM-Solution GmbH.
+            Ich bin Felix Binder. Seit 2023 berate ich bei der TM-Solution GmbH Industrieunternehmen in Marketing, Vertrieb, Recruiting und Digitalisierung. Heute leite ich dort ein interdisziplinäres Team, das diese Projekte umsetzt.
           </p>
           <p class="lead mt-4 max-w-[560px]">
             Als Ihr Modernisierungspartner bekommen Sie mich als festen Ansprechpartner. Für Themen, die ich nicht selbst abdecke, arbeite ich mit spezialisierten Partnern aus meinem Netzwerk.
@@ -119,6 +119,23 @@ const regeln = [
             )}
           </div>
         ))}
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <div class="mx-auto grid max-w-[1180px] gap-8 rounded-[32px] bg-[linear-gradient(160deg,#f8fdeb,#eefad0)] p-8 md:p-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-14">
+        <div>
+          <div class="eyebrow mb-4">Warum Nachfolge</div>
+          <h2 class="h-section m-0">Wer übernimmt, will etwas bewegen.</h2>
+        </div>
+        <div class="flex flex-col gap-4 text-[17px] leading-relaxed text-body">
+          <p class="m-0">
+            In der Industrie habe ich mit Inhabern aus mehreren Generationen gearbeitet. Ein Muster ist mir dabei immer wieder begegnet: Wer übernimmt, will zeigen, dass er das Unternehmen weiterbringt. Und am liebsten vieles auf einmal ändern.
+          </p>
+          <p class="m-0">
+            Dieser Antrieb ist wertvoll. Er braucht nur eine Reihenfolge. Ich helfe Ihnen, zuerst das anzugehen, was am meisten bringt. Und auf dem aufzubauen, was Ihre Vorgänger über Jahrzehnte geschaffen haben.
+          </p>
+        </div>
       </div>
     </section>
 
