@@ -8,7 +8,7 @@ import SectionHead from "../components/ui/SectionHead.astro";
 import PricingCards from "../components/ui/PricingCards.astro";
 import FaqList from "../components/ui/FaqList.astro";
 import CtaDuo from "../components/ui/CtaDuo.astro";
-import { tiers, vergleich, vorhabenBeispiele, nichtEnthalten } from "../data/pricing";
+import { vorhabenBeispiele, nichtEnthalten } from "../data/pricing";
 import { faqPreise } from "../data/faq";
 
 const regeln = [
@@ -37,7 +37,6 @@ const regeln = [
         <SectionHead
           tone="light"
           eyebrow="Das Vorhaben-Modell"
-          title="Bezahlt wird, was fertig wird."
           lead="Ein Vorhaben ist ein abgegrenztes Stück Arbeit mit festem Ergebnis. Ist es fertig, rückt das nächste aus Ihrer Roadmap nach, aus jeder der vier Säulen."
         />
         <div class="mx-auto mt-12 grid max-w-[1080px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -61,47 +60,7 @@ const regeln = [
       </div>
     </section>
 
-    <section id="vergleich" class="px-5 py-24 md:px-8 md:py-28">
-      <SectionHead eyebrow="Im Vergleich" title="Gleiches Fundament, anderes Tempo" />
-      <div class="mx-auto mt-12 max-w-[920px] overflow-x-auto rounded-[24px] border border-line">
-        <table class="w-full border-collapse text-left text-[13px] sm:text-[14px] md:text-[15px] hyphens-auto">
-          <thead>
-            <tr class="bg-surface">
-              <th class="p-2 font-medium text-muted sm:p-3 md:p-4"><span class="sr-only">Leistung</span></th>
-              {tiers.map((t) => (
-                <th class:list={["p-2 text-center font-semibold break-words sm:p-3 md:p-4", t.featured && "bg-lime-100"]}>{t.name}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {vergleich.map((z) => (
-              <tr class="border-t border-line">
-                <th class="p-2 font-medium sm:p-3 md:p-4">{z.label}</th>
-                {z.werte.map((w, i) => (
-                  <td class:list={["p-2 text-center sm:p-3 md:p-4", tiers[i].featured && "bg-lime-50"]}>
-                    {w === true ? (
-                      <Icon name="check" size={18} class="mx-auto text-lime-600" strokeWidth={2.25} />
-                    ) : w === false ? (
-                      <span class="text-muted">–</span>
-                    ) : (
-                      w
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-            <tr class="border-t border-line bg-surface">
-              <th class="p-2 font-semibold sm:p-3 md:p-4">Preis pro Monat</th>
-              {tiers.map((t) => (
-                <td class="p-2 text-center font-semibold whitespace-nowrap sm:p-3 md:p-4">{t.preis}</td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="px-5 pb-24 md:px-8">
+    <section class="px-5 py-24 md:px-8 md:py-28">
       <div class="mx-auto grid max-w-[1180px] gap-5 md:grid-cols-2">
         <div class="card p-8">
           <Icon name="calendar" size={22} class="text-lime-700" />
