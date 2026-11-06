@@ -1,6 +1,8 @@
 ---
 import Icon from "../Icon.astro";
 import SectionHead from "../ui/SectionHead.astro";
+import { Image } from "astro:assets";
+import foto from "../../assets/felix-binder.webp";
 ---
 
 <section class="px-5 pb-24 md:px-8 md:pb-32">
@@ -9,11 +11,17 @@ import SectionHead from "../ui/SectionHead.astro";
   </SectionHead>
 
   <div class="mx-auto mt-12 grid max-w-[1240px] gap-5 lg:grid-cols-[1.45fr_1fr]">
-    <div class="relative flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[28px] bg-[radial-gradient(60%_60%_at_80%_20%,rgba(201,242,74,.35),transparent_70%),linear-gradient(160deg,#26310d,#0c1004)] p-7 text-white md:p-9">
-      <p class="m-0 max-w-[420px] text-[18px] leading-snug font-medium text-white/90">
-        Felix Binder setzt Digitalisierung, Modernisierung und KI für Traditionsunternehmen um. Persönlich und mit einem Netzwerk spezialisierter Partner.
+    <div class="relative flex min-h-[520px] flex-col justify-between overflow-hidden rounded-[28px] bg-[radial-gradient(45%_55%_at_78%_35%,rgba(201,242,74,.4),transparent_70%),linear-gradient(160deg,#26310d,#0c1004)] p-7 text-white sm:min-h-[420px] md:p-9">
+      <Image
+        src={foto}
+        alt="Felix Binder"
+        widths={[300, 480, 720]}
+        sizes="(min-width: 640px) 400px, 260px"
+        class="pointer-events-none absolute right-0 bottom-0 h-[48%] w-auto max-w-none object-contain object-bottom sm:right-4 sm:h-[92%]"
+      />
+      <p class="relative m-0 max-w-[420px] text-[18px] leading-snug font-medium text-white/90 sm:max-w-[50%]">
+        Felix Binder berät seit 2023 Industrieunternehmen in Marketing, Vertrieb, Recruiting und Digitalisierung. Als Modernisierungspartner begleitet er Nachfolger, persönlich und mit einem Netzwerk spezialisierter Partner.
       </p>
-      <div aria-hidden="true" class="pointer-events-none absolute right-6 bottom-4 text-[180px] leading-none font-semibold tracking-[-0.06em] text-white/[.07] md:text-[240px]">FB</div>
       <div class="relative flex items-end justify-between gap-4">
         <a href="/ueber-mich" class="btn btn-light h-10 bg-white/90 px-4 text-[14px]">Über mich</a>
       </div>

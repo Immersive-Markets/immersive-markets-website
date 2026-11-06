@@ -5,12 +5,70 @@ import SiteFooter from "../components/SiteFooter.astro";
 import Icon from "../components/Icon.astro";
 import SectionHead from "../components/ui/SectionHead.astro";
 import CtaDuo from "../components/ui/CtaDuo.astro";
+import { Image } from "astro:assets";
+import foto from "../assets/felix-binder.webp";
+
+const linkedin = "https://www.linkedin.com/in/your-new-favourite-employee/";
 
 const fakten = [
-  { k: "Standort", v: "Am Bodensee, remote-first" },
-  { k: "Rechtsform", v: "Einzelunternehmen" },
+  { k: "Standort", v: "Am Bodensee" },
   { k: "Arbeitsweise", v: "Remote-first, vor Ort bei Bedarf" },
+  { k: "LinkedIn", v: "Profil ansehen", href: linkedin },
   { k: "E-Mail", v: "info@immersive-markets.de", href: "mailto:info@immersive-markets.de" },
+];
+
+// Nur Angaben aus dem LinkedIn-Profil. Nichts ergänzen, was dort nicht steht.
+const stationen = [
+  {
+    zeit: "seit 2023",
+    rolle: "Projektleiter, zuvor Account & Marketing Manager",
+    ort: "TM-Solution GmbH",
+    text: "Ich berate Industrieunternehmen in Marketing, Vertrieb, Recruiting, Digitalisierung und Online-Sichtbarkeit: Maschinenbauer, Automatisierer, Lohnfertiger, Zulieferer, Komponentenhersteller, Industriedienstleister und Inbetriebnehmer. Heute leite ich dort ein interdisziplinäres Team, das diese Projekte umsetzt. Vieles setze ich auch selbst um.",
+    saeulen: ["Mitarbeiter", "Kunden", "Prozesse"],
+  },
+  {
+    zeit: "2022 bis 2023",
+    rolle: "Bereichsleiter Öffentlichkeitsarbeit",
+    ort: "Lern-Fair, Bonn",
+    text: "Verantwortung für die Öffentlichkeitsarbeit eines Bereichs.",
+    saeulen: ["Kunden"],
+  },
+  {
+    zeit: "2020 bis 2022",
+    rolle: "Marketing & Content Design",
+    ort: "SternMed GmbH, Ravensburg",
+    text: "Planung und Steuerung aller Online- und Printkampagnen. Website und Auftritt auf Branchenplattformen, Social Media, SEO, Anzeigen und Newsletter. Intern Ansprechpartner für BI, Dashboards und Reporting mit Power BI und Excel.",
+    saeulen: ["Kunden", "Prozesse"],
+  },
+  {
+    zeit: "2019 bis 2020",
+    rolle: "Werkstudent und Praktikant, Corporate Knowledge Management",
+    ort: "ZF Group, Friedrichshafen",
+    text: "Entwicklung und Einführung eines globalen Analysetools mit Power BI und SharePoint. Weiterentwicklung der Reportingstruktur. Moderation globaler Schulungen und Webinare.",
+    saeulen: ["Prozesse", "Mitarbeiter"],
+  },
+];
+
+const ausbildung = [
+  {
+    zeit: "2016 bis 2020",
+    titel: "Bachelor of Arts, Medien- und Bildungsmanagement",
+    ort: "Pädagogische Hochschule Weingarten",
+    text: "Bachelorarbeit zu modernem Personalmarketing auf Basis der Personalpsychologie, Note 1,3.",
+  },
+  {
+    zeit: "2013 bis 2016",
+    titel: "Studium der Wirtschaftswissenschaften",
+    ort: "Universität Ulm",
+    text: "",
+  },
+];
+
+const bezug = [
+  { icon: "users", saeule: "Mitarbeiter", text: "Recruiting-Projekte für Industriekunden. Personalmarketing war Thema meiner Bachelorarbeit, bei ZF habe ich globale Schulungen moderiert." },
+  { icon: "megaphone", saeule: "Kunden", text: "Marketing, Vertrieb und Online-Sichtbarkeit für Maschinenbauer, Zulieferer und Industriedienstleister. Kampagnen, Website, SEO und Newsletter auch selbst umgesetzt." },
+  { icon: "workflow", saeule: "Prozesse", text: "Digitalisierung bei Industriekunden, Reporting und Dashboards mit Power BI, dazu die Leitung eines interdisziplinären Teams." },
+  { icon: "sparkles", saeule: "KI", text: "KI und Automationen setze ich in meiner eigenen Arbeit ein, mit festen Regeln und gekennzeichnet." },
 ];
 
 const regeln = [
@@ -20,7 +78,7 @@ const regeln = [
 ];
 ---
 
-<Layout title="Über mich — Immersive Markets" description="Felix Binder, Immersive Markets: externer Modernisierungspartner für Traditionsunternehmen in der Nachfolge, mit einem Netzwerk spezialisierter Partner.">
+<Layout title="Über mich — Immersive Markets" description="Felix Binder berät seit 2023 Industrieunternehmen in Marketing, Vertrieb, Recruiting und Digitalisierung. Als externer Modernisierungspartner begleitet er Nachfolger.">
   <SiteHeader />
   <main>
     <section class="bg-hero px-5 pt-16 pb-20 md:px-8 md:pt-24 md:pb-28">
@@ -31,16 +89,25 @@ const regeln = [
           </div>
           <h1 class="h-display m-0">Eine Person,<br />kein Konzern.</h1>
           <p class="lead mt-6 max-w-[560px]">
-            Ich bin Felix Binder und setze Digitalisierung, Modernisierung und KI für Traditionsunternehmen um. Für Themen, die ich nicht selbst abdecke, arbeite ich mit einem Netzwerk spezialisierter Partner.
+            Ich bin Felix Binder. Seit 2023 berate ich bei der TM-Solution GmbH Industrieunternehmen in Marketing, Vertrieb, Recruiting und Digitalisierung. Heute leite ich dort ein interdisziplinäres Team, das diese Projekte umsetzt.
           </p>
-          <p class="lead mt-4 max-w-[560px]">Sie bekommen mich als festen Ansprechpartner. Keine Ticketnummer, kein wechselnder Account-Manager.</p>
+          <p class="lead mt-4 max-w-[560px]">
+            Als Ihr Modernisierungspartner bekommen Sie mich als festen Ansprechpartner. Für Themen, die ich nicht selbst abdecke, arbeite ich mit spezialisierten Partnern aus meinem Netzwerk.
+          </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="/gespraech" class="btn btn-dark">Gespräch anfragen</a>
-            <a href="/leistungen" class="btn btn-light">Leistungen ansehen</a>
+            <a href={linkedin} class="btn btn-light" target="_blank" rel="noopener">LinkedIn-Profil <Icon name="arrow-up-right" size={16} /></a>
           </div>
         </div>
-        <div class="relative flex aspect-[4/5] items-end overflow-hidden rounded-[32px] bg-[radial-gradient(60%_60%_at_70%_25%,rgba(201,242,74,.35),transparent_70%),linear-gradient(160deg,#26310d,#0c1004)] p-7">
-          <div aria-hidden="true" class="pointer-events-none absolute inset-0 flex items-center justify-center text-[200px] font-semibold tracking-[-0.06em] text-white/[.07]">FB</div>
+        <div class="relative flex aspect-[4/5] items-end overflow-hidden rounded-[32px] bg-[radial-gradient(60%_50%_at_50%_30%,rgba(201,242,74,.45),transparent_70%),linear-gradient(160deg,#26310d,#0c1004)] p-7">
+          <Image
+            src={foto}
+            alt="Felix Binder"
+            widths={[400, 640, 960]}
+            sizes="(min-width: 1024px) 480px, 90vw"
+            loading="eager"
+            class="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-[94%] w-auto max-w-none object-contain object-bottom"
+          />
           <div class="glass relative w-full rounded-[20px] p-5">
             <div class="text-[16px] font-semibold">Felix Binder</div>
             <div class="text-[14px] text-body">Inhaber, Immersive Markets</div>
@@ -49,16 +116,79 @@ const regeln = [
       </div>
     </section>
 
-    <section class="px-5 py-24 md:px-8 md:py-28">
-      <div class="mx-auto grid max-w-[1180px] gap-5 md:grid-cols-4">
+    <section class="px-5 py-20 md:px-8 md:py-24">
+      <div class="mx-auto grid max-w-[1180px] gap-5 sm:grid-cols-2 md:grid-cols-4">
         {fakten.map((f) => (
           <div class="card p-6">
             <div class="text-[13px] font-medium text-muted">{f.k}</div>
             {f.href ? (
-              <a href={f.href} class="mt-1 block text-[16px] font-semibold break-words text-lime-700 hover:text-lime-900">{f.v}</a>
+              <a href={f.href} class="mt-1 block text-[16px] font-semibold break-words text-lime-700 hover:text-lime-900" {...(f.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>{f.v}</a>
             ) : (
               <div class="mt-1 text-[16px] font-semibold">{f.v}</div>
             )}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <div class="mx-auto grid max-w-[1180px] gap-8 rounded-[32px] bg-[linear-gradient(160deg,#f8fdeb,#eefad0)] p-8 md:p-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-14">
+        <div>
+          <div class="eyebrow mb-4">Warum Nachfolge</div>
+          <h2 class="h-section m-0">Wer übernimmt, will etwas bewegen.</h2>
+        </div>
+        <div class="flex flex-col gap-4 text-[17px] leading-relaxed text-body">
+          <p class="m-0">
+            In der Industrie habe ich mit Inhabern aus mehreren Generationen gearbeitet. Ein Muster ist mir dabei immer wieder begegnet: Wer übernimmt, will zeigen, dass er das Unternehmen weiterbringt. Und am liebsten vieles auf einmal ändern.
+          </p>
+          <p class="m-0">
+            Dieser Antrieb ist wertvoll. Er braucht nur eine Reihenfolge. Ich helfe Ihnen, zuerst das anzugehen, was am meisten bringt. Und auf dem aufzubauen, was Ihre Vorgänger über Jahrzehnte geschaffen haben.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <SectionHead eyebrow="Werdegang" title="Wo ich herkomme" lead="Die Stationen, die für Ihre Modernisierung zählen. Vollständig auf LinkedIn." />
+      <ol class="mx-auto mt-12 flex max-w-[860px] flex-col gap-4">
+        {stationen.map((s) => (
+          <li class="card grid gap-3 p-6 md:grid-cols-[150px_1fr] md:gap-6 md:p-7">
+            <div class="text-[14px] font-semibold text-lime-700">{s.zeit}</div>
+            <div>
+              <h3 class="m-0 text-[18px] font-semibold">{s.rolle}</h3>
+              <div class="mt-0.5 text-[14px] text-muted">{s.ort}</div>
+              <p class="mt-3 mb-0 text-[15px] text-body">{s.text}</p>
+              <div class="mt-4 flex flex-wrap gap-1.5">
+                {s.saeulen.map((t) => <span class="rounded-full bg-lime-100 px-2.5 py-0.5 text-[12px] font-semibold text-lime-800">{t}</span>)}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <h3 class="mx-auto mt-14 mb-4 max-w-[860px] text-[15px] font-semibold text-muted">Ausbildung</h3>
+      <ul class="mx-auto flex max-w-[860px] flex-col gap-4">
+        {ausbildung.map((a) => (
+          <li class="grid gap-3 rounded-[20px] bg-surface p-6 md:grid-cols-[150px_1fr] md:gap-6">
+            <div class="text-[14px] font-semibold text-lime-700">{a.zeit}</div>
+            <div>
+              <div class="text-[17px] font-semibold">{a.titel}</div>
+              <div class="mt-0.5 text-[14px] text-muted">{a.ort}</div>
+              {a.text && <p class="mt-2 mb-0 text-[15px] text-body">{a.text}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <SectionHead eyebrow="Was das für Sie heißt" title="Erfahrung in allen vier Säulen" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {bezug.map((b) => (
+          <div class="card p-7">
+            <Icon name={b.icon} size={22} class="text-lime-700" />
+            <h3 class="h-card mt-4 mb-2">{b.saeule}</h3>
+            <p class="m-0 text-[15px] text-body">{b.text}</p>
           </div>
         ))}
       </div>
