@@ -6,11 +6,67 @@ import Icon from "../components/Icon.astro";
 import SectionHead from "../components/ui/SectionHead.astro";
 import CtaDuo from "../components/ui/CtaDuo.astro";
 
+const linkedin = "https://www.linkedin.com/in/your-new-favourite-employee/";
+
 const fakten = [
-  { k: "Standort", v: "Am Bodensee, remote-first" },
-  { k: "Rechtsform", v: "Einzelunternehmen" },
+  { k: "Standort", v: "Am Bodensee" },
   { k: "Arbeitsweise", v: "Remote-first, vor Ort bei Bedarf" },
+  { k: "LinkedIn", v: "Profil ansehen", href: linkedin },
   { k: "E-Mail", v: "info@immersive-markets.de", href: "mailto:info@immersive-markets.de" },
+];
+
+// Nur Angaben aus dem LinkedIn-Profil. Nichts ergänzen, was dort nicht steht.
+const stationen = [
+  {
+    zeit: "seit 2023",
+    rolle: "Projektleiter, zuvor Account & Marketing Manager",
+    ort: "TM-Solution GmbH",
+    text: "Seit Januar 2024 leite ich Projekte: Projektüberwachung und Marketingstrategie. Davor neun Monate Account- und Marketing-Management.",
+    saeulen: ["Kunden", "Prozesse"],
+  },
+  {
+    zeit: "2022 bis 2023",
+    rolle: "Bereichsleiter Öffentlichkeitsarbeit",
+    ort: "Lern-Fair, Bonn",
+    text: "Verantwortung für die Öffentlichkeitsarbeit eines Bereichs.",
+    saeulen: ["Kunden"],
+  },
+  {
+    zeit: "2020 bis 2022",
+    rolle: "Marketing & Content Design",
+    ort: "SternMed GmbH, Ravensburg",
+    text: "Planung und Steuerung aller Online- und Printkampagnen. Website und Auftritt auf Branchenplattformen, Social Media, SEO, Anzeigen und Newsletter. Intern Ansprechpartner für BI, Dashboards und Reporting mit Power BI und Excel.",
+    saeulen: ["Kunden", "Prozesse"],
+  },
+  {
+    zeit: "2019 bis 2020",
+    rolle: "Werkstudent und Praktikant, Corporate Knowledge Management",
+    ort: "ZF Group, Friedrichshafen",
+    text: "Entwicklung und Einführung eines globalen Analysetools mit Power BI und SharePoint. Weiterentwicklung der Reportingstruktur. Moderation globaler Schulungen und Webinare.",
+    saeulen: ["Prozesse", "Mitarbeiter"],
+  },
+];
+
+const ausbildung = [
+  {
+    zeit: "2016 bis 2020",
+    titel: "Bachelor of Arts, Medien- und Bildungsmanagement",
+    ort: "Pädagogische Hochschule Weingarten",
+    text: "Bachelorarbeit zu modernem Personalmarketing auf Basis der Personalpsychologie, Note 1,3.",
+  },
+  {
+    zeit: "2013 bis 2016",
+    titel: "Studium der Wirtschaftswissenschaften",
+    ort: "Universität Ulm",
+    text: "",
+  },
+];
+
+const bezug = [
+  { icon: "users", saeule: "Mitarbeiter", text: "Personalmarketing war Thema meiner Bachelorarbeit. Bei ZF habe ich globale Schulungen und Webinare moderiert." },
+  { icon: "megaphone", saeule: "Kunden", text: "Kampagnen, Website, Branchenplattformen, Social Media, SEO und Newsletter habe ich selbst geplant und gesteuert." },
+  { icon: "workflow", saeule: "Prozesse", text: "Reporting und Dashboards mit Power BI, Wissensmanagement mit SharePoint, dazu Projektleitung im Tagesgeschäft." },
+  { icon: "sparkles", saeule: "KI", text: "KI und Automationen setze ich in meiner eigenen Arbeit ein, mit festen Regeln und gekennzeichnet." },
 ];
 
 const regeln = [
@@ -20,7 +76,7 @@ const regeln = [
 ];
 ---
 
-<Layout title="Über mich — Immersive Markets" description="Felix Binder, Immersive Markets: externer Modernisierungspartner für Traditionsunternehmen in der Nachfolge, mit einem Netzwerk spezialisierter Partner.">
+<Layout title="Über mich — Immersive Markets" description="Felix Binder: seit 2020 in Marketing, Wissensmanagement und Projektleitung, unter anderem bei ZF. Heute externer Modernisierungspartner für Nachfolger.">
   <SiteHeader />
   <main>
     <section class="bg-hero px-5 pt-16 pb-20 md:px-8 md:pt-24 md:pb-28">
@@ -31,12 +87,14 @@ const regeln = [
           </div>
           <h1 class="h-display m-0">Eine Person,<br />kein Konzern.</h1>
           <p class="lead mt-6 max-w-[560px]">
-            Ich bin Felix Binder und setze Digitalisierung, Modernisierung und KI für Traditionsunternehmen um. Für Themen, die ich nicht selbst abdecke, arbeite ich mit einem Netzwerk spezialisierter Partner.
+            Ich bin Felix Binder. Seit 2020 arbeite ich in Marketing, Wissensmanagement und Projektleitung, unter anderem bei ZF in Friedrichshafen. Heute leite ich Projekte bei der TM-Solution GmbH.
           </p>
-          <p class="lead mt-4 max-w-[560px]">Sie bekommen mich als festen Ansprechpartner. Keine Ticketnummer, kein wechselnder Account-Manager.</p>
+          <p class="lead mt-4 max-w-[560px]">
+            Als Ihr Modernisierungspartner bekommen Sie mich als festen Ansprechpartner. Für Themen, die ich nicht selbst abdecke, arbeite ich mit spezialisierten Partnern aus meinem Netzwerk.
+          </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="/gespraech" class="btn btn-dark">Gespräch anfragen</a>
-            <a href="/leistungen" class="btn btn-light">Leistungen ansehen</a>
+            <a href={linkedin} class="btn btn-light" target="_blank" rel="noopener">LinkedIn-Profil <Icon name="arrow-up-right" size={16} /></a>
           </div>
         </div>
         <div class="relative flex aspect-[4/5] items-end overflow-hidden rounded-[32px] bg-[radial-gradient(60%_60%_at_70%_25%,rgba(201,242,74,.35),transparent_70%),linear-gradient(160deg,#26310d,#0c1004)] p-7">
@@ -49,16 +107,62 @@ const regeln = [
       </div>
     </section>
 
-    <section class="px-5 py-24 md:px-8 md:py-28">
-      <div class="mx-auto grid max-w-[1180px] gap-5 md:grid-cols-4">
+    <section class="px-5 py-20 md:px-8 md:py-24">
+      <div class="mx-auto grid max-w-[1180px] gap-5 sm:grid-cols-2 md:grid-cols-4">
         {fakten.map((f) => (
           <div class="card p-6">
             <div class="text-[13px] font-medium text-muted">{f.k}</div>
             {f.href ? (
-              <a href={f.href} class="mt-1 block text-[16px] font-semibold break-words text-lime-700 hover:text-lime-900">{f.v}</a>
+              <a href={f.href} class="mt-1 block text-[16px] font-semibold break-words text-lime-700 hover:text-lime-900" {...(f.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>{f.v}</a>
             ) : (
               <div class="mt-1 text-[16px] font-semibold">{f.v}</div>
             )}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <SectionHead eyebrow="Werdegang" title="Wo ich herkomme" lead="Die Stationen, die für Ihre Modernisierung zählen. Vollständig auf LinkedIn." />
+      <ol class="mx-auto mt-12 flex max-w-[860px] flex-col gap-4">
+        {stationen.map((s) => (
+          <li class="card grid gap-3 p-6 md:grid-cols-[150px_1fr] md:gap-6 md:p-7">
+            <div class="text-[14px] font-semibold text-lime-700">{s.zeit}</div>
+            <div>
+              <h3 class="m-0 text-[18px] font-semibold">{s.rolle}</h3>
+              <div class="mt-0.5 text-[14px] text-muted">{s.ort}</div>
+              <p class="mt-3 mb-0 text-[15px] text-body">{s.text}</p>
+              <div class="mt-4 flex flex-wrap gap-1.5">
+                {s.saeulen.map((t) => <span class="rounded-full bg-lime-100 px-2.5 py-0.5 text-[12px] font-semibold text-lime-800">{t}</span>)}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <h3 class="mx-auto mt-14 mb-4 max-w-[860px] text-[15px] font-semibold text-muted">Ausbildung</h3>
+      <ul class="mx-auto flex max-w-[860px] flex-col gap-4">
+        {ausbildung.map((a) => (
+          <li class="grid gap-3 rounded-[20px] bg-surface p-6 md:grid-cols-[150px_1fr] md:gap-6">
+            <div class="text-[14px] font-semibold text-lime-700">{a.zeit}</div>
+            <div>
+              <div class="text-[17px] font-semibold">{a.titel}</div>
+              <div class="mt-0.5 text-[14px] text-muted">{a.ort}</div>
+              {a.text && <p class="mt-2 mb-0 text-[15px] text-body">{a.text}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="px-5 pb-24 md:px-8 md:pb-28">
+      <SectionHead eyebrow="Was das für Sie heißt" title="Erfahrung in allen vier Säulen" />
+      <div class="mx-auto mt-12 grid max-w-[1180px] gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {bezug.map((b) => (
+          <div class="card p-7">
+            <Icon name={b.icon} size={22} class="text-lime-700" />
+            <h3 class="h-card mt-4 mb-2">{b.saeule}</h3>
+            <p class="m-0 text-[15px] text-body">{b.text}</p>
           </div>
         ))}
       </div>
