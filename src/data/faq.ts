@@ -1,6 +1,6 @@
 export const faqAllgemein = [
   {
-    q: "Was macht ein externer Digitalchef eigentlich?",
+    q: "Was macht ein externer Modernisierungspartner eigentlich?",
     a: "Ich übernehme die Rolle, die viele Betriebe in der Nachfolge noch nicht besetzt haben: verantwortlich für Digitalisierung, Modernisierung und Wachstum — von der Strategie bis zur Umsetzung. Beratung und Umsetzung aus einer Hand, nicht nur ein Konzept auf Papier.",
   },
   {
@@ -36,7 +36,7 @@ export const faqPreise = [
   },
   {
     q: "Was, wenn ich mehrere Säulen will?",
-    a: "Dann passt Wachstum (2 Säulen) oder Partner (alle 4). Die aktiven Säulen dürfen jedes Quartal wechseln, wenn sich Ihre Prioritäten ändern.",
+    a: "Dann passt Wachstum (2 Säulen) oder Komplett (alle 4). Die aktiven Säulen dürfen jedes Quartal wechseln, wenn sich Ihre Prioritäten ändern.",
   },
   {
     q: "Gibt es einen Rabatt zum Start?",

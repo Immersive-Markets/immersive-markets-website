@@ -22,7 +22,7 @@ export const tiers: Tier[] = [
     featured: true,
   },
   {
-    name: "Partner",
+    name: "Komplett",
     saeulen: "alle 4 Säulen",
     preis: "3.990 €",
     enthalten: ["Wöchentlicher Kontakt", "Umsetzung in allen vier Säulen", "Lernbibliothek & Vorrang bei Anfragen"],
@@ -34,5 +34,5 @@ export const nichtEnthalten = [
   "Werbebudget für Anzeigen",
   "Software-Lizenzen (z. B. CRM, Tools)",
   "Vor-Ort-Termine (Reisekosten plus Tagessatz)",
-  "Große Einzelprojekte wie ein Website-Relaunch — die bieten wir separat zum Festpreis an",
+  "Große Einzelprojekte wie ein Website-Relaunch — die biete ich separat zum Festpreis an",
 ];

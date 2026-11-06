@@ -15,7 +15,7 @@ const field = "h-12 w-full rounded-[12px] border border-line bg-white px-4 text-
 const label = "mb-1.5 block text-[14px] font-medium text-ink";
 ---
 
-<Layout title="Gespräch buchen — Immersive Markets" description="30 Minuten per Video, unverbindlich. Wir klären, ob und wo Immersive Markets Ihnen als externer Digitalchef weiterhilft.">
+<Layout title="Gespräch anfragen — Immersive Markets" description="30 Minuten per Video, unverbindlich. Wir klären, ob und wo Immersive Markets Ihnen als externer Modernisierungspartner weiterhilft.">
   <SiteHeader />
   <main class="bg-hero px-5 pt-14 pb-24 md:px-8 md:pt-20">
     <div class="mx-auto grid max-w-[1180px] items-start gap-10 lg:grid-cols-[.9fr_1.1fr]">
@@ -25,7 +25,7 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
         </div>
         <h1 class="h-display m-0">Lassen Sie uns sprechen.</h1>
         <p class="lead mt-6 max-w-[480px]">
-          Sie haben übernommen oder stehen kurz davor — und wollen wissen, ob und wo ein externer Digitalchef Ihnen weiterhilft. Schreiben Sie kurz, worum es geht und wann es Ihnen passt.
+          Sie haben übernommen oder stehen kurz davor — und wollen wissen, ob und wo ein externer Modernisierungspartner Ihnen weiterhilft. Schreiben Sie kurz, worum es geht und wann es Ihnen passt.
         </p>
         <ul class="mt-8 flex flex-col gap-3.5">
           {points.map((p) => (
@@ -54,14 +54,23 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
           <input type="hidden" name="redirect" value="https://immersive-markets.de/gespraech/danke" />
           <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
 
+          <div>
+            <label for="anliegen" class={label}>Ihr Anliegen *</label>
+            <select id="anliegen" name="anliegen" required data-anliegen class={`${field} cursor-pointer`}>
+              <option value="Erstgespräch Zusammenarbeit">Erstgespräch zur Zusammenarbeit</option>
+              <option value="Empfehlung als Partner">Ich möchte Mandanten oder Kunden empfehlen</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </div>
+
           <div class="grid gap-5 sm:grid-cols-2">
             <div>
               <label for="name" class={label}>Name *</label>
               <input id="name" name="name" required autocomplete="name" placeholder="Vor- und Nachname" class={field} />
             </div>
             <div>
-              <label for="firma" class={label}>Firma</label>
-              <input id="firma" name="firma" autocomplete="organization" placeholder="Ihr Unternehmen" class={field} />
+              <label for="firma" class={label}>Firma *</label>
+              <input id="firma" name="firma" required autocomplete="organization" placeholder="Ihr Unternehmen oder Ihre Kanzlei" class={field} />
             </div>
           </div>
 
@@ -95,8 +104,23 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
             </span>
           </label>
 
+          <label class="flex cursor-pointer items-start gap-3 text-[14px] leading-[1.5] text-body">
+            <input type="checkbox" name="werbe_einwilligung" value="ja" class="mt-0.5 size-4 shrink-0 accent-[#566e10]" />
+            <span>
+              Optional: Ich möchte gelegentlich Praxistipps und Angebote von Immersive Markets per E-Mail erhalten.
+              Die Einwilligung kann ich jederzeit widerrufen.
+            </span>
+          </label>
+
           <button type="submit" class="btn btn-dark h-12 w-full cursor-pointer">Gespräch anfragen</button>
         </form>
+        <script>
+          // /gespraech?anliegen=partner preselects the referral option (used by /partner).
+          const select = document.querySelector<HTMLSelectElement>("select[data-anliegen]");
+          if (select && new URLSearchParams(location.search).get("anliegen") === "partner") {
+            select.value = "Empfehlung als Partner";
+          }
+        </script>
       </div>
     </div>
   </main>

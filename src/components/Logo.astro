@@ -1,9 +1,10 @@
 ---
 interface Props {
   tone?: "dark" | "light";
+  claim?: boolean;
   class?: string;
 }
-const { tone = "dark", class: cls = "" } = Astro.props;
+const { tone = "dark", claim = false, class: cls = "" } = Astro.props;
 ---
 
 <a
@@ -17,4 +18,9 @@ const { tone = "dark", class: cls = "" } = Astro.props;
 >
   <span class="size-[18px] rounded-[6px] bg-lime-300 shadow-[inset_0_1px_1px_rgba(255,255,255,.7),inset_0_0_6px_rgba(255,255,255,.4)]"></span>
   Immersive Markets
+  {claim && (
+    <span class:list={["ml-1.5 hidden border-l pl-3 text-[12px] leading-[1.25] font-medium tracking-normal whitespace-normal xl:block", tone === "dark" ? "border-line text-muted" : "border-white/20 text-white/60"]}>
+      Der externe Modernisierungspartner<br />für Nachfolger
+    </span>
+  )}
 </a>

@@ -43,15 +43,12 @@ const others = pillars.filter((p) => p.id !== pillar.id);
         <div>
           <div class="eyebrow mb-4 text-white/60">Einstieg ohne Verpflichtung</div>
           <h2 class="h-section m-0 text-white">{pillar.check.hook}</h2>
-          <p class="lead mt-5 text-white/70">Der {pillar.check.name} gibt Ihnen eine erste, ehrliche Einschätzung — kostenlos und unverbindlich.</p>
+          <p class="lead mt-5 text-white/70">Im Erstgespräch klären wir, wo Ihr Betrieb in der Säule {pillar.name} steht und was zuerst dran ist. Kostenlos und unverbindlich.</p>
         </div>
         <div class="glass rounded-[24px] p-7">
-          <div class="flex items-center justify-between">
-            <span class="flex items-center gap-2 text-[15px] font-semibold text-lime-700"><Icon name={pillar.icon} size={18} />{pillar.check.name}</span>
-            {pillar.check.status === "bald" && <span class="rounded-[6px] bg-lime-300 px-2 py-0.5 text-[12px] font-semibold">Bald</span>}
-          </div>
-          <p class="mt-3 mb-6 text-[16px] text-body">Ein Klick pro Frage, ehrliches Ergebnis, konkrete nächste Schritte.</p>
-          <a href={`/checks/${pillar.id}`} class="btn btn-dark">Zum Check</a>
+          <span class="flex items-center gap-2 text-[15px] font-semibold text-lime-700"><Icon name={pillar.icon} size={18} />Erstgespräch · 30 Minuten per Video</span>
+          <p class="mt-3 mb-6 text-[16px] text-body">Sie schildern Ihre Lage, ich gebe Ihnen eine ehrliche erste Einschätzung.</p>
+          <a href="/gespraech" class="btn btn-dark">Gespräch anfragen</a>
         </div>
       </div>
     </section>
