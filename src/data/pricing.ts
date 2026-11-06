@@ -1,33 +1,62 @@
+// Pakete nach dem Vorhaben-Modell: Alle Pakete haben dasselbe Fundament und
+// unterscheiden sich nur darin, wie viele Vorhaben gleichzeitig laufen.
+// Abgerechnet wird monatlich, nie nach Stunden.
+
 export interface Tier {
   name: string;
-  saeulen: string;
+  vorhaben: number;
+  kurz: string;
+  abstimmung: string;
+  vorrang: boolean;
   preis: string;
-  enthalten: string[];
   featured: boolean;
 }
 
 export const tiers: Tier[] = [
   {
     name: "Fokus",
-    saeulen: "1 aktive Säule",
+    vorhaben: 1,
+    kurz: "Ein Vorhaben nach dem anderen",
+    abstimmung: "monatlich",
+    vorrang: false,
     preis: "1.490 €",
-    enthalten: ["Monatlicher Strategie-Call", "Umsetzung in der gewählten Säule", "Monatsreport"],
     featured: false,
   },
   {
     name: "Wachstum",
-    saeulen: "2 aktive Säulen",
+    vorhaben: 2,
+    kurz: "Zwei Vorhaben parallel",
+    abstimmung: "alle zwei Wochen",
+    vorrang: false,
     preis: "2.490 €",
-    enthalten: ["Call alle zwei Wochen", "Umsetzung in zwei Säulen", "Zugang zur Lernbibliothek"],
     featured: true,
   },
   {
-    name: "Komplett",
-    saeulen: "alle 4 Säulen",
+    name: "Transformation",
+    vorhaben: 3,
+    kurz: "Drei Vorhaben parallel, in klarer Reihenfolge",
+    abstimmung: "wöchentlich",
+    vorrang: true,
     preis: "3.990 €",
-    enthalten: ["Wöchentlicher Kontakt", "Umsetzung in allen vier Säulen", "Lernbibliothek & Vorrang bei Anfragen"],
     featured: false,
   },
+];
+
+export const vorhabenText = (n: number) => `${n} Vorhaben gleichzeitig`;
+
+export const enthalten = (t: Tier) => [
+  vorhabenText(t.vorhaben),
+  `Strategie-Call ${t.abstimmung}`,
+  ...(t.vorrang ? ["Vorrang bei Anfragen"] : []),
+  "Das Fundament: Roadmap, Kundenportal, Monatsreport, Lernbibliothek",
+];
+
+// Beispiele für Vorhaben, jeweils mit der passenden Themenseite.
+export const vorhabenBeispiele = [
+  { titel: "Karriereseite mit Arbeitgeberprofil", saeule: "Mitarbeiter", href: "/leistungen/mitarbeiter/employer-branding" },
+  { titel: "Google-Profil und Branchenportale bereinigt", saeule: "Kunden", href: "/leistungen/kunden/sichtbarkeit" },
+  { titel: "CRM-Basis mit Kontakten und Wiedervorlagen", saeule: "Prozesse", href: "/leistungen/prozesse/crm" },
+  { titel: "KI-Richtlinie steht, das Team ist eingewiesen", saeule: "KI", href: "/leistungen/ki/regeln" },
 ];
 
 export const nichtEnthalten = [

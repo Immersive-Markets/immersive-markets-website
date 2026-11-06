@@ -8,17 +8,23 @@ import SectionHead from "../components/ui/SectionHead.astro";
 import PricingCards from "../components/ui/PricingCards.astro";
 import FaqList from "../components/ui/FaqList.astro";
 import CtaDuo from "../components/ui/CtaDuo.astro";
-import { nichtEnthalten } from "../data/pricing";
+import { vorhabenBeispiele, nichtEnthalten } from "../data/pricing";
 import { faqPreise } from "../data/faq";
+
+const regeln = [
+  { icon: "calendar", titel: "2 bis 6 Wochen pro Vorhaben", text: "Größeres teilen wir in Etappen. So sehen Sie regelmäßig, was fertig ist." },
+  { icon: "list-checks", titel: "Wartet ein Vorhaben auf Sie, zieht das nächste vor", text: "Fehlt Material oder eine Freigabe, geht es mit dem nächsten Vorhaben weiter. Sie bezahlen keinen Stillstand." },
+  { icon: "eye", titel: "Keine Stundenzettel", text: "Im Kundenportal sehen Sie, welche Vorhaben laufen, welche fertig sind und was als Nächstes kommt." },
+];
 ---
 
-<Layout title="Preise — Immersive Markets" description="Drei Pakete, öffentlich und vollständig: Fokus, Wachstum und Komplett. Ab 1.490 € im Monat, mindestens 3 Monate Laufzeit, danach monatlich kündbar.">
+<Layout title="Preise — Immersive Markets" description="Drei Pakete, öffentlich und vollständig: Fokus, Wachstum und Transformation. Abgerechnet wird nach Vorhaben, nie nach Stunden. Ab 1.490 € im Monat.">
   <SiteHeader />
   <main>
     <PageHero
       eyebrow="Pakete & Preise"
       title="Vollständig offen.<br />Keine Überraschungen."
-      lead="Sie buchen einen externen Modernisierungspartner als monatliche Partnerschaft. Die drei Pakete unterscheiden sich nur darin, wie viele Säulen gleichzeitig aktiv sind."
+      lead="Sie buchen einen externen Modernisierungspartner als monatliche Partnerschaft. Die Pakete unterscheiden sich darin, wie viele Vorhaben gleichzeitig laufen. Abgerechnet wird nie nach Stunden."
     />
 
     <section class="-mt-12 px-5 pb-24 md:px-8">
@@ -26,13 +32,41 @@ import { faqPreise } from "../data/faq";
       <p class="mt-8 text-center text-[14px] text-muted">Kein Ausweis der Umsatzsteuer gem. § 19 UStG (Kleinunternehmerregelung). Details in den <a href="/agb" class="underline underline-offset-2 hover:text-ink">AGB</a>.</p>
     </section>
 
-    <section class="px-5 pb-24 md:px-8">
+    <section id="vorhaben" class="px-3 md:px-5">
+      <div class="bg-forest mx-auto max-w-[1400px] rounded-[32px] px-5 py-20 md:px-8 md:py-24">
+        <SectionHead
+          tone="light"
+          eyebrow="Das Vorhaben-Modell"
+          lead="Ein Vorhaben ist ein abgegrenztes Stück Arbeit mit festem Ergebnis. Ist es fertig, rückt das nächste aus Ihrer Roadmap nach, aus jeder der vier Säulen."
+        />
+        <div class="mx-auto mt-12 grid max-w-[1080px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {vorhabenBeispiele.map((v) => (
+            <a href={v.href} class="glass-dark group flex flex-col rounded-[22px] p-6 transition-colors hover:bg-white/15">
+              <span class="text-[13px] font-semibold text-lime-300">Beispiel · {v.saeule}</span>
+              <span class="mt-2 mb-5 text-[17px] leading-snug font-semibold text-white">{v.titel}</span>
+              <span class="mt-auto inline-flex items-center gap-1.5 text-[14px] text-white/65 group-hover:text-white">Zum Thema <Icon name="arrow-right" size={15} /></span>
+            </a>
+          ))}
+        </div>
+        <div class="mx-auto mt-10 grid max-w-[1080px] gap-4 md:grid-cols-3">
+          {regeln.map((r) => (
+            <div class="rounded-[22px] border border-white/10 p-6">
+              <Icon name={r.icon} size={20} class="text-lime-300" />
+              <div class="mt-3 text-[16px] font-semibold text-white">{r.titel}</div>
+              <div class="mt-1.5 text-[15px] text-white/65">{r.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-5 py-24 md:px-8 md:py-28">
       <div class="mx-auto grid max-w-[1180px] gap-5 md:grid-cols-2">
         <div class="card p-8">
           <Icon name="calendar" size={22} class="text-lime-700" />
           <h2 class="h-card mt-4 mb-3">Laufzeit</h2>
           <p class="m-0 text-[16px] leading-relaxed text-body">
-            Mindestens 3 Monate, danach monatlich kündbar. Bei 12 Monaten fester Laufzeit ist ein Monat gratis. Die aktiven Säulen dürfen jedes Quartal wechseln. Was umgesetzt wird, steht in der gemeinsamen Roadmap im Kundenportal.
+            Mindestens 3 Monate, danach monatlich kündbar. Bei 12 Monaten fester Laufzeit ist ein Monat gratis. Welche Vorhaben als Nächstes kommen, legen wir gemeinsam in der Roadmap im Kundenportal fest.
           </p>
         </div>
         <div class="card p-8">
