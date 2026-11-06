@@ -9,7 +9,7 @@ export const faqAllgemein = [
   },
   {
     q: "Was, wenn ich nur ein Thema angehen will?",
-    a: "Dann starten Sie mit dem Paket Fokus und einer aktiven Säule. Sie können die aktive Säule jedes Quartal wechseln, wenn sich Ihre Prioritäten ändern.",
+    a: "Dann starten Sie mit dem Paket Fokus. Ein Vorhaben läuft nach dem anderen, in der Reihenfolge Ihrer Roadmap. Ändern sich Ihre Prioritäten, passen wir die Reihenfolge an.",
   },
   {
     q: "Wie lange dauert es, bis etwas passiert?",
@@ -35,8 +35,12 @@ export const faqPreise = [
     a: "Weil das unpassende Anfragen filtert und von Anfang an Vertrauen schafft. Sie sehen vor dem ersten Gespräch, worauf Sie sich einlassen.",
   },
   {
-    q: "Was, wenn ich mehrere Säulen will?",
-    a: "Dann passt Wachstum (2 Säulen) oder Komplett (alle 4). Die aktiven Säulen dürfen jedes Quartal wechseln, wenn sich Ihre Prioritäten ändern.",
+    q: "Was, wenn mehrere Themen gleichzeitig drängen?",
+    a: "Dann passt Wachstum mit zwei oder Transformation mit drei Vorhaben gleichzeitig. Aus welchen Säulen die Vorhaben kommen, ist dabei egal.",
+  },
+  {
+    q: "Warum rechnen Sie nicht nach Stunden ab?",
+    a: "Weil Sie für Ergebnisse bezahlen sollen. Jedes Vorhaben hat ein festes Ergebnis, und im Kundenportal sehen Sie, was fertig ist. Geht ein Vorhaben schneller, rückt das nächste früher nach.",
   },
   {
     q: "Gibt es einen Rabatt zum Start?",
