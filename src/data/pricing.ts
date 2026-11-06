@@ -34,5 +34,5 @@ export const nichtEnthalten = [
   "Werbebudget für Anzeigen",
   "Software-Lizenzen (z. B. CRM, Tools)",
   "Vor-Ort-Termine (Reisekosten plus Tagessatz)",
-  "Große Einzelprojekte wie ein Website-Relaunch — die biete ich separat zum Festpreis an",
+  "Große Einzelprojekte wie ein Website-Relaunch. Die biete ich separat zum Festpreis an",
 ];

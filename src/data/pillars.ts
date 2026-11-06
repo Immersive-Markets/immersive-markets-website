@@ -25,7 +25,7 @@ export const pillars: Pillar[] = [
     tagline: "Employer Branding, Recruiting, Gen Z, Einarbeitung",
     themen: ["Employer Branding", "Recruiting", "Gen Z", "Einarbeitung"],
     intro:
-      "Die Belegschaft von morgen sucht anders, als Ihr Betrieb bisher eingestellt hat. Wer hier nicht sichtbar ist, bekommt keine Bewerbungen mehr — unabhängig davon, wie gut die Stelle ist.",
+      "Die Belegschaft von morgen sucht anders, als Ihr Betrieb bisher eingestellt hat. Wer hier nicht sichtbar ist, bekommt keine Bewerbungen mehr, unabhängig davon, wie gut die Stelle ist.",
     probleme: [
       {
         titel: "Stellenanzeigen, die niemand findet",
@@ -33,7 +33,7 @@ export const pillars: Pillar[] = [
       },
       {
         titel: "Kein Bild vom Arbeitsalltag",
-        text: "Bewerberinnen und Bewerber wollen sehen, wie bei Ihnen gearbeitet wird — nicht nur lesen, was gesucht wird.",
+        text: "Bewerberinnen und Bewerber wollen sehen, wie bei Ihnen gearbeitet wird, und nicht nur lesen, was gesucht wird.",
       },
       {
         titel: "Einarbeitung nach Zufall",
@@ -51,7 +51,7 @@ export const pillars: Pillar[] = [
     name: "Kunden",
     icon: "megaphone",
     kurz: "Sichtbar werden, Anfragen gewinnen",
-    frage: "Wie finden Kunden Sie — und bleiben?",
+    frage: "Wie finden Kunden Sie, und wie bleiben sie?",
     tagline: "Sichtbarkeit, Website, LinkedIn, Vertrieb",
     themen: ["Sichtbarkeit", "Website", "LinkedIn", "Vertrieb"],
     intro:
@@ -85,7 +85,7 @@ export const pillars: Pillar[] = [
     tagline: "Digitalisierung, CRM, Automationen",
     themen: ["Digitalisierung", "CRM", "Automationen"],
     intro:
-      "Viele Betriebe laufen über Excel-Listen, Zuruf und das Gedächtnis einzelner Mitarbeiter. Das funktioniert — bis jemand krank wird, geht, oder der Betrieb wächst.",
+      "Viele Betriebe laufen über Excel-Listen, Zuruf und das Gedächtnis einzelner Mitarbeiter. Das funktioniert, bis jemand krank wird, geht, oder der Betrieb wächst.",
     probleme: [
       {
         titel: "Jeder hat seine eigene Excel-Liste",
@@ -97,7 +97,7 @@ export const pillars: Pillar[] = [
       },
       {
         titel: "Nichts erinnert von selbst",
-        text: "Nachfassen, Terminerinnerungen, Wiedervorlagen — das läuft über den Kopf einzelner Mitarbeiter, nicht über ein System.",
+        text: "Nachfassen, Terminerinnerungen, Wiedervorlagen: Das läuft über den Kopf einzelner Mitarbeiter, nicht über ein System.",
       },
     ],
     check: {
@@ -115,7 +115,7 @@ export const pillars: Pillar[] = [
     tagline: "Potenzialanalyse, Assistenten, Regeln, Schulung",
     themen: ["Potenzialanalyse", "Assistenten", "Regeln", "Schulung"],
     intro:
-      "KI ist kein Projekt für die IT-Abteilung, die Sie nicht haben. Richtig eingesetzt, gibt sie Ihrem Team in einzelnen, konkreten Aufgaben spürbar Zeit zurück — ohne Blackbox und ohne Hype.",
+      "KI ist kein Projekt für die IT-Abteilung, die Sie nicht haben. Richtig eingesetzt, gibt sie Ihrem Team in einzelnen, konkreten Aufgaben spürbar Zeit zurück. Ohne Blackbox und ohne Hype.",
     probleme: [
       {
         titel: "Niemand weiß, wo anfangen",
@@ -123,7 +123,7 @@ export const pillars: Pillar[] = [
       },
       {
         titel: "Erste Versuche ohne Leitplanken",
-        text: "Einzelne Mitarbeitende nutzen KI-Tools auf eigene Faust — ohne Regeln, ohne Schulung, ohne Blick auf Datenschutz.",
+        text: "Einzelne Mitarbeitende nutzen KI-Tools auf eigene Faust: ohne Regeln, ohne Schulung, ohne Blick auf Datenschutz.",
       },
       {
         titel: "Zeitfresser bleiben Zeitfresser",
