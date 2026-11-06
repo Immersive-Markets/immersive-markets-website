@@ -8,7 +8,7 @@ import SectionHead from "../components/ui/SectionHead.astro";
 import PricingCards from "../components/ui/PricingCards.astro";
 import FaqList from "../components/ui/FaqList.astro";
 import CtaDuo from "../components/ui/CtaDuo.astro";
-import { tiers, vergleich, vorhabenBeispiele, nichtEnthalten } from "../data/pricing";
+import { tiers, vergleich, fundament, vorhabenBeispiele, nichtEnthalten } from "../data/pricing";
 import { faqPreise } from "../data/faq";
 
 const regeln = [
@@ -63,7 +63,21 @@ const regeln = [
 
     <section id="vergleich" class="px-5 py-24 md:px-8 md:py-28">
       <SectionHead eyebrow="Im Vergleich" title="Gleiches Fundament, anderes Tempo" />
-      <div class="mx-auto mt-12 max-w-[920px] overflow-x-auto rounded-[24px] border border-line">
+      <div class="mx-auto mt-12 max-w-[920px] rounded-[24px] bg-[linear-gradient(160deg,#f8fdeb,#eefad0)] p-6 md:p-8">
+        <div class="eyebrow mb-5">In jedem Paket: das Fundament</div>
+        <div class="grid gap-5 sm:grid-cols-2">
+          {fundament.map((f) => (
+            <div class="flex gap-3.5">
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-white text-lime-800"><Icon name={f.icon} size={18} /></span>
+              <div>
+                <div class="text-[16px] font-semibold">{f.titel}</div>
+                <div class="mt-0.5 text-[15px] text-body">{f.text}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="mx-auto mt-5 max-w-[920px] overflow-x-auto rounded-[24px] border border-line">
         <table class="w-full border-collapse text-left text-[13px] sm:text-[14px] md:text-[15px] hyphens-auto">
           <thead>
             <tr class="bg-surface">

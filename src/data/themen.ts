@@ -946,8 +946,8 @@ export const themen: Thema[] = [
         text: "Kurze, praktische Einheiten per Video. Jeder arbeitet mit, an eigenen Beispielen, unter den Regeln Ihres Betriebs.",
       },
       {
-        titel: "Lernbibliothek",
-        text: "Je nach Paket hat Ihr Team Zugang zu aufgezeichneten Modulen. Zum Nachschauen und für neue Kollegen.",
+        titel: "Kurzanleitungen",
+        text: "Zu jedem Workshop gibt es eine Kurzanleitung mit Ihren Beispielen. Zum Nachschlagen und für neue Kollegen.",
       },
       {
         titel: "Fragen im Alltag",
@@ -957,7 +957,7 @@ export const themen: Thema[] = [
     ergebnis: [
       "Ein Team mit gemeinsamem Grundverständnis von KI",
       "Übungen und Vorlagen aus Ihrem eigenen Betrieb",
-      "Zugang zur Lernbibliothek, je nach Paket",
+      "Kurzanleitungen zum Nachschlagen, auch für neue Kollegen",
       "Einen Nachweis, welche Mitarbeitenden geschult wurden",
     ],
     mitbringen: "Zeit für die Workshops, echte Beispielaufgaben aus den Abteilungen und Zugang zu den freigegebenen KI-Werkzeugen.",
