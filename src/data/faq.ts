@@ -1,11 +1,11 @@
 export const faqAllgemein = [
   {
     q: "Was macht ein externer Modernisierungspartner eigentlich?",
-    a: "Ich übernehme die Rolle, die viele Betriebe in der Nachfolge noch nicht besetzt haben: verantwortlich für Digitalisierung, Modernisierung und Wachstum — von der Strategie bis zur Umsetzung. Beratung und Umsetzung aus einer Hand, nicht nur ein Konzept auf Papier.",
+    a: "Ich übernehme die Rolle, die viele Betriebe in der Nachfolge noch nicht besetzt haben: verantwortlich für Digitalisierung, Modernisierung und Wachstum, von der Strategie bis zur Umsetzung. Beratung und Umsetzung aus einer Hand, nicht nur ein Konzept auf Papier.",
   },
   {
     q: "Warum remote-first?",
-    a: "Weil es schneller und günstiger ist und weil die meisten Themen — Website, Social Media, CRM, KI-Einsatz — digital bearbeitet werden können. Vor-Ort-Termine sind möglich, aber die Ausnahme und gegen Aufpreis.",
+    a: "Weil es schneller und günstiger ist und weil sich die meisten Themen digital bearbeiten lassen: Website, Social Media, CRM und KI-Einsatz. Vor-Ort-Termine sind möglich, aber die Ausnahme und gegen Aufpreis.",
   },
   {
     q: "Was, wenn ich nur ein Thema angehen will?",
@@ -13,7 +13,7 @@ export const faqAllgemein = [
   },
   {
     q: "Wie lange dauert es, bis etwas passiert?",
-    a: "Die ersten 2–3 Wochen sind Bestandsaufnahme und die gemeinsame 90-Tage-Roadmap. Danach beginnt die laufende Umsetzung — Sie sehen den Fortschritt im Kundenportal.",
+    a: "Die ersten 2–3 Wochen sind Bestandsaufnahme und die gemeinsame 90-Tage-Roadmap. Danach beginnt die laufende Umsetzung. Den Fortschritt sehen Sie im Kundenportal.",
   },
   {
     q: "Bauen Sie auch Apps oder übernehmen IT-Sicherheit?",
@@ -25,7 +25,7 @@ export const faqAllgemein = [
   },
   {
     q: "Wird KI eingesetzt?",
-    a: "Ja, für Recherche und Entwürfe — und immer gekennzeichnet. Details finden Sie auf der Seite KI-Transparenz. Was veröffentlicht wird, basiert auf Ihrem Material und wird vorher von einem Menschen geprüft.",
+    a: "Ja, für Recherche und Entwürfe, und immer gekennzeichnet. Details finden Sie auf der Seite KI-Transparenz. Was veröffentlicht wird, basiert auf Ihrem Material und wird vorher von einem Menschen geprüft.",
   },
 ];
 
@@ -40,7 +40,7 @@ export const faqPreise = [
   },
   {
     q: "Gibt es einen Rabatt zum Start?",
-    a: "Die ersten fünf Kunden bekommen 3 Monate zum halben Preis, im Tausch gegen eine Case Study mit echten Zahlen und ein Testimonial. Das Angebot ist schriftlich befristet — fragen Sie im Erstgespräch danach.",
+    a: "Die ersten fünf Kunden bekommen 3 Monate zum halben Preis, im Tausch gegen eine Case Study mit echten Zahlen und ein Testimonial. Das Angebot ist schriftlich befristet. Fragen Sie im Erstgespräch danach.",
   },
   {
     q: "Was kostet ein Website-Relaunch oder ein anderes Großprojekt?",

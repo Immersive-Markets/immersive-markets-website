@@ -10,7 +10,7 @@ import CtaDuo from "../components/ui/CtaDuo.astro";
 const wo = [
   { icon: "gauge", titel: "Selbstchecks", text: "Fragen und Auswertung folgen festen Regeln, nicht einer KI. Die Textbausteine im Ergebnis stammen aus einer festen Bibliothek." },
   { icon: "file-text", titel: "Konzepte & Entwürfe", text: "Erste Textentwürfe, Recherche und Grafik-Rohlinge können KI-gestützt entstehen. Jedes Stück prüfe ich, bevor Sie es sehen." },
-  { icon: "message-circle", titel: "Kommunikation", text: "Eine persönliche Notiz zu Ihrem Konzept kann als KI-Entwurf vorbereitet werden — geprüft und freigegeben, bevor sie Sie erreicht." },
+  { icon: "message-circle", titel: "Kommunikation", text: "Eine persönliche Notiz zu Ihrem Konzept kann als KI-Entwurf vorbereitet werden. Sie wird geprüft und freigegeben, bevor sie Sie erreicht." },
 ];
 
 const schritte = [
@@ -45,7 +45,7 @@ const schritte = [
 
     <section class="px-3 md:px-5">
       <div class="bg-forest mx-auto grid max-w-[1400px] items-center gap-10 rounded-[32px] px-6 py-16 md:px-14 md:py-20 lg:grid-cols-2">
-        <SectionHead align="left" tone="light" eyebrow="Ablauf" title="Was immer ein Mensch macht" lead="Fakten- und Markencheck vor jeder Veröffentlichung. Die finale Freigabe liegt immer bei einem Menschen — nichts erscheint ohne Ihr OK." />
+        <SectionHead align="left" tone="light" eyebrow="Ablauf" title="Was immer ein Mensch macht" lead="Fakten- und Markencheck vor jeder Veröffentlichung. Die finale Freigabe liegt immer bei einem Menschen. Nichts erscheint ohne Ihr OK." />
         <div class="glass rounded-[24px] p-5">
           {schritte.map((s, i) => (
             <div class:list={["flex items-center justify-between py-3.5", i > 0 && "border-t border-black/[.06]"]}>
@@ -61,7 +61,7 @@ const schritte = [
       <div class="mx-auto max-w-[860px] rounded-[28px] bg-[linear-gradient(160deg,#f8fdeb,#eefad0)] p-8 md:p-10">
         <span class="inline-flex rounded-[8px] bg-lime-300 px-2.5 py-1 text-[13px] font-semibold">EU AI Act</span>
         <p class="mt-5 mb-0 text-[17px] leading-relaxed text-body">
-          KI-Einsatz wird transparent gekennzeichnet — gemäß Art. 50 der Verordnung (EU) 2024/1689, ab dem 02.08.2026 verbindlich. Details zur Datenverarbeitung finden Sie in der
+          KI-Einsatz wird transparent gekennzeichnet, gemäß Art. 50 der Verordnung (EU) 2024/1689, ab dem 02.08.2026 verbindlich. Details zur Datenverarbeitung finden Sie in der
           <a href="/datenschutz" class="font-semibold text-ink underline underline-offset-2">Datenschutzerklärung</a>.
         </p>
       </div>

@@ -9,7 +9,7 @@ import CtaDuo from "../components/ui/CtaDuo.astro";
 import Timeline from "../components/home/Timeline.astro";
 
 const portal = [
-  { icon: "list-checks", titel: "Gemeinsame Roadmap", text: "Was umgesetzt wird — und wann" },
+  { icon: "list-checks", titel: "Gemeinsame Roadmap", text: "Was umgesetzt wird und wann" },
   { icon: "gauge", titel: "Status jedes Themas", text: "Ohne Nachfragen per E-Mail" },
   { icon: "file-text", titel: "Monatsreport", text: "Was erreicht wurde, was als Nächstes kommt" },
   { icon: "message-circle", titel: "Direkter Kontakt", text: "Kein Ticketsystem, keine Warteschleife" },
@@ -17,7 +17,7 @@ const portal = [
 
 const lernen = [
   { icon: "users", titel: "Live-Online-Workshops", text: "Für Ihr Team, passend zu Ihren Themen." },
-  { icon: "graduation-cap", titel: "Lernbibliothek", text: "Eine wachsende Sammlung aufgezeichneter Module — je nach Paket." },
+  { icon: "graduation-cap", titel: "Lernbibliothek", text: "Eine wachsende Sammlung aufgezeichneter Module, je nach Paket." },
   { icon: "map-pin", titel: "Vor Ort, wenn nötig", text: "Bei der Implementierung möglich, gegen Reisekosten und Tagessatz." },
 ];
 ---
@@ -28,7 +28,7 @@ const lernen = [
     <PageHero
       eyebrow="Zusammenarbeit"
       title="Remote-first.<br />Trotzdem persönlich."
-      lead="Die Zusammenarbeit läuft digital — das ist bewusst so. Sie bekommen einen festen Ansprechpartner, eine klare Roadmap und volle Transparenz."
+      lead="Die Zusammenarbeit läuft digital. Das ist bewusst so. Sie bekommen einen festen Ansprechpartner, eine klare Roadmap und volle Transparenz."
     >
       <div class="mt-8 flex flex-wrap justify-center gap-3">
         <a href="/gespraech" class="btn btn-dark">Erstgespräch anfragen</a>
@@ -40,7 +40,7 @@ const lernen = [
 
     <section class="px-5 py-24 md:px-8 md:py-28">
       <div class="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
-        <SectionHead align="left" eyebrow="Kundenportal" title="Alles an einem Ort" lead="Sie sehen jederzeit, was gerade passiert — und was als Nächstes kommt." />
+        <SectionHead align="left" eyebrow="Kundenportal" title="Alles an einem Ort" lead="Sie sehen jederzeit, was gerade passiert und was als Nächstes kommt." />
         <div class="grid gap-4 sm:grid-cols-2">
           {portal.map((p) => (
             <div class="card p-6">

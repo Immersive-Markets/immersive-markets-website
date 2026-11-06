@@ -127,7 +127,7 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
         <ul class="flex flex-col gap-3 pb-4">
           <li><a href="/leistungen" class="font-medium">Alle Leistungen</a></li>
           {pillars.map((p) => (
-            <li><a href={`/leistungen/${p.id}`} class="text-body">{p.name} <span class="text-muted">— {p.kurz}</span></a></li>
+            <li><a href={`/leistungen/${p.id}`} class="text-body">{p.name} <span class="text-muted">· {p.kurz}</span></a></li>
           ))}
         </ul>
       </details>
