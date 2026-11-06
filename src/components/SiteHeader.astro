@@ -2,6 +2,7 @@
 import Logo from "./Logo.astro";
 import Icon from "./Icon.astro";
 import { pillars } from "../data/pillars";
+import { themenFuer } from "../data/themen";
 
 interface Props {
   variant?: "full" | "minimal";
@@ -47,8 +48,8 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
                       <div class="mt-0.5 text-[13px] leading-snug text-muted">{p.kurz}</div>
                     </a>
                     <ul class="mt-3 flex flex-col gap-1.5 text-[14px]">
-                      {p.themen.map((t) => (
-                        <li class="text-ink/70">{t}</li>
+                      {themenFuer(p.id).map((t) => (
+                        <li><a href={`/leistungen/${p.id}/${t.slug}`} class="text-ink/85 hover:text-lime-700">{t.name}</a></li>
                       ))}
                       <li class="mt-2 border-t border-line pt-3">
                         <a href={`/leistungen/${p.id}`} class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-lime-700 hover:text-lime-900">
@@ -140,6 +141,7 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
       </details>
       <div class="mt-6 flex flex-col gap-3">
         <a href="/gespraech" class="btn btn-dark w-full">Gespräch anfragen</a>
+        <a href="/checks/modernisierung" class="btn btn-light w-full">Modernisierungscheck starten</a>
       </div>
     </div>
   )}

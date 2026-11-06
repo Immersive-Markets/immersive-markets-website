@@ -1,5 +1,8 @@
 ---
 import EmailCta from "./EmailCta.astro";
+import { checkFuer } from "../../data/checks/einstieg";
+
+const check = checkFuer("mitarbeiter");
 
 interface Props {
   title?: string;
@@ -25,16 +28,14 @@ const { title = "Machen Sie Ihr Unternehmen bereit<br />für die nächste Genera
         <p class="mt-3 mb-0 text-[14px] text-muted">Im nächsten Schritt nennen Sie kurz Ihr Anliegen und passende Termine.</p>
       </div>
       <div class="glass flex flex-col rounded-[28px] p-7 md:p-10">
-        <span class="inline-flex self-start rounded-[8px] bg-white px-2.5 py-1 text-[13px] font-semibold text-ink shadow-sm">So geht es weiter</span>
-        <h3 class="mt-5 mb-4 text-[28px] leading-tight font-semibold tracking-[-0.02em]">Nach Ihrer Anfrage</h3>
+        <span class="inline-flex self-start rounded-[8px] bg-white px-2.5 py-1 text-[13px] font-semibold text-ink shadow-sm">{check.umfang}</span>
+        <h3 class="mt-5 mb-4 text-[28px] leading-tight font-semibold tracking-[-0.02em]">Oder starten Sie mit dem Modernisierungscheck</h3>
         <ol class="mb-7 flex flex-col gap-1.5 text-[16px] text-body">
-          <li>1. Ich lese Ihr Anliegen persönlich</li>
-          <li>2. Ich melde mich mit einem Terminvorschlag</li>
-          <li>3. Wir sprechen 30 Minuten per Video</li>
+          <li>1. Fragen zu allen vier Säulen per Klick beantworten</li>
+          <li>2. Ihr Profil sofort sehen</li>
+          <li>3. Report mit 90-Tage-Plan erhalten</li>
         </ol>
-        <p class="mt-auto mb-0 text-[15px] text-body">
-          Lieber direkt? <a href="mailto:info@immersive-markets.de" class="font-semibold text-lime-700 hover:text-lime-900">info@immersive-markets.de</a>
-        </p>
+        <a href={check.href} class="btn btn-dark mt-auto self-start">Check starten</a>
       </div>
     </div>
   </div>
