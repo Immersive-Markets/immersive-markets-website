@@ -13,6 +13,11 @@ const {
   description =
     "Ich mache Traditionsunternehmen bereit für die nächste Generation: an Mitarbeitern, Kunden und Inhabern. Beratung und Umsetzung aus einer Hand, remote-first, als monatliche Partnerschaft.",
 } = Astro.props;
+
+// Vorschau für geteilte Links (LinkedIn, WhatsApp, Slack) mit dem IM-Logo.
+const siteUrl = "https://immersive-markets.de";
+const pageUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = `${siteUrl}/og-image.jpg`;
 ---
 
 <!doctype html>
@@ -20,10 +25,22 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Immersive Markets" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Immersive Markets – Der externe Modernisierungspartner für Nachfolger" />
+    <meta name="twitter:card" content="summary_large_image" />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     <title>{title}</title>
 

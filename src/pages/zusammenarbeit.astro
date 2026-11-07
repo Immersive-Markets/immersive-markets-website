@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Icon from "../components/Icon.astro";
-import PageHero from "../components/ui/PageHero.astro";
 import SectionHead from "../components/ui/SectionHead.astro";
 import CtaDuo from "../components/ui/CtaDuo.astro";
 import Timeline from "../components/home/Timeline.astro";
@@ -25,18 +24,7 @@ const lernen = [
 <Layout title="Zusammenarbeit — Immersive Markets" description="So läuft die Partnerschaft ab: Erstgespräch, Bestandsaufnahme, 90-Tage-Roadmap, remote-first mit Kundenportal und Lernbibliothek.">
   <SiteHeader />
   <main>
-    <PageHero
-      eyebrow="Zusammenarbeit"
-      title="Remote-first.<br />Trotzdem persönlich."
-      lead="Die Zusammenarbeit läuft digital. Das ist bewusst so. Sie bekommen einen festen Ansprechpartner, eine klare Roadmap und volle Transparenz."
-    >
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/gespraech" class="btn btn-dark">Erstgespräch anfragen</a>
-        <a href="/preise" class="btn btn-light">Pakete vergleichen</a>
-      </div>
-    </PageHero>
-
-    <div class="pt-8"><Timeline /></div>
+    <div class="pt-6 md:pt-10"><Timeline /></div>
 
     <section class="px-5 py-24 md:px-8 md:py-28">
       <div class="mx-auto grid max-w-[1180px] items-center gap-12 lg:grid-cols-[1fr_1.1fr]">

@@ -30,3 +30,6 @@ const ki: CheckEinstieg = {
 export function checkFuer(id: Pillar["id"]): CheckEinstieg {
   return id === "ki" ? ki : modernisierung;
 }
+
+// Alle fertigen Checks, z. B. für das Menü "Wissen".
+export const alleChecks: CheckEinstieg[] = [modernisierung, ki];
