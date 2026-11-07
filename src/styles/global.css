@@ -94,16 +94,22 @@
   letter-spacing: -0.01em;
   color: var(--color-body);
 }
-/* Zeile über Hero-Überschriften: Text mit Lime-Textmarker statt Pille mit Punkt. */
+/* Zeile über Hero-Überschriften: Quadrat mit Lime-Versatz wie der Punkt im IM-Logo. */
 @utility kicker {
   font-weight: 600;
   font-size: 0.9375rem;
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--color-ink);
-  padding: 0 0.2em;
-  background-image: linear-gradient(transparent 55%, var(--color-lime-300) 55%, var(--color-lime-300) 90%, transparent 90%);
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 0.5625rem;
+    height: 0.5625rem;
+    margin: 0 0.7rem 0 5px;
+    vertical-align: 0.02em;
+    background: var(--color-ink);
+    box-shadow: -5px -5px 0 0 var(--color-lime-300);
+  }
 }
 @utility eyebrow {
   font-weight: 600;

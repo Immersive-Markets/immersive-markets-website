@@ -22,7 +22,7 @@ const { eyebrow, title, lead, crumbs } = Astro.props;
       </nav>
     )}
     {eyebrow && !crumbs && (
-      <p class="m-0 mb-6"><span class="kicker">{eyebrow}</span></p>
+      <p class="m-0 mb-6 text-balance"><span class="kicker">{eyebrow}</span></p>
     )}
     <h1 class="h-display m-0 text-balance" set:html={title} />
     {lead && <p class="lead mx-auto mt-6 max-w-[680px] text-pretty">{lead}</p>}
