@@ -1,0 +1,483 @@
+---
+import Icon from "../Icon.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import { pillars } from "../../data/pillars";
+
+/*
+ * Animated workflow canvas in the style of n8n / Make / Zapier.
+ * Pure SVG + SMIL so every element runs on one shared clock; the script at the
+ * bottom starts the run when the canvas scrolls into view and freezes it in the
+ * finished state for prefers-reduced-motion.
+ */
+
+// ---- Timeline (seconds within one loop) ----
+const T = 14;
+const RESET_START = 12.2;
+const RESET_END = 12.9;
+const k = (t: number) => +(t / T).toFixed(4);
+
+/** Element goes from 0 to 1 between t0 and t1 and holds until the loop resets. */
+const on = (t0: number, t1: number) => ({
+  keyTimes: `0;${k(t0)};${k(t1)};${k(RESET_START)};${k(RESET_END)};1`,
+  values: "0;0;1;1;0;0",
+});
+/** Edge fill: dashoffset 1 → 0 while the token travels. */
+const fill = (t0: number, t1: number) => ({
+  keyTimes: `0;${k(t0)};${k(t1)};1`,
+  values: "1;1;0;0",
+});
+/** Travelling token along a path. */
+const token = (t0: number, t1: number) => ({
+  keyTimes: `0;${k(t0)};${k(t1)};1`,
+  keyPoints: "0;0;1;1",
+  opKeyTimes: `0;${k(t0 - 0.05)};${k(t0)};${k(t1)};${k(t1 + 0.12)};1`,
+});
+
+// ---- Geometry ----
+const W = 1200;
+const H = 740;
+const NW = 240;
+const NH = 76;
+const cols = [40, 333, 626, 919];
+const rowMain = 56;
+const rowPillar = 420;
+/** Action Plan: the hub that steers and monitors all four pillars. */
+const plan = { x: 340, y: 180, w: 520, h: 172 };
+const planChips = [
+  { label: "Projektmanagement-Tool", icon: "layout-dashboard" },
+  { label: "Laufend optimieren", icon: "sliders-horizontal" },
+  { label: "Reporting", icon: "file-text" },
+];
+const atomTop = rowPillar + NH + 30;
+const atomStep = 48;
+const atomH = 36;
+
+const steps = [
+  { titel: "Analyse-Phase", sub: "Wo steht der Betrieb?", icon: "scan-search" },
+  { titel: "Konzepterstellung", sub: "Was soll sich ändern?", icon: "file-text" },
+  { titel: "Roadmap & Zielbild", sub: "Reihenfolge und Ziel klären", icon: "map" },
+  { titel: "Umsetzung", sub: "Vorhaben für Vorhaben", icon: "rocket", dark: true },
+];
+
+const subs: Record<string, string> = {
+  mitarbeiter: "Arbeitgeber werden",
+  kunden: "Sichtbar werden",
+  prozesse: "Weniger Excel",
+  ki: "Sinnvoll einsetzen",
+};
+
+const atoms: Record<string, string[]> = {
+  mitarbeiter: ["Karriereseite", "Stellenanzeige auf Social", "Einarbeitungsplan", "Videos aus dem Betrieb"],
+  kunden: ["Website-Relaunch", "LinkedIn-Auftritt", "Google-Profil pflegen", "Angebote nachfassen"],
+  prozesse: ["CRM statt Excel-Liste", "Digitaler Urlaubsantrag", "Rechnungserinnerung", "Aufträge automatisieren"],
+  ki: ["KI-Potenzialanalyse", "Assistent für Angebote", "KI-Richtlinie fürs Team", "Team-Schulung"],
+};
+
+// Step timings
+const mainLit = [0.3, 1.4, 2.6, 3.8];
+const mainEdges = [
+  [0.6, 1.4],
+  [1.8, 2.6],
+  [3.0, 3.8],
+];
+const forkEdge = [4.2, 5.3];
+const planLit = 5.3;
+const pillarEdge = [5.7, 6.7];
+const atomStart = 7.1;
+const atomGap = 0.35;
+const atomDur = 0.7;
+
+const mainNodes = steps.map((s, i) => ({ ...s, x: cols[i], y: rowMain, lit: on(mainLit[i], mainLit[i] + 0.35) }));
+
+const mainPaths = mainEdges.map(([t0, t1], i) => {
+  const x1 = cols[i] + NW;
+  const x2 = cols[i + 1];
+  const y = rowMain + NH / 2;
+  return { d: `M${x1 + 6},${y} L${x2 - 4},${y}`, t0, t1 };
+});
+
+const n4cx = cols[3] + NW / 2;
+const planInY = plan.y + 44;
+const forkPath = {
+  d: `M${n4cx},${rowMain + NH + 6} C${n4cx},${planInY} ${n4cx - 60},${planInY} ${plan.x + plan.w + 6},${planInY}`,
+  t0: forkEdge[0],
+  t1: forkEdge[1],
+};
+
+const rcx = plan.x + plan.w / 2;
+const rBottom = plan.y + plan.h;
+const pillarNodes = pillars.map((p, i) => {
+  const x = cols[i];
+  const cx = x + NW / 2;
+  const lit0 = pillarEdge[1] + i * 0.08;
+  return {
+    ...p,
+    x,
+    y: rowPillar,
+    sub: subs[p.id],
+    edge: `M${rcx},${rBottom + 6} C${rcx},${rBottom + 60} ${cx},${rowPillar - 70} ${cx},${rowPillar - 4}`,
+    lit: on(lit0, lit0 + 0.35),
+    atoms: atoms[p.id].map((label, j) => {
+      const ay = atomTop + j * atomStep;
+      const cy = ay + atomH / 2;
+      const sx = x + 26;
+      const t0 = atomStart + j * atomGap;
+      const t1 = t0 + atomDur;
+      return {
+        label,
+        x: x + 52,
+        y: ay,
+        d: `M${sx},${rowPillar + NH + 6} L${sx},${cy - 12} Q${sx},${cy} ${sx + 12},${cy} L${x + 48},${cy}`,
+        t0,
+        t1,
+        lit: on(t1, t1 + 0.25),
+      };
+    }),
+  };
+});
+
+const allEdges = [
+  ...mainPaths,
+  forkPath,
+  ...pillarNodes.map((p) => ({ d: p.edge, t0: pillarEdge[0], t1: pillarEdge[1] })),
+  ...pillarNodes.flatMap((p) => p.atoms.map((a) => ({ d: a.d, t0: a.t0, t1: a.t1 }))),
+];
+
+const planAnim = on(planLit, planLit + 0.3);
+
+// Chips in the Action Plan card (approximate text width at 12px)
+let chipX = 18;
+const chips = planChips.map((c) => {
+  const w = Math.round(36 + c.label.length * 6.6);
+  const chip = { ...c, x: chipX, w };
+  chipX += w + 8;
+  return chip;
+});
+
+// Monitoring bars: one per pillar, filling while that pillar's atoms are done
+const barW = (plan.w - 36 - 3 * 14) / 4;
+const lastAtomDone = atomStart + 3 * atomGap + atomDur + 0.25;
+const bars = pillarNodes.map((p, i) => ({
+  name: p.name,
+  x: 18 + i * (barW + 14),
+  grow: {
+    keyTimes: `0;${k(pillarEdge[1] + i * 0.08)};${k(lastAtomDone)};${k(RESET_START)};${k(RESET_END)};1`,
+    values: `0;0;${barW};${barW};0;0`,
+  },
+}));
+const resetKT = `0;${k(RESET_START)};${k(RESET_END)};1`;
+---
+
+<section class="px-3 md:px-5" aria-label="Ablauf der Zusammenarbeit">
+  <div class="mx-auto max-w-[1400px] rounded-[32px] bg-[linear-gradient(180deg,#fff_0%,#f4fcdc_45%,#eaf8bd_100%)] px-4 py-24 md:px-8 md:py-28">
+    <SectionHead
+      eyebrow="Vom Plan zur Umsetzung"
+      title="Ein Ablauf.<br />Vier Säulen."
+      lead="Erst verstehen, dann planen, dann umsetzen. Im Action Plan laufen alle vier Säulen zusammen: gesteuert im Projektmanagement-Tool, laufend optimiert, mit regelmäßigem Reporting."
+    />
+
+    <figure class="mx-auto mt-14 max-w-[1240px]">
+      <div class="overflow-hidden rounded-[24px] border border-white bg-white/80 shadow-[0_0.5px_2px_rgba(0,0,0,.08),0_8px_40px_-12px_rgba(38,49,13,.25)]">
+        <!-- Workflow-Tool-Chrome -->
+        <div class="flex items-center justify-between gap-4 border-b border-line bg-white px-4 py-3 md:px-5">
+          <div class="flex min-w-0 items-center gap-3">
+            <span class="flex size-7 shrink-0 items-center justify-center rounded-[8px] bg-forest-900 text-lime-300">
+              <Icon name="workflow" size={15} strokeWidth={2} />
+            </span>
+            <span class="truncate text-[14px] font-semibold">Modernisierung Ihres Betriebs</span>
+          </div>
+          <span class="inline-flex shrink-0 items-center gap-2 rounded-full bg-lime-100 px-3 py-1 text-[12.5px] font-semibold text-lime-800">
+            <span class="pf-pulse size-2 rounded-full bg-lime-500"></span>Aktiv
+          </span>
+        </div>
+
+        <div class="overflow-x-auto overscroll-x-contain">
+          <svg
+            class="pf-canvas block w-full min-w-[920px]"
+            viewBox={`0 0 ${W} ${H}`}
+            role="img"
+            aria-labelledby="pf-desc"
+            data-process-flow
+          >
+            <desc id="pf-desc">
+              Prozessdiagramm: Analyse-Phase, Konzepterstellung, Roadmap und Zielbild, Umsetzung. Die Umsetzung verzweigt in
+              die vier Säulen Mitarbeiter, Kunden, Prozesse und KI, jeweils mit beispielhaften Umsetzungsschritten.
+            </desc>
+            <defs>
+              <pattern id="pf-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+                <circle cx="1.5" cy="1.5" r="1.1" fill="#d3d8c4" />
+              </pattern>
+              <filter id="pf-shadow" x="-10%" y="-20%" width="120%" height="150%">
+                <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#26310d" flood-opacity="0.08" />
+              </filter>
+              <filter id="pf-halo" x="-20%" y="-40%" width="140%" height="180%">
+                <feGaussianBlur stdDeviation="14" />
+              </filter>
+              <filter id="pf-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" />
+              </filter>
+            </defs>
+
+            <rect width={W} height={H} fill="#fbfcf7" />
+            <rect width={W} height={H} fill="url(#pf-dots)" />
+
+            <!-- Kanten: Grundlinie -->
+            <g fill="none" stroke="#d6dacb" stroke-width="2" stroke-linecap="round">
+              {allEdges.map((e) => <path d={e.d} />)}
+            </g>
+
+            <!-- Alles, was „ausgeführt“ wird, setzt sich am Ende des Durchlaufs gemeinsam zurück -->
+            <g>
+              <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={resetKT} values="1;1;0;0" />
+
+              <!-- Kanten: ausgeführt -->
+              <g fill="none" stroke="#96be15" stroke-width="2.5" stroke-linecap="round">
+                {allEdges.map((e) => {
+                  const f = fill(e.t0, e.t1);
+                  return (
+                    <path d={e.d} pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1">
+                      <animate attributeName="stroke-dashoffset" dur={`${T}s`} repeatCount="indefinite" keyTimes={f.keyTimes} values={f.values} />
+                    </path>
+                  );
+                })}
+              </g>
+            </g>
+
+            <!-- Hauptkette -->
+            {mainNodes.map((n, i) => (
+              <g transform={`translate(${n.x},${n.y})`}>
+                <rect width={NW} height={NH} rx="16" fill={n.dark ? "#1a2209" : "#fff"} stroke={n.dark ? "#1a2209" : "#e4e7dc"} filter="url(#pf-shadow)" />
+                <rect x="-3" y="-3" width={NW + 6} height={NH + 6} rx="19" fill="none" stroke={n.dark ? "#c9f24a" : "#96be15"} stroke-width="2" opacity="0">
+                  <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={n.lit.keyTimes} values={n.lit.values} />
+                </rect>
+                <rect x="16" y="16" width="44" height="44" rx="12" fill={n.dark ? "#c9f24a" : "#f0fad2"} />
+                <g transform="translate(27,27)" color={n.dark ? "#1a2209" : "#3e5012"}>
+                  <Icon name={n.icon} size={22} strokeWidth={1.9} />
+                </g>
+                <text x="74" y="34" font-size="15.5" font-weight="600" fill={n.dark ? "#fff" : "#141414"} letter-spacing="-0.01em">{n.titel}</text>
+                <text x="74" y="54" font-size="12.5" fill={n.dark ? "rgba(255,255,255,.65)" : "#6b6b6b"}>{n.sub}</text>
+                <!-- Schrittnummer -->
+                <g transform={`translate(${NW - 30},-11)`}>
+                  <rect width="30" height="22" rx="11" fill={n.dark ? "#c9f24a" : "#fff"} stroke={n.dark ? "#c9f24a" : "#e4e7dc"} />
+                  <text x="15" y="15" text-anchor="middle" font-size="11.5" font-weight="600" fill="#141414">{`0${i + 1}`}</text>
+                </g>
+                <!-- Ports -->
+                {i > 0 && <rect x="-4" y={NH / 2 - 8} width="7" height="16" rx="2.5" fill="#fff" stroke="#c4c9b6" stroke-width="1.5" />}
+                {i < 3 && <circle cx={NW} cy={NH / 2} r="5.5" fill="#fff" stroke="#c4c9b6" stroke-width="1.5" />}
+                {i === 3 && <circle cx={NW / 2} cy={NH} r="5.5" fill="#1a2209" stroke="#c9f24a" stroke-width="1.5" />}
+                <!-- Erfolgs-Badge -->
+                <g transform={`translate(${NW - 50},${NH - 2})`} opacity="0">
+                  <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={n.lit.keyTimes} values={n.lit.values} />
+                  <circle r="9" fill="#96be15" stroke="#fff" stroke-width="2" />
+                  <path d="M-4,0 L-1.2,2.8 L4,-2.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+              </g>
+            ))}
+
+            <!-- Action Plan: steuert und überwacht die vier Säulen -->
+            <g transform={`translate(${plan.x},${plan.y})`}>
+              <rect x="-10" y="-6" width={plan.w + 20} height={plan.h + 16} rx="30" fill="#c9f24a" opacity="0.35" filter="url(#pf-halo)" />
+              <rect width={plan.w} height={plan.h} rx="20" fill="#1a2209" filter="url(#pf-shadow)" />
+              <rect x="-3" y="-3" width={plan.w + 6} height={plan.h + 6} rx="23" fill="none" stroke="#c9f24a" stroke-width="2" opacity="0">
+                <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={planAnim.keyTimes} values={planAnim.values} />
+              </rect>
+
+              <rect x="18" y="18" width="44" height="44" rx="12" fill="#c9f24a" />
+              <g transform="translate(29,29)" color="#1a2209">
+                <Icon name="layout-dashboard" size={22} strokeWidth={1.9} />
+              </g>
+              <text x="76" y="38" font-size="17" font-weight="600" fill="#fff" letter-spacing="-0.01em">Action Plan</text>
+              <text x="76" y="58" font-size="12.5" fill="rgba(255,255,255,.65)">Steuert und überwacht alle vier Säulen</text>
+
+              <!-- Live-Status -->
+              <g transform={`translate(${plan.w - 78},22)`}>
+                <rect width="60" height="24" rx="12" fill="rgba(201,242,74,.12)" stroke="rgba(201,242,74,.4)" />
+                <circle class="pf-live" cx="15" cy="12" r="3.5" fill="#c9f24a" />
+                <text x="25" y="16.5" font-size="12" font-weight="600" fill="#c9f24a">Live</text>
+              </g>
+
+              <!-- Werkzeuge -->
+              {chips.map((c) => (
+                <g transform={`translate(${c.x},78)`}>
+                  <rect width={c.w} height="28" rx="9" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" />
+                  <g transform="translate(10,7)" color="#c9f24a">
+                    <Icon name={c.icon} size={14} strokeWidth={2} />
+                  </g>
+                  <text x="30" y="18.5" font-size="12" font-weight="500" fill="rgba(255,255,255,.9)">{c.label}</text>
+                </g>
+              ))}
+
+              <!-- Monitoring je Säule -->
+              {bars.map((b) => (
+                <g transform={`translate(${b.x},128)`}>
+                  <text y="10" font-size="11.5" fill="rgba(255,255,255,.7)">{b.name}</text>
+                  <rect y="20" width={barW} height="5" rx="2.5" fill="rgba(255,255,255,.12)" />
+                  <rect y="20" width="0" height="5" rx="2.5" fill="#c9f24a">
+                    <animate attributeName="width" dur={`${T}s`} repeatCount="indefinite" keyTimes={b.grow.keyTimes} values={b.grow.values} />
+                  </rect>
+                </g>
+              ))}
+
+              <!-- Ports -->
+              <rect x={plan.w - 3} y="36" width="7" height="16" rx="2.5" fill="#1a2209" stroke="#c9f24a" stroke-width="1.5" />
+              <circle cx={plan.w / 2} cy={plan.h} r="5.5" fill="#1a2209" stroke="#c9f24a" stroke-width="1.5" />
+            </g>
+
+            <!-- Säulen + Atome -->
+            {pillarNodes.map((p) => (
+              <g>
+                <g transform={`translate(${p.x},${p.y})`}>
+                  <rect width={NW} height={NH} rx="16" fill="#fff" stroke="#e4e7dc" filter="url(#pf-shadow)" />
+                  <rect x="-3" y="-3" width={NW + 6} height={NH + 6} rx="19" fill="none" stroke="#96be15" stroke-width="2" opacity="0">
+                    <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={p.lit.keyTimes} values={p.lit.values} />
+                  </rect>
+                  <rect x="16" y="16" width="44" height="44" rx="12" fill="#f0fad2" />
+                  <g transform="translate(27,27)" color="#3e5012">
+                    <Icon name={p.icon} size={22} strokeWidth={1.9} />
+                  </g>
+                  <text x="74" y="34" font-size="15.5" font-weight="600" fill="#141414" letter-spacing="-0.01em">{p.name}</text>
+                  <text x="74" y="54" font-size="12.5" fill="#6b6b6b">{p.sub}</text>
+                  <rect x={NW / 2 - 8} y="-4" width="16" height="7" rx="2.5" fill="#fff" stroke="#c4c9b6" stroke-width="1.5" />
+                  <circle cx="26" cy={NH} r="5.5" fill="#fff" stroke="#c4c9b6" stroke-width="1.5" />
+                  <g transform={`translate(${NW - 22},${NH - 2})`} opacity="0">
+                    <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={p.lit.keyTimes} values={p.lit.values} />
+                    <circle r="9" fill="#96be15" stroke="#fff" stroke-width="2" />
+                    <path d="M-4,0 L-1.2,2.8 L4,-2.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </g>
+
+                {p.atoms.map((a) => (
+                  <g transform={`translate(${a.x},${a.y})`}>
+                    <rect width={NW - 52} height={atomH} rx="10" fill="#fff" stroke="#e4e7dc" />
+                    <rect width={NW - 52} height={atomH} rx="10" fill="#f8fdeb" stroke="#b6e02c" opacity="0">
+                      <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={a.lit.keyTimes} values={a.lit.values} />
+                    </rect>
+                    <circle cx="16" cy={atomH / 2} r="4" fill="#d6dacb" />
+                    <circle cx="16" cy={atomH / 2} r="4" fill="#96be15" opacity="0">
+                      <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={a.lit.keyTimes} values={a.lit.values} />
+                    </circle>
+                    <text x="29" y={atomH / 2 + 4.5} font-size="12.8" font-weight="500" fill="#141414">{a.label}</text>
+                  </g>
+                ))}
+              </g>
+            ))}
+
+            <!-- Tokens, die durch den Ablauf wandern -->
+            <g>
+              {allEdges.map((e) => {
+                const tk = token(e.t0, e.t1);
+                return (
+                  <g opacity="0">
+                    <animate attributeName="opacity" dur={`${T}s`} repeatCount="indefinite" keyTimes={tk.opKeyTimes} values="0;0;1;1;0;0" />
+                    <animateMotion dur={`${T}s`} repeatCount="indefinite" path={e.d} keyTimes={tk.keyTimes} keyPoints={tk.keyPoints} calcMode="linear" />
+                    <circle r="7" fill="#c9f24a" filter="url(#pf-glow)" />
+                    <circle r="4.5" fill="#c9f24a" stroke="#566e10" stroke-width="1.5" />
+                  </g>
+                );
+              })}
+            </g>
+
+            <!-- Notiz wie im Workflow-Tool -->
+            <text x={cols[0]} y={H - 14} font-size="12" fill="#8a8f7e">Beispielhafte Umsetzungsschritte je Säule. Was davon bei Ihnen passt, klärt die Analyse.</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption class="mt-4 text-center text-[13px] text-muted md:hidden">Diagramm seitlich wischen, um alle Säulen zu sehen.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .pf-canvas text {
+    font-family: var(--font-sans);
+  }
+  .pf-pulse {
+    animation: pf-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pf-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(150, 190, 21, 0.55);
+    }
+    50% {
+      box-shadow: 0 0 0 5px rgba(150, 190, 21, 0);
+    }
+  }
+  .pf-live {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pf-live 1.6s ease-in-out infinite;
+  }
+  @keyframes pf-live {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.45;
+      transform: scale(0.75);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf-pulse,
+    .pf-live {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  /*
+   * Scroll-driven: the SMIL timeline stays paused and the scroll position sets
+   * its clock. Work per frame is one setCurrentTime() call, and only while the
+   * canvas is on screen and the eased time still differs from the target.
+   * Reduced motion: show the finished state, no scrubbing.
+   */
+  const FINISHED_AT = 9.4; // seconds on the SMIL clock when every atom is done
+  const START = 0.85; // canvas top at 85% of viewport height → t = 0
+  const END = 0.92; // canvas bottom at 92% of viewport height → finished
+
+  document.querySelectorAll<SVGSVGElement>("svg[data-process-flow]").forEach((svg) => {
+    svg.pauseAnimations();
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      svg.setCurrentTime(FINISHED_AT);
+      return;
+    }
+
+    let target = 0;
+    let current = 0;
+    let frame = 0;
+
+    const measure = () => {
+      const r = svg.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const from = START * vh; // top position at t = 0
+      const to = END * vh - r.height; // top position when finished
+      const range = Math.max(from - to, 240);
+      const p = Math.min(Math.max((from - r.top) / range, 0), 1);
+      target = p * FINISHED_AT;
+    };
+
+    const tick = () => {
+      frame = 0;
+      const diff = target - current;
+      current = Math.abs(diff) < 0.01 ? target : current + diff * 0.18;
+      svg.setCurrentTime(current);
+      if (current !== target) frame = requestAnimationFrame(tick);
+    };
+
+    // One rect read per scroll event; frames only run while the clock catches up.
+    const onScroll = () => {
+      measure();
+      if (!frame && current !== target) frame = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    measure();
+    current = target;
+    svg.setCurrentTime(current);
+  });
+</script>

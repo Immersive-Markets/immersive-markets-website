@@ -8,7 +8,7 @@ interface Props {
 const { name, size = 20, class: cls = "", strokeWidth = 1.75 } = Astro.props;
 
 const icons = import.meta.glob(
-  "/node_modules/lucide-static/icons/{users,megaphone,workflow,sparkles,clock,euro,shield-check,check,arrow-right,chevron-down,calendar,map-pin,book-open,handshake,search,layout-dashboard,list-checks,file-text,graduation-cap,message-circle,timer,badge-check,eye,lock,server,user-round,building-2,factory,hammer,wrench,menu,x,play,gauge,sliders-horizontal,arrow-up-right}.svg",
+  "/node_modules/lucide-static/icons/{users,megaphone,workflow,sparkles,clock,euro,shield-check,check,arrow-right,chevron-down,calendar,map-pin,book-open,handshake,search,layout-dashboard,list-checks,file-text,graduation-cap,message-circle,timer,badge-check,eye,lock,server,user-round,building-2,factory,hammer,wrench,menu,x,play,gauge,sliders-horizontal,arrow-up-right,scan-search,map,rocket,split}.svg",
   { query: "?raw", import: "default", eager: true },
 ) as Record<string, string>;
 
