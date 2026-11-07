@@ -11,14 +11,13 @@ const { variant = "full" } = Astro.props;
 
 const einstieg = [
   { label: "Alle Leistungen", href: "/leistungen", icon: "layout-dashboard" },
-  { label: "Zusammenarbeit", href: "/zusammenarbeit", icon: "handshake" },
   { label: "Modernisierungscheck", href: "/checks/modernisierung", icon: "gauge" },
-  { label: "Preise ansehen", href: "/preise", icon: "euro" },
   { label: "Gespräch anfragen", href: "/gespraech", icon: "calendar" },
 ];
 
 const ueberLinks = [
   { label: "Über mich", sub: "Felix Binder, Inhaber", href: "/ueber-mich", icon: "user-round" },
+  { label: "Zusammenarbeit", sub: "So läuft die Partnerschaft ab", href: "/zusammenarbeit", icon: "workflow" },
   { label: "Für Partner", sub: "Empfehlen ohne Risiko", href: "/partner", icon: "handshake" },
   { label: "KI-Transparenz", sub: "Wo KI arbeitet, wo ein Mensch prüft", href: "/ki-transparenz", icon: "eye" },
   { label: "Kontakt", sub: "Gespräch per Video anfragen", href: "/gespraech", icon: "message-circle" },
@@ -71,8 +70,6 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
             </div>
           </div>
 
-          <a href="/zusammenarbeit" class={navLink}>Zusammenarbeit</a>
-          <a href="/preise" class={navLink}>Preise</a>
 
           <!-- Über mich -->
           <div class="nav-item relative flex h-16 items-center">
@@ -131,8 +128,6 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
           ))}
         </ul>
       </details>
-      <a href="/zusammenarbeit" class="block border-b border-line py-4 text-[17px] font-semibold">Zusammenarbeit</a>
-      <a href="/preise" class="block border-b border-line py-4 text-[17px] font-semibold">Preise</a>
       <details class="border-b border-line">
         <summary class="flex items-center justify-between py-4 text-[17px] font-semibold">Über mich <Icon name="chevron-down" size={18} /></summary>
         <ul class="flex flex-col gap-3 pb-4">

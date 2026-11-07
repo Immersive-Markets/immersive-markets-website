@@ -11,7 +11,9 @@ export default defineConfig({
     "/ueber": "/ueber-mich",
     "/gespraech-vereinbaren": "/gespraech",
     "/gespraech-vereinbaren/danke": "/gespraech/danke",
-    "/vorschau": "/preise",
-    "/vorschau/danke": "/preise",
+    "/vorschau": "/zusammenarbeit",
+    "/vorschau/danke": "/zusammenarbeit",
+    // Preisseite stillgelegt (src/pages/_preise.astro)
+    "/preise": "/zusammenarbeit",
   },
 });

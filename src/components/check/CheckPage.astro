@@ -832,6 +832,10 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
         )
       : "";
 
+    // Preisseite stillgelegt (src/pages/_preise.astro): Investitionsrahmen erst wieder zeigen, wenn Preise öffentlich sind.
+
+    const PREISE_ZEIGEN = false;
+
     const pakHtml = `<div class="grid gap-3 sm:grid-cols-3">${pakete
       .map(
         (p) =>
@@ -864,7 +868,7 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
       sec(stundenModus ? "Drei Maßnahmen mit dem größten Zeitpotenzial" : "Drei Maßnahmen mit dem größten Hebel", `<div class="flex flex-col gap-3">${measuresHtml}</div>`) +
       sec("Ihr 90-Tage-Plan", planHtml, "r-avoid") +
       weitereHtml +
-      sec("Investitionsrahmen", pakHtml, "r-avoid") +
+      (PREISE_ZEIGEN ? sec("Investitionsrahmen", pakHtml, "r-avoid") : "") +
       `<section class="r-avoid rounded-[20px] bg-[linear-gradient(155deg,#f4fcdc_0%,#e6f7b0_45%,#f8fdeb_100%)] p-6"><h3 class="m-0 text-[20px] font-semibold">Nächster Schritt: Erstgespräch, 30 Minuten per Video</h3><p class="m-0 mt-2 max-w-[60ch] text-[15px] text-body">Wir gehen Ihre Warnsignale gemeinsam durch und klären, welche Maßnahme bei Ihnen zuerst dran ist. Kein Verkaufsgespräch. Termin unter immersive-markets.de/gespraech oder per E-Mail an info@immersive-markets.de.</p></section>` +
       `<p class="m-0 text-[12px] text-muted">Felix Binder · Immersive Markets · am Bodensee. Auswertung nach festen Regeln auf Basis Ihrer Antworten, ohne KI und ohne Branchenvergleich. Grobe Orientierung, keine Unternehmens-, Rechts- oder Steuerberatung.${cfg.texte.rechtshinweis ? " " + esc(cfg.texte.rechtshinweis) : ""}</p>`;
   }

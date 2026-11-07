@@ -9,7 +9,7 @@ export const faqAllgemein = [
   },
   {
     q: "Was, wenn ich nur ein Thema angehen will?",
-    a: "Dann starten Sie mit dem Paket Fokus. Ein Vorhaben läuft nach dem anderen, in der Reihenfolge Ihrer Roadmap. Ändern sich Ihre Prioritäten, passen wir die Reihenfolge an.",
+    a: "Dann starten wir mit einem einzigen Vorhaben. Weitere kommen erst dazu, wenn Sie es wollen, in der Reihenfolge Ihrer Roadmap.",
   },
   {
     q: "Wie lange dauert es, bis etwas passiert?",
