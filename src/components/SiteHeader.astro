@@ -3,6 +3,7 @@ import Logo from "./Logo.astro";
 import Icon from "./Icon.astro";
 import { pillars } from "../data/pillars";
 import { themenFuer } from "../data/themen";
+import { wissenSpalten, wissenEinstieg } from "../data/wissen";
 
 interface Props {
   variant?: "full" | "minimal";
@@ -70,6 +71,43 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
             </div>
           </div>
 
+          <!-- Wissen: gleicher Aufbau wie Leistungen, Spalten aus src/data/wissen.ts -->
+          <div class="nav-item flex h-16 items-center">
+            <a href="/checks" class={navLink} aria-haspopup="true">
+              Wissen <Icon name="chevron-down" size={16} class="chev transition-transform" />
+            </a>
+            <div class="mega absolute inset-x-5 top-full pt-2 md:inset-x-8">
+              <div class="card grid gap-6 rounded-[24px] p-6" style={`grid-template-columns: repeat(${Math.max(wissenSpalten.length, 2)}, minmax(0, 1fr)) 270px`}>
+                {wissenSpalten.map((s) => (
+                  <div>
+                    <a href={s.href} class="group block border-b border-line pb-3">
+                      <div class="text-[15px] font-semibold text-ink group-hover:text-lime-700">{s.titel}</div>
+                      <div class="mt-0.5 text-[13px] leading-snug text-muted">{s.kurz}</div>
+                    </a>
+                    <ul class="mt-3 flex flex-col gap-1.5 text-[14px]">
+                      {s.eintraege.map((e) => (
+                        <li>{e.href ? <a href={e.href} class="text-ink/85 hover:text-lime-700">{e.label}</a> : <span class="text-ink/85">{e.label}</span>}</li>
+                      ))}
+                      <li class="mt-2 border-t border-line pt-3">
+                        <a href={s.href} class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-lime-700 hover:text-lime-900">
+                          {s.linkLabel} <Icon name="arrow-right" size={14} />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                ))}
+                {wissenSpalten.length < 2 && <div></div>}
+                <div class="bg-forest flex flex-col gap-2 rounded-[18px] p-4">
+                  <div class="mb-1 px-1 text-[14px] font-semibold text-white">Ihr Einstieg</div>
+                  {wissenEinstieg.map((e) => (
+                    <a href={e.href} class="glass-dark flex items-center gap-2.5 rounded-[12px] px-3 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-white/15">
+                      <Icon name={e.icon} size={16} class="text-lime-300" />{e.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Über mich -->
           <div class="nav-item relative flex h-16 items-center">
@@ -125,6 +163,15 @@ const navLink = "nav-trigger flex h-10 items-center gap-1 whitespace-nowrap roun
           <li><a href="/leistungen" class="font-medium">Alle Leistungen</a></li>
           {pillars.map((p) => (
             <li><a href={`/leistungen/${p.id}`} class="text-body">{p.name} <span class="text-muted">· {p.kurz}</span></a></li>
+          ))}
+        </ul>
+      </details>
+      <details class="border-b border-line">
+        <summary class="flex items-center justify-between py-4 text-[17px] font-semibold">Wissen <Icon name="chevron-down" size={18} /></summary>
+        <ul class="flex flex-col gap-3 pb-4">
+          <li><a href="/checks" class="font-medium">Alle Selbstchecks</a></li>
+          {wissenSpalten.map((s) => (
+            <li><a href={s.href} class="text-body">{s.titel} <span class="text-muted">· {s.kurz}</span></a></li>
           ))}
         </ul>
       </details>
