@@ -4,6 +4,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Hero from "../components/home/Hero.astro";
 import PillarsDark from "../components/home/PillarsDark.astro";
+import ProcessFlow from "../components/home/ProcessFlow.astro";
 import Audience from "../components/home/Audience.astro";
 import Person from "../components/home/Person.astro";
 import Pricing from "../components/home/Pricing.astro";
@@ -17,6 +18,7 @@ import { faqAllgemein } from "../data/faq";
   <SiteHeader />
   <main>
     <Hero />
+    <div class="pt-16 md:pt-24"><ProcessFlow /></div>
     <Audience />
     <PillarsDark />
     <div class="pt-24 md:pt-32"><Person /></div>
