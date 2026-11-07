@@ -7,7 +7,7 @@ export const saeulenNamen: Record<SaeuleId, string> = {
   ki: "KI",
 };
 
-// Pakete laut Positionierung (Stand Nov 2026), Namen wie auf /preise.
+// Pakete laut Positionierung (Stand Nov 2026), Namen wie in src/data/pricing.ts.
 export const pakete = [
   { name: "Fokus", vorhaben: 1, preis: "1.490 €" },
   { name: "Wachstum", vorhaben: 2, preis: "2.490 €" },

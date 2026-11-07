@@ -10,13 +10,18 @@ const { tone = "dark", claim = false, class: cls = "" } = Astro.props;
 <a
   href="/"
   class:list={[
-    "inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-[21px] font-semibold tracking-[-0.03em]",
+    "inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap text-[21px] font-semibold tracking-[-0.03em]",
     tone === "dark" ? "text-ink" : "text-white",
     cls,
   ]}
   aria-label="Immersive Markets — Startseite"
 >
-  <span class="size-[18px] rounded-[6px] bg-lime-300 shadow-[inset_0_1px_1px_rgba(255,255,255,.7),inset_0_0_6px_rgba(255,255,255,.4)]"></span>
+  <!-- IM-Zeichen, identisch mit public/favicon.svg -->
+  <svg viewBox="0 0 128 128" class="size-7 shrink-0" aria-hidden="true">
+    <rect width="128" height="128" fill="#C9F24A" />
+    <text x="64" y="87" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="72" letter-spacing="-2" fill="#111110">IM</text>
+    <rect x="104" y="104" width="14" height="14" fill="#111110" />
+  </svg>
   Immersive Markets
   {claim && (
     <span class:list={["ml-1.5 hidden border-l pl-3 text-[12px] leading-[1.25] font-medium tracking-normal whitespace-normal xl:block", tone === "dark" ? "border-line text-muted" : "border-white/20 text-white/60"]}>

@@ -55,9 +55,7 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
             <a href="/checks" class="hover:text-ink">Selbstchecks</a><span aria-hidden="true">/</span>
             <span class="font-medium text-ink">{L.crumb}</span>
           </nav>
-          <div class="glass mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] font-medium">
-            <span class="size-2 rounded-full bg-lime-400"></span>{L.badge}
-          </div>
+          <p class="m-0 mb-6 text-balance"><span class="kicker">{L.badge}</span></p>
           <h1 class="h-display m-0 text-balance">{L.title}</h1>
           <p class="lead mt-6 max-w-[560px] text-pretty">{fill(L.lead)}</p>
           <div class="mt-9 flex flex-wrap items-center gap-5">
@@ -832,6 +830,10 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
         )
       : "";
 
+    // Preisseite stillgelegt (src/pages/_preise.astro): Investitionsrahmen erst wieder zeigen, wenn Preise öffentlich sind.
+
+    const PREISE_ZEIGEN = false;
+
     const pakHtml = `<div class="grid gap-3 sm:grid-cols-3">${pakete
       .map(
         (p) =>
@@ -839,8 +841,13 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
       )
       .join("")}</div><p class="m-0 mt-2 text-[12px] text-muted">Die Empfehlung richtet sich danach, wie viele Ihrer Maßnahmen hohe Priorität haben. Diese laufen am besten parallel, mit weniger Vorhaben kommen Sie nacheinander ans Ziel. Kein Ausweis der Umsatzsteuer gem. § 19 UStG. Mindestlaufzeit 3 Monate, danach monatlich kündbar. Nicht enthalten: Werbebudget, Lizenzen, Vor-Ort-Termine.</p>`;
 
+    // Briefkopf nur im Druck/PDF: Auf dem Bildschirm zeigt der Seitenkopf das Logo schon.
+    const briefkopf =
+      `<div class="mb-8 hidden items-center gap-2.5 text-[18px] font-semibold tracking-[-0.03em] print:flex">` +
+      `<svg viewBox="0 0 128 128" width="28" height="28" aria-hidden="true"><rect width="128" height="128" fill="#C9F24A"/><text x="64" y="87" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="72" letter-spacing="-2" fill="#111110">IM</text><rect x="104" y="104" width="14" height="14" fill="#111110"/></svg>` +
+      `Immersive Markets<span class="ml-2 border-l border-line pl-3 text-[12px] font-medium tracking-normal text-muted">Der externe Modernisierungspartner für Nachfolger</span></div>`;
     $("rBody").innerHTML =
-      `<header><div class="eyebrow">${esc(cfg.texte.report)} · ${new Date().toLocaleDateString("de-DE")}</div><h2 id="rTitle" class="mt-3 mb-0 text-[clamp(1.6rem,3vw,2.2rem)] leading-tight font-semibold tracking-[-0.02em]">${firma ? esc(cfg.texte.report) + " für " + esc(firma) : "Ihr " + esc(cfg.texte.report)}</h2></header>` +
+      `<header>${briefkopf}<div class="eyebrow">${esc(cfg.texte.report)} · ${new Date().toLocaleDateString("de-DE")}</div><h2 id="rTitle" class="mt-3 mb-0 text-[clamp(1.6rem,3vw,2.2rem)] leading-tight font-semibold tracking-[-0.02em]">${firma ? esc(cfg.texte.report) + " für " + esc(firma) : "Ihr " + esc(cfg.texte.report)}</h2></header>` +
       sec(
         "Ausgangslage",
         `<p class="m-0 max-w-[66ch] text-[16px] leading-relaxed">Unternehmen aus ${esc(r.branche)}${esc(sz)}.${esc(amt)} ` +
@@ -859,7 +866,7 @@ const label = "mb-1.5 block text-[14px] font-medium text-ink";
       sec(stundenModus ? "Drei Maßnahmen mit dem größten Zeitpotenzial" : "Drei Maßnahmen mit dem größten Hebel", `<div class="flex flex-col gap-3">${measuresHtml}</div>`) +
       sec("Ihr 90-Tage-Plan", planHtml, "r-avoid") +
       weitereHtml +
-      sec("Investitionsrahmen", pakHtml, "r-avoid") +
+      (PREISE_ZEIGEN ? sec("Investitionsrahmen", pakHtml, "r-avoid") : "") +
       `<section class="r-avoid rounded-[20px] bg-[linear-gradient(155deg,#f4fcdc_0%,#e6f7b0_45%,#f8fdeb_100%)] p-6"><h3 class="m-0 text-[20px] font-semibold">Nächster Schritt: Erstgespräch, 30 Minuten per Video</h3><p class="m-0 mt-2 max-w-[60ch] text-[15px] text-body">Wir gehen Ihre Warnsignale gemeinsam durch und klären, welche Maßnahme bei Ihnen zuerst dran ist. Kein Verkaufsgespräch. Termin unter immersive-markets.de/gespraech oder per E-Mail an info@immersive-markets.de.</p></section>` +
       `<p class="m-0 text-[12px] text-muted">Felix Binder · Immersive Markets · am Bodensee. Auswertung nach festen Regeln auf Basis Ihrer Antworten, ohne KI und ohne Branchenvergleich. Grobe Orientierung, keine Unternehmens-, Rechts- oder Steuerberatung.${cfg.texte.rechtshinweis ? " " + esc(cfg.texte.rechtshinweis) : ""}</p>`;
   }
